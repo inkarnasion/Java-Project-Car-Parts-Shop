@@ -1,2 +1,2 @@
 # Java-Project-Car-Parts-Shop
-Java project with Spring, Thymeleaf,DataBase,Security, and Cloud services
+Web application project for online Car Parts Shop, builded on Spring, with thymeleaf, SQL database, Spring security, Coud service, and unit testing on application.
