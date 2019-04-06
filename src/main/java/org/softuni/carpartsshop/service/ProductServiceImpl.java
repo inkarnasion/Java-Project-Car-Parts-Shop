@@ -74,13 +74,20 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductServiceModel> findAllByCategory(String category) {
+	public List<ProductServiceModel> findAllByCategory(String categoryId) {
+		List<ProductServiceModel> result;
 
-
-		return this.productRepository.findAll().stream()
-				.filter(product -> product.getCategories().stream()
-						.anyMatch(categoryStream -> categoryStream.getName().equals(category)))
+		result =  this.productRepository.findAll()
+				.stream()
 				.map(product -> this.modelMapper.map(product, ProductServiceModel.class)).collect(Collectors.toList());
+		
+		result =  this.productRepository.findAll()
+				.stream()
+				.filter(product -> product.getCategories().stream()
+						.anyMatch(categoryStream -> categoryStream.getId().equals(categoryId)))
+				.map(product -> this.modelMapper.map(product, ProductServiceModel.class)).collect(Collectors.toList());
+		
+		return result;
 	}
 
 }

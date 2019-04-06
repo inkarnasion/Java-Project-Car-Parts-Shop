@@ -120,17 +120,21 @@ public class ProductController extends BaseController {
 		return super.redirect("/products/all");
 	}
 
-	@GetMapping("/fetch/{category}")
+	@GetMapping("/fetch/{categoryId}")
 	@ResponseBody
-	public List<ProductAllViewModel> fetchByCategory(@PathVariable String category) {
-		if (category.equals("all")) {
-			return this.productService.findAllProducts().stream()
+	public List<ProductAllViewModel> fetchByCategory(@PathVariable String categoryId) {
+		List<ProductAllViewModel> result;
+		
+		if (categoryId.equals("all")) {
+			result = this.productService.findAllProducts().stream()
 					.map(product -> this.modelMapper.map(product, ProductAllViewModel.class))
 					.collect(Collectors.toList());
+		} else {
+			result = this.productService.findAllByCategory(categoryId).stream()
+					.map(product -> this.modelMapper.map(product, ProductAllViewModel.class)).collect(Collectors.toList());			
 		}
-
-		return this.productService.findAllByCategory(category).stream()
-				.map(product -> this.modelMapper.map(product, ProductAllViewModel.class)).collect(Collectors.toList());
+		
+		return result;
 	}
 
 }
