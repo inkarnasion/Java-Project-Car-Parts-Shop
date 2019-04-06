@@ -4,43 +4,52 @@ import java.math.BigDecimal;
 
 public class ProductAllViewModel {
 
-    private String id;
-    private String name;
-    private BigDecimal price;
-    private String imageUrl;
+	private String id;
+	private String name;
+	private String description;
+	private BigDecimal price;
+	private String imageUrl;
 
-    public ProductAllViewModel() {
-    }
+	public ProductAllViewModel() {
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 }

@@ -92,7 +92,7 @@ public class CategoryController extends BaseController {
     }
 
     @GetMapping("/fetch")
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
+    @PreAuthorize("isAuthenticated()")
     @ResponseBody
     public List<CategoryViewModel> fetchCategories() {
         return this.categoryService.findAllCategories()

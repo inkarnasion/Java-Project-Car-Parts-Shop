@@ -15,80 +15,72 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository productRepository;
-    private final CategoryService categoryService;
-    private final ModelMapper modelMapper;
+	private final ProductRepository productRepository;
+	private final CategoryService categoryService;
+	private final ModelMapper modelMapper;
 
-    @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService, ModelMapper modelMapper) {
-        this.productRepository = productRepository;
-        this.categoryService = categoryService;
-        this.modelMapper = modelMapper;
-    }
+	@Autowired
+	public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService,
+			ModelMapper modelMapper) {
+		this.productRepository = productRepository;
+		this.categoryService = categoryService;
+		this.modelMapper = modelMapper;
+	}
 
-    @Override
-    public ProductServiceModel addProduct(ProductServiceModel productServiceModel) {
-        Product product = this.modelMapper.map(productServiceModel, Product.class);
+	@Override
+	public ProductServiceModel addProduct(ProductServiceModel productServiceModel) {
+		Product product = this.modelMapper.map(productServiceModel, Product.class);
 
-        return this.modelMapper.map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
-    }
+		return this.modelMapper.map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
+	}
 
-    @Override
-    public List<ProductServiceModel> findAllProducts() {
-        return this.productRepository.findAll()
-                .stream()
-                .map(p -> this.modelMapper.map(p, ProductServiceModel.class))
-                .collect(Collectors.toList());
-    }
+	@Override
+	public List<ProductServiceModel> findAllProducts() {
+		List<ProductServiceModel> result;
 
-    @Override
-    public ProductServiceModel findProductById(String id) {
-        return this.productRepository.findById(id)
-                .map(p -> this.modelMapper.map(p, ProductServiceModel.class))
-                .orElseThrow(() -> new IllegalArgumentException());
-    }
+		result = this.productRepository.findAll().stream().map(p -> this.modelMapper.map(p, ProductServiceModel.class))
+				.collect(Collectors.toList());
 
-    @Override
-    public ProductServiceModel editProduct(String id, ProductServiceModel productServiceModel) {
-        Product product = this.productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
+		return result;
+	}
 
-        productServiceModel.setCategories(
-                this.categoryService.findAllCategories()
-                        .stream()
-                        .filter(c -> productServiceModel.getCategories().contains(c.getId()))
-                .collect(Collectors.toList())
-        );
+	@Override
+	public ProductServiceModel findProductById(String id) {
+		return this.productRepository.findById(id).map(p -> this.modelMapper.map(p, ProductServiceModel.class))
+				.orElseThrow(() -> new IllegalArgumentException());
+	}
 
-        product.setName(productServiceModel.getName());
-        product.setDescription(productServiceModel.getDescription());
-        product.setPrice(productServiceModel.getPrice());
-        product.setCategories(
-                productServiceModel.getCategories()
-                .stream()
-                .map(c -> this.modelMapper.map(c, Category.class))
-                .collect(Collectors.toList())
-        );
+	@Override
+	public ProductServiceModel editProduct(String id, ProductServiceModel productServiceModel) {
+		Product product = this.productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
 
-        return this.modelMapper.map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
-    }
+		productServiceModel.setCategories(this.categoryService.findAllCategories().stream()
+				.filter(c -> productServiceModel.getCategories().contains(c.getId())).collect(Collectors.toList()));
 
-    @Override
-    public void deleteProduct(String id) {
-        Product product = this.productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+		product.setName(productServiceModel.getName());
+		product.setDescription(productServiceModel.getDescription());
+		product.setPrice(productServiceModel.getPrice());
+		product.setCategories(productServiceModel.getCategories().stream()
+				.map(c -> this.modelMapper.map(c, Category.class)).collect(Collectors.toList()));
 
-        this.productRepository.delete(product);
-    }
+		return this.modelMapper.map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
+	}
 
-    @Override
-    public List<ProductServiceModel> findAllByCategory(String category) {
-        //TODO: OPTIMIZE FILTERING
+	@Override
+	public void deleteProduct(String id) {
+		Product product = this.productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
 
-        return this.productRepository.findAll()
-                .stream()
-                .filter(product -> product.getCategories().stream().anyMatch(categoryStream -> categoryStream.getName().equals(category)))
-                .map(product -> this.modelMapper.map(product, ProductServiceModel.class))
-                .collect(Collectors.toList());
-    }
+		this.productRepository.delete(product);
+	}
+
+	@Override
+	public List<ProductServiceModel> findAllByCategory(String category) {
+		// TODO: OPTIMIZE FILTERING
+
+		return this.productRepository.findAll().stream()
+				.filter(product -> product.getCategories().stream()
+						.anyMatch(categoryStream -> categoryStream.getName().equals(category)))
+				.map(product -> this.modelMapper.map(product, ProductServiceModel.class)).collect(Collectors.toList());
+	}
 
 }
