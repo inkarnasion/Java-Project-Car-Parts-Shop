@@ -1,48 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <th:block th:include="~{fragments/head}"></th:block>
+<th:block th:include="~{fragments/head}"></th:block>
 </head>
 <body>
-<header>
-    <th:block th:include="~{fragments/navbar}"></th:block>
-</header>
-<main class="mt-3">
-    <!--    <h1>BACA!</h1>-->
-    <h1 class="text-center text-dark">𝔸𝕝𝕝 ℙ𝕣𝕠𝕕𝕦𝕔𝕥𝕤</h1>
-    <hr class="hr-2 bg-dark w-75">
-    <table class="table table-hover w-75 mx-auto">
-    <thead>
-        <tr class="row mx-auto">
-            <th class="col-md-1 text-center">#</th>
-            <th class="col-md-3 text-center">𝕀𝕞𝕒𝕘𝕖</th>
-            <th class="col-md-3 text-center">ℕ𝕒𝕞𝕖</th>
-            <th class="col-md-2 text-center">ℙ𝕣𝕚𝕔𝕖</th>
-            <th class="col-md-3 text-center">𝔸𝕔𝕥𝕚𝕠𝕟𝕤</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="product, iter : ${products}">
-            <tr class="row mx-auto">
-                <th class="col-md-1 text-center" th:text="${iter.index + 1}"></th>
-                <td class="col-md-3"><div class="text-center"><img th:src="${product.imageUrl}" width="40" height="40" alt="Product"></div></td>
-                <td class="col-md-3 text-center" th:text="${product.name}"></td>
-                <td class="col-md-2 text-center" th:text="${product.price}"></td>
-                <td class="col-md-2 text-center" th:text="${product.description}"></td>
-                <td class="col-md-3 text-center">
-                    <a th:href="@{/products/details/{id}(id=${product.id})}" class="btn btn-secondary font-weight-bold text-white">Details</a>
-                    <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success font-weight-bold text-white">Edit</a>
-                    <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger font-weight-bold text-white">Delete</a>
-                </td>
-            </tr>
-        </th:block>
-        </tbody>
-    </table>
-    <hr class="hr-2 bg-dark">
-</main>
-<footer>
+	<header>
+		<th:block th:include="~{fragments/navbar}"></th:block>
+	</header>
+	<main class="mt-3">
+	<h1 class="text-center text-dark">𝔸𝕝𝕝 ℙ𝕣𝕠𝕕𝕦𝕔𝕥𝕤</h1>
+	<hr class="hr-2 bg-dark w-75" />
+
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3"></div>
+			<div class="col-lg-9">
+				<div class="row">
+					<th:block th:each="product : ${products}">
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<a href="#"><img class="card-img-top"
+									th:src="${product.imageUrl}" alt=""></a>
+								<div class="card-body">
+									<a class="card-title"> <label for="name"
+										class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥 ℕ𝕒𝕞𝕖:</label>
+										<hr> <a class="col-md-1 text-center"
+										th:text="${product.name}" id="name"></a>
+									</a>
+									<hr>
+									<label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
+										ℙ𝕣𝕚𝕔𝕖:</label>
+									<hr>
+									<a class="col-md-2 text-center" th:text="${product.price}"
+										id="price"></a>
+									<hr>
+									<label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
+										𝔻𝕖𝕤𝕔𝕣𝕚𝕡𝕥𝕚𝕠𝕟:</label>
+									<hr>
+									<a class="col-md-3 text-center"
+										th:text="${product.description}"></a>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">&#9733; &#9733; &#9733;
+										&#9733; &#9734;</small>
+								</div>
+								<hr>
+								<div
+									class="buttons-holder w-75 mx-auto d-flex justify-content-between">
+									<a href="#"
+										class=" row-md-2 text-center btn btn-danger font-weight-bold text-white">Buy
+										Product</a>
+								</div>
+							</div>
+						</div>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <footer class="py-5 bg-dark">
     <th:block th:include="~{fragments/footer}"></th:block>
-</footer>
+  </footer>
 </body>
 </html>
