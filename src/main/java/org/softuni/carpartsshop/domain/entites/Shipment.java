@@ -11,7 +11,6 @@ import java.util.List;
 public class Shipment extends BaseEntity {
 
     private BigDecimal shipmentPrice;
-    private Status status;
     private String shipmentAddress;
     private List<Order>orders;
 
@@ -27,15 +26,7 @@ public class Shipment extends BaseEntity {
     public void setShipmentPrice(BigDecimal shipmentPrice) {
         this.shipmentPrice = shipmentPrice;
     }
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    public Status getStatus() {
-        return this.status;
-    }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 @Column(name = "shipment_address",nullable = false)
     public String getShipmentAddress() {
         return this.shipmentAddress;

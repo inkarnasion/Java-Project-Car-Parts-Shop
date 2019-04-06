@@ -10,19 +10,19 @@ public class Order extends BaseEntity {
 
     private String delivery;
     private Integer quantity;
-    private Stock stock;
     private String payment;
     private BigDecimal price;
     private User user;
     private List<Product> products;
     private Shipment shipment;
     private Office office;
+    private Status status;
 
 
     public Order() {
     }
 
-@Column(name = "delivery",nullable = false)
+    @Column(name = "delivery", nullable = false)
     public String getDelivery() {
         return this.delivery;
     }
@@ -31,7 +31,7 @@ public class Order extends BaseEntity {
         this.delivery = delivery;
     }
 
-    @Column(name = "quantity",nullable = false)
+    @Column(name = "quantity", nullable = false)
     public Integer getQuantity() {
         return this.quantity;
     }
@@ -39,16 +39,9 @@ public class Order extends BaseEntity {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-    @Enumerated(EnumType.STRING)
-    @Column(name = "stock")
-    public Stock getStock() {
-        return this.stock;
-    }
 
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
-@Column(name = "payment",nullable = false)
+
+    @Column(name = "payment", nullable = false)
     public String getPayment() {
         return this.payment;
     }
@@ -56,7 +49,8 @@ public class Order extends BaseEntity {
     public void setPayment(String payment) {
         this.payment = payment;
     }
-@Column(name = "price")
+
+    @Column(name = "price")
     public BigDecimal getPrice() {
         return this.price;
     }
@@ -64,8 +58,9 @@ public class Order extends BaseEntity {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-@ManyToOne(targetEntity = User.class)
-@JoinColumn(name = "user_id",referencedColumnName = "id")
+
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     public User getUser() {
         return this.user;
     }
@@ -73,12 +68,13 @@ public class Order extends BaseEntity {
     public void setUser(User user) {
         this.user = user;
     }
-@ManyToMany(targetEntity = Product.class)
-@JoinTable(name = "orders_product",
-joinColumns = @JoinColumn(name = "order_id",
-referencedColumnName = "id"),
-inverseJoinColumns = @JoinColumn(name = "product_id",
-referencedColumnName = "id"))
+
+    @ManyToMany(targetEntity = Product.class)
+    @JoinTable(name = "orders_product",
+            joinColumns = @JoinColumn(name = "order_id",
+                    referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id",
+                    referencedColumnName = "id"))
     public List<Product> getProducts() {
         return this.products;
     }
@@ -86,8 +82,9 @@ referencedColumnName = "id"))
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-@ManyToOne(targetEntity = Shipment.class)
-@JoinColumn(name = "shipment_id",referencedColumnName = "id")
+
+    @ManyToOne(targetEntity = Shipment.class)
+    @JoinColumn(name = "shipment_id", referencedColumnName = "id")
     public Shipment getShipment() {
         return this.shipment;
     }
@@ -95,13 +92,24 @@ referencedColumnName = "id"))
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
     }
-@ManyToOne(targetEntity = Office.class)
-@JoinColumn(name = "office_id",referencedColumnName = "id")
+
+    @ManyToOne(targetEntity = Office.class)
+    @JoinColumn(name = "office_id", referencedColumnName = "id")
     public Office getOffice() {
         return this.office;
     }
 
     public void setOffice(Office office) {
         this.office = office;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

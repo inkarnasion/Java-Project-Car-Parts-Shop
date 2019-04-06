@@ -11,6 +11,7 @@ public class ProductDetailsViewModel {
     private String description;
     private BigDecimal price;
     private String imageUrl;
+    private Integer quantity;
 
     public ProductDetailsViewModel() {
     }
@@ -69,5 +70,13 @@ public class ProductDetailsViewModel {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

@@ -13,6 +13,7 @@ public class ProductAddBindingModel {
     private String model;
     private String description;
     private BigDecimal price;
+    private Integer quantity;
     private MultipartFile image;
     private List<String> categories;
     private List<Order> orders;
@@ -82,5 +83,13 @@ public class ProductAddBindingModel {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

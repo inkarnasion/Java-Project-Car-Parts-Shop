@@ -15,6 +15,7 @@ public class Product extends BaseEntity {
     private String description;
     private BigDecimal price;
     private String imageUrl;
+    private Integer quantity;
     private List<Category>categories;
     private List<Order> orders;
 
@@ -101,5 +102,14 @@ public class Product extends BaseEntity {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    @Column(name = "quantity",nullable = false)
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

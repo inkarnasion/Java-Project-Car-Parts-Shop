@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductServiceModel> findAllByCategory(String category) {
-		// TODO: OPTIMIZE FILTERING
+
 
 		return this.productRepository.findAll().stream()
 				.filter(product -> product.getCategories().stream()
