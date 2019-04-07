@@ -10,15 +10,13 @@
     <th:block th:include="~{fragments/navbar}"></th:block>
 </header>
 <main class="mt-3">
-    <h1 class="text-center text-dark">𝔸𝕝𝕝 ℙ𝕣𝕠𝕕𝕦𝕔𝕥𝕤</h1>
-    <hr class="hr-2 bg-dark w-75"/>
 
     <div class="container">
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-9">
                 <div class="row">
-                    <th:block th:each="product : ${products}">
+                    <th:block>
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <a href="#"><img class="card-img-top"
@@ -50,29 +48,30 @@
                                     <a class="col-md-2 text-center" th:text="${product.price}"
                                        id="price"></a>
                                     <hr>
-                                    <label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        𝔻𝕖𝕤𝕔𝕣𝕚𝕡𝕥𝕚𝕠𝕟:</label>
-                                    <hr>
-                                    <a class="col-md-3 text-center"
-                                       th:text="${product.description}"></a>
-                                    <hr>
-                                    <label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        ℚ𝕦𝕒𝕟𝕥𝕚𝕥𝕪:</label>
-                                    <hr>
-                                    <a class="col-md-3 text-center" th:text="${product.quantity}"></a>
+                                    <select class="form-control" id="inputPayment" th:field="*{companyId}">
+                                        <option th:each="companyName : ${companyNames}" name="companyId" th:value="${companyName.id}" th:text="${companyName.name}"
+                                                th:selected="${companyName.id} == ${companyId}"></option>
+                                    </select>
+                                    <select class="form-control" id="inputDelivery" th:field="*{companyId}">
+                                        <option th:each="companyName : ${companyNames}" name="companyId" th:value="${companyName.id}" th:text="${companyName.name}"
+                                                th:selected="${companyName.id} == ${companyId}"></option>
+                                    </select>
+                                    <div class="row">
+                                        <form class="form w-25 mx-auto" th:action="@{/cart/add-product}" th:method="post">
+                                            <div class="form-group mx-auto">
+                                                <label for="quantity" class="font-weight-bold">Quantity</label>
+                                                <input id="quantity" class="form-control" type="number" min="1" max="15" step="1" name="quantity" />
+                                            </div>
+                                            <input type="hidden" name="id" th:value="${product.id}">
+                                            <button type="submit" class="btn btn-success">Buy Product</button>
+                                        </form>
+                                    </div>
+
                                 </div>
 
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733;
-                                        &#9733; &#9734;
-                                    </small>
-                                </div>
                                 <hr>
-                                <div
-                                        class="buttons-holder w-75 mx-auto d-flex justify-content-between">
-                                    <a href="#"
-                                       class=" row-md-2 text-center btn btn-danger font-weight-bold text-white">Order
-                                        Product</a>
+                                <div class="buttons-holder w-75 mx-auto d-flex justify-content-between">
+                                    <a href="#" class=" row-md-2 text-center btn btn-danger font-weight-bold text-white">Buy Product</a>
                                 </div>
                             </div>
                         </div>

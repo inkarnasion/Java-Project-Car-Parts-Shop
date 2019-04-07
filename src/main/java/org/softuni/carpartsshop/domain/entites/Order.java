@@ -11,12 +11,12 @@ public class Order extends BaseEntity {
     private String delivery;
     private Integer quantity;
     private String payment;
-    private BigDecimal price;
-    private User user;
-    private List<Product> products;
     private Shipment shipment;
     private Office office;
     private Status status;
+    private BigDecimal price;
+    private User user;
+    private List<Product> products;
 
 
     public Order() {
