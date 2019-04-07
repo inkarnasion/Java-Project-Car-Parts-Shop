@@ -18,16 +18,16 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**","/static/**","/img/**","/templates/**","/about","/contact").permitAll()
-                .antMatchers(GlobalConstant.INDEX_ACTION, GlobalConstant.REGISTER_FORM_ACTION, GlobalConstant.LOGIN_FORM_ACTION,"/users/about").anonymous()
+                .antMatchers(Constant.INDEX_ACTION, Constant.REGISTER_FORM_ACTION, Constant.LOGIN_FORM_ACTION,"/users/about").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage(GlobalConstant.LOGIN_FORM_ACTION)
+                .loginPage(Constant.LOGIN_FORM_ACTION)
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl(GlobalConstant.HOME_ACTION,true)
+                .defaultSuccessUrl(Constant.HOME_ACTION,true)
                 .and()
                 .logout()
-                .logoutSuccessUrl(GlobalConstant.INDEX_ACTION);
+                .logoutSuccessUrl(Constant.INDEX_ACTION);
     }
 }

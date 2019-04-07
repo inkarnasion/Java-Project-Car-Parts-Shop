@@ -1,46 +1,102 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 
 <head>
-<th:block th:include="~{fragments/head}"></th:block>
+    <th:block th:include="~{fragments/head}"></th:block>
 </head>
 
 <body>
-	<header>
+<header>
 
-		<th:block th:include="~{fragments/navbar}"></th:block>
-	</header>
+    <th:block th:include="~{fragments/navbar}"></th:block>
+</header>
 
 
-
-	<main class="mt-3">
-
-	<div class="jumbotron bg-light">It is for our benefit to
-		guarantee you the best service. Therefore personal service is common
-		thing for Wemax Group GmbH & Co.KG company. Contact us by telephone or
-		e-mail and make sure that our team is competent. Director: Max Wegner
-		Location: Wemax Group GmbH & Co.KG Französische Straße 12 10117 Berlin
-		Germany E-Mail: info@onlinecarparts.co.uk Our site contains links to
-		third party websites. We are not responsible for the privacy policies,
-		practices and/or content of these web sites. Their use is at your own
-		risk.</div>
+<main class="mt-3">
 
 
 
 
-	</main>
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Page Heading/Breadcrumbs -->
+
+        <div class="row">
+
+            <div class="col-lg-8 mb-4">
+
+                <iframe width="100%" height="400px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        src="http://maps.google.com/maps?hl=en&amp;ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=56.506174,79.013672&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+            </div>
+            <!-- Contact Details Column -->
+            <div class="col-lg-4 mb-4">
+                <h3>Details</h3>
+                <div class="jumbotron bg-light">It is for our benefit to
+                    guarantee you the best service. Therefore personal service is common
+                    thing for Wemax Group GmbH & Co.KG company. Contact us by telephone or
+                    e-mail and make sure that our team is competent. Director: Max Wegner
+                    Location: Wemax Group GmbH & Co.KG Französische Straße 12 10117 Berlin
+                    Germany E-Mail: info@onlinecarparts.co.uk Our site contains links to
+                    third party websites. We are not responsible for the privacy policies,
+                    practices and/or content of these web sites. Their use is at your own
+                    risk.
+                </div>
+            </div>
 
 
+                <div class="row">
+                    <h1 class="mt-4 mb-3">Offices</h1>
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <th:block th:each="office : ${offices}">
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="card h-100">
+                                        <a href="#"><img class="card-img-top" th:src="${office.imageUrl}" alt=""></a>
+                                        <div class="card-body">
+                                            <a class="card-title"> <label for="city" class="font-weight-bold">ℂ𝕚𝕥𝕪</label>
+                                                <hr>
+                                                <a class="col-md-1 text-center" th:text="${office.city}" id="city"></a>
+                                            </a>
+                                            <hr>
+                                            <label for="address" class="font-weight-bold">𝔸𝕕𝕕𝕣𝕖𝕤𝕤</label>
+                                            <hr>
+                                            <a class="col-md-3 text-center" th:text="${office.address}" id="address"></a>
+                                            <hr>
+                                            <label for="phoneNumber" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖 ℕ𝕦𝕞𝕓𝕖𝕣</label>
+                                            <hr>
+                                            <a class="col-md-3 text-center" th:text="${office.phoneNumber}" id="phoneNumber"></a>
+                                            <hr>
+                                            <label for="email" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label>
+                                            <hr>
+                                            <a class="col-md-2 text-center" th:text="${office.email}" id="email"></a>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+
+            <hr class="hr-2 bg-dark"/>
 
 
+        </div>
+    </div>
 
-	<footer class="py-5 bg-dark">
-		<th:block th:include="~{fragments/footer}"></th:block>
+</main>
 
 
-	</footer>
+<footer class="py-5 bg-dark">
+    <th:block th:include="~{fragments/footer}"></th:block>
+
+
+</footer>
 </body>
 </html>

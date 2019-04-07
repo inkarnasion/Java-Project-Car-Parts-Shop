@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <th:block th:insert="~{fragments/head}"></th:block>
+</head>
+<body>
+<heder>
+    <th:block th:insert="~{fragments/navbar}"></th:block>
+</heder>
+<main>
+    <div th:insert="~{fragments/office-form::office-form-fragment(
+        url=@{${T(org.softuni.carpartsshop.config.Constant).EDIT_OFFICE_ACTION}}+${id},
+        title=${'Edit Office'},
+        methodLabel=${T(org.softuni.carpartsshop.config.Constant).FORM_METHOD},
+        buttonText=${'edit'}
+        )}">
+
+    </div>
+
+</main>
+<footer>
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

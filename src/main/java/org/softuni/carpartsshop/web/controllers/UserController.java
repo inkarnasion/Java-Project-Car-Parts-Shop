@@ -2,7 +2,7 @@ package org.softuni.carpartsshop.web.controllers;
 
 
 import org.modelmapper.ModelMapper;
-import org.softuni.carpartsshop.config.GlobalConstant;
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.models.binding.UserEditBindingModel;
 import org.softuni.carpartsshop.domain.models.binding.UserRegisterBindingModel;
 import org.softuni.carpartsshop.domain.models.service.UserServiceModel;
@@ -36,10 +36,10 @@ public class UserController extends BaseController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @GetMapping(GlobalConstant.REGISTER_ACTION)
+    @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
     public ModelAndView register() {
-        return super.view(GlobalConstant.REGISTER_PAGE);
+        return super.view(Constant.REGISTER_PAGE);
     }
 
     @PostMapping("/register")

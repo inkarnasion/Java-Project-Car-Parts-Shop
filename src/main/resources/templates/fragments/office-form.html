@@ -1,0 +1,40 @@
+<th:block th:fragment="office-form-fragment(url, title, methodLabel, buttonText)">
+
+	<h1 class="text-center text-dark"th:text="${title}"></h1>
+	<hr class="hr-2 bg-dark w-25">
+	<form id="add-product-form" class="form w-25 mx-auto"
+		  th:action="${url}" th:method="${methodLabel}"
+		  enctype="multipart/form-data">
+		<input type="hidden" name="_csrf"
+			   value="c686cd14-a7f9-4216-8009-c093b7d3df86">
+		<div class="form-group">
+			<label for="input-city" class="font-weight-bold">ℂ𝕚𝕥𝕪</label>
+			<input type="text" class="form-control text-center"
+				   id="input-city" name="city" th:value="${bindingModel.city}">
+		</div>
+		<div class="form-group">
+			<label for="input-address" class="font-weight-bold">𝔸𝕕𝕕𝕣𝕖𝕤𝕤</label>
+			<input type="text" class="form-control text-center"
+				   id="input-address" name="address" th:value="${bindingModel.address}">
+		</div>
+		<div class="form-group">
+			<label for="input-phone-number" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖 ℕ𝕦𝕞𝕓𝕖𝕣</label>
+			<input type="text" class="form-control text-center"
+				   id="input-phone-number" name="phoneNumber" th:value="${bindingModel.phoneNumber}">
+		</div>
+		<div class="form-group">
+			<label for="input-email" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label>
+			<input type="email" class="form-control text-center"
+				   id="input-email" name="email" th:value="${bindingModel.email}">
+		</div>
+		<div class="form-group">
+			<label for="input-image" class="font-weight-bold">𝕀𝕞𝕒𝕘𝕖</label>
+			<input type="file" class="form-control-file" id="input-image"
+				   name="image" th:value="${bindingModel.image}">
+		</div>
+		<hr class="hr-2 bg-dark w-25">
+		<div class="button-holder d-flex justify-content-center">
+			<button type="submit" class="btn btn-success"th:text="${buttonText}"></button>
+		</div>
+	</form>
+</th:block>

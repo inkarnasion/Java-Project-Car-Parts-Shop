@@ -14,6 +14,8 @@ public class Office extends BaseEntity {
 
     private String city;
     private String address;
+    private String phoneNumber;
+    private String email;
     private String imageUrl;
     private List<Order>orders;
 
@@ -53,5 +55,22 @@ public class Office extends BaseEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Column(name = "phone_number",nullable = false)
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+@Column(name = "email",nullable = false)
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
