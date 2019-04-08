@@ -8,6 +8,7 @@ public class UserProfileViewModel {
     private String lastName;
     private String phoneNumber;
     private String creditCardNumber;
+    private String imageUrl;
 
     public UserProfileViewModel() {
     }
@@ -58,5 +59,13 @@ public class UserProfileViewModel {
 
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

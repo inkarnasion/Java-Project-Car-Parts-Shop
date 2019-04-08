@@ -12,6 +12,7 @@ public class UserAllViewModel {
     private String lastName;
     private String phoneNumber;
     private String creditCardNumber;
+    private String imageUrl;
 
 
     private Set<String> authorities;
@@ -89,5 +90,13 @@ public class UserAllViewModel {
 
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

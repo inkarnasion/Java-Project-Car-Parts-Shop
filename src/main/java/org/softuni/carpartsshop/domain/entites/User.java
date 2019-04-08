@@ -17,6 +17,7 @@ public class User extends BaseEntity implements UserDetails {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String imageUrl;
     private String creditCardNumber;
     private Set<Role> authorities;
     private List<Order> orders;
@@ -101,6 +102,14 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+@Column(name = "image_url")
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Column(name = "credit_card_number", nullable = false)

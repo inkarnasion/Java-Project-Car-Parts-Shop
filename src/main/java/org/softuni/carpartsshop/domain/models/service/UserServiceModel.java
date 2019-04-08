@@ -18,6 +18,7 @@ public class UserServiceModel extends BaseServiceModel {
     private String phoneNumber;
 
     private String creditCardNumber;
+    private String imageUrl;
     private Set<RoleServiceModel> authorities;
 
     public UserServiceModel() {
@@ -79,6 +80,14 @@ public class UserServiceModel extends BaseServiceModel {
 
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Set<RoleServiceModel> getAuthorities() {

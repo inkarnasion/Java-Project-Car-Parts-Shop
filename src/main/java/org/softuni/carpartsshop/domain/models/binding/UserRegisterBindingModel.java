@@ -1,5 +1,7 @@
 package org.softuni.carpartsshop.domain.models.binding;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class UserRegisterBindingModel {
 
 
@@ -18,6 +20,8 @@ public class UserRegisterBindingModel {
     private String phoneNumber;
 
     private String creditCardNumber;
+
+    private MultipartFile image;
 
     public UserRegisterBindingModel() {
     }
@@ -85,5 +89,13 @@ public class UserRegisterBindingModel {
 
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
+    }
+
+    public MultipartFile getImage() {
+        return this.image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 }

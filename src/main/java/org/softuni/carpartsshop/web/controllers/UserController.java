@@ -8,6 +8,7 @@ import org.softuni.carpartsshop.domain.models.binding.UserRegisterBindingModel;
 import org.softuni.carpartsshop.domain.models.service.UserServiceModel;
 import org.softuni.carpartsshop.domain.models.view.UserAllViewModel;
 import org.softuni.carpartsshop.domain.models.view.UserProfileViewModel;
+import org.softuni.carpartsshop.service.CloudinaryService;
 import org.softuni.carpartsshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,13 +29,15 @@ public class UserController extends BaseController {
     private final UserService userService;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final CloudinaryService cloudinaryService;
 
 
     @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(UserService userService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder, CloudinaryService cloudinaryService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @GetMapping("/register")
@@ -44,13 +48,14 @@ public class UserController extends BaseController {
 
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView registerConfirm(@ModelAttribute UserRegisterBindingModel model) {
-
+    public ModelAndView registerConfirm(@ModelAttribute UserRegisterBindingModel model) throws IOException {
+UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.class);
         if (!model.getPassword().equals(model.getConfirmPassword())) {
             return super.view("register");
         }
 
         this.userService.registerUser(this.modelMapper.map(model, UserServiceModel.class));
+        userServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
         return super.redirect("/login");
     }
 

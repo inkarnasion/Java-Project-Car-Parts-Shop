@@ -14,7 +14,7 @@ public class TitleInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        String title = "Product Shop";
+        String title = "Cart Parts Shop";
 
         if (modelAndView == null) {
             modelAndView = new ModelAndView();
