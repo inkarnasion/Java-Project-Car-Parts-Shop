@@ -5,6 +5,8 @@ import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.entites.Product;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
+import org.softuni.carpartsshop.error.ProductNotFoundException;
+import org.softuni.carpartsshop.repository.OfferRepository;
 import org.softuni.carpartsshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +20,15 @@ public class ProductServiceImpl implements ProductService {
 	private final ProductRepository productRepository;
 	private final CategoryService categoryService;
 	private final ModelMapper modelMapper;
+	private final OfferRepository offerRepository;
 
 	@Autowired
 	public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService,
-			ModelMapper modelMapper) {
+							  ModelMapper modelMapper, OfferRepository offerRepository) {
 		this.productRepository = productRepository;
 		this.categoryService = categoryService;
 		this.modelMapper = modelMapper;
+		this.offerRepository = offerRepository;
 	}
 
 	@Override
@@ -46,8 +50,15 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductServiceModel findProductById(String id) {
-		return this.productRepository.findById(id).map(p -> this.modelMapper.map(p, ProductServiceModel.class))
-				.orElseThrow(() -> new IllegalArgumentException());
+		return this.productRepository.findById(id)
+				.map(p -> {
+					ProductServiceModel productServiceModel = this.modelMapper.map(p, ProductServiceModel.class);
+					this.offerRepository.findByProduct_Id(productServiceModel.getId())
+							.ifPresent(o -> productServiceModel.setDiscountedPrice(o.getPrice()));
+
+					return productServiceModel;
+				})
+				.orElseThrow(() -> new ProductNotFoundException("Product with the given id was not found!"));
 	}
 
 	@Override

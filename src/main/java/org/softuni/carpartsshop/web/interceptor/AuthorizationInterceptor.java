@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
-  /*  @Override
+   @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         boolean a = ((HandlerMethod) handler)
                 .getMethod()
                 .isAnnotationPresent(PostMapping.class);
         System.out.println(a);
-        return true; 7
-    }*/
+        return true;
+    }
 }
