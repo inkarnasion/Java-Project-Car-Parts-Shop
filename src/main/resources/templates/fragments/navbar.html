@@ -43,8 +43,9 @@
                                 Cart
                             </a>
                             <div class="dropdown-menu" aria-labelledby="cartDropdown">
-                                <th:block th:each="item : ${#session.getAttribute('shopping-cart')}" th:object="${item}">
-                                    <div class="dropdown-item" th:text="|*{product.product.name} x *{quantity}|"></div>
+                                <th:block th:each="item : ${#session.getAttribute('shopping-cart')}"
+                                          th:object="${item}">
+                                    <div class="dropdown-item" th:text="|*{product.name} x *{quantity}|"></div>
                                 </th:block>
                                 <div class="dropdown-divider"></div>
                                 <div class="text-center">
@@ -55,10 +56,10 @@
 
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/users/profile}">ℙ𝕣𝕠𝕗𝕚𝕝𝕖</a>
+                        <a class="nav-link" th:href="@{/top-offers}">𝕋𝕠𝕡 𝕆𝕗𝕗𝕖𝕣𝕤</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/about}">𝔸𝕓𝕠𝕦𝕥 𝕌𝕤</a>
+                        <a class="nav-link" th:href="@{/users/profile}">ℙ𝕣𝕠𝕗𝕚𝕝𝕖</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/contact}">ℂ𝕠𝕟𝕥𝕒𝕔𝕥 𝕌𝕤</a>
@@ -91,8 +92,12 @@
                                 <div class="dropdown-menu" aria-labelledby="adminDropdown">
                                     <a class="dropdown-item" th:href="@{/users/all}">𝔸𝕝𝕝 𝕌𝕤𝕖𝕣𝕤</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" th:href="@{${T(org.softuni.carpartsshop.config.Constant).ADD_OFFICE_ACTION}}">𝔸𝕕𝕕 𝕆𝕗𝕗𝕚𝕔𝕖</a>
-                                    <a class="dropdown-item" th:href="@{${T(org.softuni.carpartsshop.config.Constant).ALL_OFFICE_ACTION}}">𝔸𝕝𝕝 𝕆𝕗𝕗𝕚𝕔𝕖𝕤</a>
+                                    <a class="dropdown-item"
+                                       th:href="@{${T(org.softuni.carpartsshop.config.Constant).ADD_OFFICE_ACTION}}">𝔸𝕕𝕕
+                                        𝕆𝕗𝕗𝕚𝕔𝕖</a>
+                                    <a class="dropdown-item"
+                                       th:href="@{${T(org.softuni.carpartsshop.config.Constant).ALL_OFFICE_ACTION}}">𝔸𝕝𝕝
+                                        𝕆𝕗𝕗𝕚𝕔𝕖𝕤</a>
                                 </div>
                             </div>
                         </li>

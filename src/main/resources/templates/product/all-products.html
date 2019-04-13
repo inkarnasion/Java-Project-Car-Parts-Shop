@@ -68,12 +68,11 @@
                                     </small>
                                 </div>
                                 <hr>
-                                <div
-                                        class="buttons-holder w-75 mx-auto d-flex justify-content-between">
-                                    <a href="#"
-                                       class=" row-md-2 text-center btn btn-danger font-weight-bold text-white">Order
-                                        Product</a>
-                                </div>
+                                <td class="col-md-3 text-center">
+                                    <a th:href="@{/products/details/{id}(id=${product.id})}" class="btn btn-secondary font-weight-bold text-white">Details</a>
+                                    <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success font-weight-bold text-white">Edit</a>
+                                    <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger font-weight-bold text-white">Delete</a>
+                                </td>
                             </div>
                         </div>
                     </th:block>

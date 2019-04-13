@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script th:src="@{/js/categories.js}" ></script>
+</head>
+
+<body>
+<header>
+    <th:block th:include="~{fragments/navbar}"></th:block>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <h1 class="my-4">ℂ𝕒𝕣 ℙ𝕒𝕣𝕥𝕤</h1>
+            <div class="list-group">
+                <a id="bdParts" href="#" class="list-group-item">Item Category</a>
+                <div id="tst" style="display: none;"></div>
+
+            </div>
+        </div>
+
+        <div class="data col-md-8">
+            <h1 class="text-center font-weight-bold">Products</h1>
+            <div class="products-data"></div>
+        </div>
+    </div>
+</div>
+
+<footer class="py-5 bg-dark">
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</div>
+</body>
+</html>

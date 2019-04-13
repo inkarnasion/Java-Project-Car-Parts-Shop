@@ -1,0 +1,7 @@
+<th:block th:fragment="input( type, componentId, name, value, placeholder )">
+	<div class="form-label-group">
+		<input th:type="${type}" th:id="${componentId}" class="form-control" th:placeholder="${name}" th:name="${name}"
+			   th:value="${value}">
+		<label th:for="${componentId}" th:text="${placeholder}"></label>
+	</div>
+</th:block>

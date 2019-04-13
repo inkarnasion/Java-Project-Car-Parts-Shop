@@ -48,14 +48,7 @@
                                     <a class="col-md-2 text-center" th:text="${product.price}"
                                        id="price"></a>
                                     <hr>
-                                    <select class="form-control" id="inputPayment" th:field="*{companyId}">
-                                        <option th:each="companyName : ${companyNames}" name="companyId" th:value="${companyName.id}" th:text="${companyName.name}"
-                                                th:selected="${companyName.id} == ${companyId}"></option>
-                                    </select>
-                                    <select class="form-control" id="inputDelivery" th:field="*{companyId}">
-                                        <option th:each="companyName : ${companyNames}" name="companyId" th:value="${companyName.id}" th:text="${companyName.name}"
-                                                th:selected="${companyName.id} == ${companyId}"></option>
-                                    </select>
+
                                     <div class="row">
                                         <form class="form w-25 mx-auto" th:action="@{/cart/add-product}" th:method="post">
                                             <div class="form-group mx-auto">
