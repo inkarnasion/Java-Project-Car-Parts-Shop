@@ -10,10 +10,13 @@ import org.softuni.carpartsshop.domain.models.view.UserAllViewModel;
 import org.softuni.carpartsshop.domain.models.view.UserProfileViewModel;
 import org.softuni.carpartsshop.service.CloudinaryService;
 import org.softuni.carpartsshop.service.UserService;
+import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,6 +45,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Register")
     public ModelAndView register() {
         return super.view(Constant.REGISTER_PAGE);
     }
@@ -49,23 +53,28 @@ public class UserController extends BaseController {
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
     public ModelAndView registerConfirm(@ModelAttribute UserRegisterBindingModel model) throws IOException {
-UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.class);
+
         if (!model.getPassword().equals(model.getConfirmPassword())) {
             return super.view("register");
         }
-
+        UserServiceModel userServiceModel = this.modelMapper.map(model, UserServiceModel.class);
+        if (!model.getImage().isEmpty()) {
+            userServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
+        }
         this.userService.registerUser(this.modelMapper.map(model, UserServiceModel.class));
-        userServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
+
         return super.redirect("/login");
     }
 
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Login")
     public ModelAndView login() {
         return super.view("login");
     }
 
     @GetMapping("/about")
+    @PageTitle("About")
     @PreAuthorize("isAnonymous()")
     public ModelAndView About(){
         return super.view("about");
@@ -73,6 +82,7 @@ UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.c
 
 
     @GetMapping("/contact")
+    @PageTitle("Contact")
     @PreAuthorize("isAnonymous()")
     public ModelAndView Contact(){
         return super.view("contact");
@@ -80,6 +90,7 @@ UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.c
 
 
     @GetMapping("/profile")
+    @PageTitle("Profile")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView profile(Principal principal, ModelAndView modelAndView) {
         modelAndView
@@ -89,6 +100,7 @@ UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.c
     }
 
     @GetMapping("/edit")
+    @PageTitle("Edit Profile")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView editProfile(Principal principal, ModelAndView modelAndView) {
         modelAndView
@@ -99,11 +111,14 @@ UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.c
 
     @PatchMapping("/edit")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView editProfileConfirm(@ModelAttribute UserEditBindingModel model) {
+    public ModelAndView editProfileConfirm(@ModelAttribute UserEditBindingModel model) throws IOException {
         if (!model.getPassword().equals(model.getConfirmPassword())) {
             return super.view("edit-profile");
         }
-
+        UserServiceModel userServiceModel = this.modelMapper.map(model, UserServiceModel.class);
+        if (!model.getImage().isEmpty()) {
+            userServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
+        }
         this.userService.editUserProfile(this.modelMapper.map(model, UserServiceModel.class), model.getOldPassword());
 
         return super.redirect("/users/profile");
@@ -111,6 +126,7 @@ UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.c
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("All Users")
     public ModelAndView allUsers(ModelAndView modelAndView) {
         List<UserAllViewModel> users = this.userService.findAllUsers()
                 .stream()
@@ -150,5 +166,10 @@ UserServiceModel userServiceModel= this.modelMapper.map(model,UserServiceModel.c
 
         return super.redirect("/users/all");
     }
+    @InitBinder
+    private void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
 }
+
 

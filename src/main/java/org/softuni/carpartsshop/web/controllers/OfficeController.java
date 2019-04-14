@@ -8,6 +8,7 @@ import org.softuni.carpartsshop.domain.models.service.OfficeServiceModel;
 import org.softuni.carpartsshop.domain.models.view.OfficeAllViewModel;
 import org.softuni.carpartsshop.service.CloudinaryService;
 import org.softuni.carpartsshop.service.OfficeService;
+import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ public class OfficeController extends BaseController {
 
     @GetMapping(Constant.ADD_OFFICE_ACTION)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Add Offices")
     public ModelAndView addOffice(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") OfficeBindingModel officeBindingModel) {
         return view(Constant.ADD_OFFICE_PAGE, modelAndView);
     }
@@ -58,6 +60,7 @@ public class OfficeController extends BaseController {
 
     @GetMapping(Constant.ALL_OFFICE_ACTION)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("All Offices")
     public ModelAndView allOffices(ModelAndView modelAndView) {
         List<OfficeServiceModel> officeServiceModels = this.officeService.findAllOffices();
         List<OfficeAllViewModel> officeAllViewModels = officeServiceModels.stream().map(o -> this.modelMapper.map(o, OfficeAllViewModel.class)).collect(Collectors.toList());
@@ -69,6 +72,7 @@ public class OfficeController extends BaseController {
 
     @GetMapping(Constant.EDIT_OFFICE_ACTION + "{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Edit Offices")
     public ModelAndView editOffice(ModelAndView modelAndView, @PathVariable String id) {
         OfficeBindingModel officeBindingModel = this.modelMapper.map(this.officeService.findOfficeByID(id), OfficeBindingModel.class);
         modelAndView.addObject("bindingModel", officeBindingModel);
@@ -95,6 +99,7 @@ public class OfficeController extends BaseController {
 
     @GetMapping(Constant.DELETE_OFFICE_ACTION + "{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Delete Offices")
     public ModelAndView deleteOffice(ModelAndView modelAndView, @PathVariable String id) {
 
         OfficeBindingModel officeBindingModel = this.modelMapper.map(this.officeService.findOfficeByID(id), OfficeBindingModel.class);

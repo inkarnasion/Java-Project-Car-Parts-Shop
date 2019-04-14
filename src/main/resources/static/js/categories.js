@@ -28,7 +28,6 @@ function formatProduct(product) {
 	return '<div class="product">'
 		+ '<div class="container">'
 		+ '<div class="row">'
-		+ '<div class="col-lg-3"></div>'
 		+ '<div class="col-lg-9">'
 		+ '<div class="row">'
 		+ '<div class="col-lg-4 col-md-6 mb-4">'
@@ -64,10 +63,6 @@ function formatProduct(product) {
 		+ `<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; </small>`
 		+ '</div>'
 		+ `<hr>`
-		+ '<div'
-		+ `class="buttons-holder w-75 mx-auto d-flex justify-content-between">`
-		+ `<a href="#"class=" row-md-2 text-center btn btn-danger font-weight-bold text-white">Buy Product</a>`
-		+ '</div>'
 		+ '</div>'
 		+ '</div>'
 		+ '</div>'
@@ -75,15 +70,6 @@ function formatProduct(product) {
 		+ '</div>'
 		+ '</div>'
 
-
-//	
-//    return '<div class="product">'
-//        + '<div class="text-center">'
-//        + `<a href="/products/details/${product.id}"><img src="${product.imageUrl}" class="product-image-home img-thumbnail px-auto" alt="Image not loaded..."/></a>`
-//        + '</div>'
-//        + `<h5 class="text-center font-weight-bold mt-3">Name: ${product.name}</h5>`
-//        + `<h5 class="text-center font-weight-bold">Price: ${product.price.toFixed(2)}</h5>`
-//        + '</div>'
 }
 
 

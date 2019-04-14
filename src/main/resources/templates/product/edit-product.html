@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<th:block th:include="~{fragments/head}"></th:block>
-	<script th:src="@{/js/edit-product.js}"></script>
+	<script th:src="@{/js/edit-product.js}" ></script>
 </head>
 
 <body>
@@ -52,4 +52,18 @@
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
 </body>
+<script th:inline="javascript">
+	fetch('/categories/fetch')
+			.then((response) => response.json())
+			.then((json) => {
+				let categories = [[${product.categories}]];
+				console.log(categories);
+				json.forEach((category) =>
+						$('#add-product-categories').append(
+								categories.includes(category.name)
+										? `<option value="${category.id}" selected>${category.name}</option>`
+										: `<option value="${category.id}">${category.name}</option>`));
+			})
+			.catch((err) => console.log(err));
+</script>
 </html>

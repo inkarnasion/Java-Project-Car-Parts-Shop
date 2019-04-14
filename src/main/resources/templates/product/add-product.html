@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <th:block th:include="~{fragments/head}"></th:block>
-<script th:src="@{/js/add-product.js}" /></script>
+<script th:src="@{/js/add-product.js}" ></script>
 </head>
 <body>
 	<header>
@@ -67,7 +67,7 @@ id="add-product-quantity" name="quantity">
 		</div>
 	</form>
 	</main>
-	<footer>
+	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
 </body>

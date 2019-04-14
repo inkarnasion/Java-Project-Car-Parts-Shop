@@ -6,6 +6,7 @@ import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.models.view.OfficeAllViewModel;
 import org.softuni.carpartsshop.service.CloudinaryService;
 import org.softuni.carpartsshop.service.OfficeService;
+import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -33,22 +34,26 @@ public class HomeController extends BaseController {
 
     @GetMapping(Constant.INDEX_ACTION)
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Index")
     public ModelAndView index() {
         return super.view("index");
     }
 
     @GetMapping(Constant.HOME_ACTION)
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Home")
     public ModelAndView home() {
         return super.view("home");
     }
 
     @GetMapping("/about")
+    @PageTitle("About")
     public ModelAndView About() {
         return super.view("about");
     }
 
     @GetMapping("/contact")
+    @PageTitle("Contact Us")
     public ModelAndView Contact(ModelAndView modelAndView) {
         List<OfficeAllViewModel> officeAllViewModelList = this.officeService.findAllOffices().stream().map(o -> this.modelMapper.map(o, OfficeAllViewModel.class)).collect(Collectors.toList());
         modelAndView.addObject("offices", officeAllViewModelList);

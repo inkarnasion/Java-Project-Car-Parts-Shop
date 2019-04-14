@@ -15,7 +15,6 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-3"></div>
             <div class="col-lg-9">
                 <div class="row">
                     <th:block th:each="product : ${products}">
@@ -60,6 +59,7 @@
                                         ℚ𝕦𝕒𝕟𝕥𝕚𝕥𝕪:</label>
                                     <hr>
                                     <a class="col-md-3 text-center" th:text="${product.quantity}"></a>
+
                                 </div>
 
                                 <div class="card-footer">

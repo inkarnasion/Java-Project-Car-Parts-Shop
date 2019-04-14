@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.entites.Product;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
+import org.softuni.carpartsshop.error.ProductNameAlreadyExistsException;
 import org.softuni.carpartsshop.error.ProductNotFoundException;
 import org.softuni.carpartsshop.repository.OfferRepository;
 import org.softuni.carpartsshop.repository.ProductRepository;
@@ -33,9 +34,19 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductServiceModel addProduct(ProductServiceModel productServiceModel) {
-		Product product = this.modelMapper.map(productServiceModel, Product.class);
 
-		return this.modelMapper.map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
+		Product product = this.productRepository
+				.findByName(productServiceModel.getName())
+				.orElse(null);
+
+		if (product != null) {
+			throw new ProductNameAlreadyExistsException("Product already exists");
+		}
+
+		product = this.modelMapper.map(productServiceModel, Product.class);
+		product = this.productRepository.save(product);
+
+		return this.modelMapper.map(product, ProductServiceModel.class);
 	}
 
 	@Override

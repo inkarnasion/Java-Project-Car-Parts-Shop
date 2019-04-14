@@ -6,9 +6,12 @@ import org.softuni.carpartsshop.domain.models.binding.ProductAddBindingModel;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
 import org.softuni.carpartsshop.domain.models.view.ProductAllViewModel;
 import org.softuni.carpartsshop.domain.models.view.ProductDetailsViewModel;
+import org.softuni.carpartsshop.error.ProductNameAlreadyExistsException;
+import org.softuni.carpartsshop.error.ProductNotFoundException;
 import org.softuni.carpartsshop.service.CategoryService;
 import org.softuni.carpartsshop.service.CloudinaryService;
 import org.softuni.carpartsshop.service.ProductService;
+import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -45,6 +48,7 @@ public class ProductController extends BaseController {
 
 	@PostMapping("/add")
 	@PreAuthorize("hasRole('ROLE_MODERATOR')")
+	@PageTitle("Add Product")
 	public ModelAndView addProductConfirm(@ModelAttribute ProductAddBindingModel model) throws IOException {
 		ProductServiceModel productServiceModel = this.modelMapper.map(model, ProductServiceModel.class);
 		productServiceModel.setCategories(this.categoryService.findAllCategories().stream()
@@ -58,6 +62,7 @@ public class ProductController extends BaseController {
 
 	@GetMapping("/all")
 	@PreAuthorize("hasRole('ROLE_MODERATOR')")
+	@PageTitle("All Products")
 	public ModelAndView allProducts(ModelAndView modelAndView) {
 		Object o = this.productService.findAllProducts().stream()
 				.map(p -> this.modelMapper.map(p, ProductAllViewModel.class)).collect(Collectors.toList());
@@ -69,6 +74,7 @@ public class ProductController extends BaseController {
 
 	@GetMapping("/details/{id}")
 	@PreAuthorize("isAuthenticated()")
+	@PageTitle("Product Details")
 	public ModelAndView detailsProduct(@PathVariable String id, ModelAndView modelAndView) {
 		modelAndView.addObject("product",
 				this.modelMapper.map(this.productService.findProductById(id), ProductDetailsViewModel.class));
@@ -78,6 +84,7 @@ public class ProductController extends BaseController {
 
 	@GetMapping("/edit/{id}")
 	@PreAuthorize("hasRole('ROLE_MODERATOR')")
+	@PageTitle("Edit Product")
 	public ModelAndView editProduct(@PathVariable String id, ModelAndView modelAndView) {
 		ProductServiceModel productServiceModel = this.productService.findProductById(id);
 		ProductAddBindingModel model = this.modelMapper.map(productServiceModel, ProductAddBindingModel.class);
@@ -95,11 +102,12 @@ public class ProductController extends BaseController {
 	public ModelAndView editProductConfirm(@PathVariable String id, @ModelAttribute ProductAddBindingModel model) {
 		this.productService.editProduct(id, this.modelMapper.map(model, ProductServiceModel.class));
 
-		return super.redirect("/products/details/" + id);
+		return super.redirect("/home");
 	}
 
 	@GetMapping("/delete/{id}")
 	@PreAuthorize("hasRole('ROLE_MODERATOR')")
+	@PageTitle("Delete Product")
 	public ModelAndView deleteProduct(@PathVariable String id, ModelAndView modelAndView) {
 		ProductServiceModel productServiceModel = this.productService.findProductById(id);
 		ProductAddBindingModel model = this.modelMapper.map(productServiceModel, ProductAddBindingModel.class);
@@ -135,6 +143,23 @@ public class ProductController extends BaseController {
 		}
 		
 		return result;
+	}
+	@ExceptionHandler({ProductNotFoundException.class})
+	public ModelAndView handleProductNotFound(ProductNotFoundException e) {
+		ModelAndView modelAndView = new ModelAndView("error");
+		modelAndView.addObject("message", e.getMessage());
+		modelAndView.addObject("statusCode", e.getStatusCode());
+
+		return modelAndView;
+	}
+
+	@ExceptionHandler({ProductNameAlreadyExistsException.class})
+	public ModelAndView handleProductNameALreadyExist(ProductNameAlreadyExistsException e) {
+		ModelAndView modelAndView = new ModelAndView("error");
+		modelAndView.addObject("message", e.getMessage());
+		modelAndView.addObject("statusCode", e.getStatusCode());
+
+		return modelAndView;
 	}
 
 }
