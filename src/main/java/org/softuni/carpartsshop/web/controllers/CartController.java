@@ -1,6 +1,9 @@
 package org.softuni.carpartsshop.web.controllers;
 
+import org.aspectj.apache.bcel.classfile.ConstantNameAndType;
+import org.hibernate.persister.collection.CollectionPropertyNames;
 import org.modelmapper.ModelMapper;
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.models.service.OrderServiceModel;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
 import org.softuni.carpartsshop.domain.models.view.ProductDetailsViewModel;
@@ -26,7 +29,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/cart")
+@RequestMapping(Constant.CART_PAGE)
 public class CartController extends BaseController {
 
     private final ProductService productService;
@@ -43,7 +46,7 @@ public class CartController extends BaseController {
     }
 
 
-    @PostMapping("/add-product")
+    @PostMapping(Constant.ADDING_PRODUCT)
     @PreAuthorize("isAuthenticated()")
     public ModelAndView addToCartConfirm(String id, int quantity, HttpSession session) {
         ProductDetailsViewModel product = this.modelMapper
@@ -56,46 +59,46 @@ public class CartController extends BaseController {
         var cart = this.retrieveCart(session);
         this.addItemToCart(cartItem, cart);
 
-        return super.redirect("/home");
+        return super.redirect(Constant.HOME_ACTION);
     }
 
-    @GetMapping("/details")
+    @GetMapping(Constant.DETAIL_ACTION)
     @PreAuthorize("isAuthenticated()")
-    @PageTitle("Cart Details")
+    @PageTitle(Constant.PAGE_NAME_CART_DETAILS)
     public ModelAndView cartDetails(ModelAndView modelAndView, HttpSession session) {
         var cart = this.retrieveCart(session);
-        modelAndView.addObject("totalPrice", this.calcTotal(cart));
+        modelAndView.addObject(Constant.TOTAL_PRICE, this.calcTotal(cart));
 
-        return super.view("cart/cart-details", modelAndView);
+        return super.view(Constant.CART_CART_DETAILS, modelAndView);
     }
 
-    @DeleteMapping("/remove-product")
+    @DeleteMapping(Constant.REMOVE_PRODUCT)
     @PreAuthorize("isAuthenticated()")
     public ModelAndView removeFromCartConfirm(String id, HttpSession session) {
         this.removeItemFromCart(id, this.retrieveCart(session));
 
-        return super.redirect("/cart/details");
+        return super.redirect(Constant.CART_DETAILS);
     }
 
-    @PostMapping("/checkout")
+    @PostMapping(Constant.CHECK_OUT)
     @PreAuthorize("isAuthenticated()")
     public ModelAndView checkoutConfirm(HttpSession session, Principal principal) {
         var cart = this.retrieveCart(session);
 
         OrderServiceModel orderServiceModel = this.prepareOrder(cart, principal.getName());
         this.orderService.createOrder(orderServiceModel);
-        return super.redirect("/home");
+        return super.redirect(Constant.HOME_ACTION);
     }
 
     private List<ShoppingCartItem> retrieveCart(HttpSession session) {
         this.initCart(session);
 
-        return (List<ShoppingCartItem>) session.getAttribute("shopping-cart");
+        return (List<ShoppingCartItem>) session.getAttribute(Constant.SHOPPING_CART);
     }
 
     private void initCart(HttpSession session) {
-        if (session.getAttribute("shopping-cart") == null) {
-            session.setAttribute("shopping-cart", new LinkedList<>());
+        if (session.getAttribute(Constant.SHOPPING_CART) == null) {
+            session.setAttribute(Constant.SHOPPING_CART, new LinkedList<>());
         }
     }
 

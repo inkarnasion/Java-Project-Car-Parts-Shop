@@ -1,5 +1,6 @@
 package org.softuni.carpartsshop.web.controllers;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.error.NotFoundExceptions;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,22 +10,22 @@ public class GlobalExceptionHandler extends BaseController {
 
     @ExceptionHandler({NotFoundExceptions.class})
     public ModelAndView handleProductNotFound(RuntimeException e) {
-        ModelAndView modelAndView = new ModelAndView("/errors/error-not-found");
-        modelAndView.addObject("message", e.getMessage());
+        ModelAndView modelAndView = new ModelAndView(Constant.ERROR_NOT_FOUND);
+        modelAndView.addObject(Constant.ADD_OBJECT_MESSAGE, e.getMessage());
 
         return modelAndView;
     }
 
     @ExceptionHandler({Throwable.class})
     public ModelAndView handleSqlException(Throwable e) {
-        ModelAndView modelAndView = new ModelAndView("/errors/error-general");
+        ModelAndView modelAndView = new ModelAndView(Constant.GENERAL_ERROR);
         Throwable throwable = e;
 
         while (throwable.getCause() != null) {
             throwable = throwable.getCause();
         }
 
-        modelAndView.addObject("message", throwable.getMessage());
+        modelAndView.addObject(Constant.ADD_OBJECT_MESSAGE, throwable.getMessage());
 
         return modelAndView;
     }
@@ -32,8 +33,8 @@ public class GlobalExceptionHandler extends BaseController {
 
     @ExceptionHandler({IllegalArgumentException.class})
     public ModelAndView handleIllegalArgumentExceptions(RuntimeException e) {
-        ModelAndView modelAndView = new ModelAndView("/errors/error-general");
-        modelAndView.addObject("message", e.getMessage());
+        ModelAndView modelAndView = new ModelAndView(Constant.GENERAL_ERROR);
+        modelAndView.addObject(Constant.ADD_OBJECT_MESSAGE, e.getMessage());
 
         return modelAndView;
     }

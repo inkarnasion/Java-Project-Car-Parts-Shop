@@ -23,11 +23,21 @@ $(document).ready(function () {
         }
     }
 });
+function formatProduct(product) {
+    return '<div class="product">'
+        + '<div class="text-center">'
+        + `<a href="/products/details/${product.product.id}"><img src="${product.product.imageUrl}" class="product-image-home img-thumbnail px-auto" alt="Image not loaded..."/></a>`
+        + '</div>'
+        + `<h5 class="text-center font-weight-bold mt-3">Name: ${product.product.name}</h5>`
+        + `<h5 class="text-center font-weight-bold">Price: ${product.price.toFixed(2)}</h5>`
+        + `<h5 class="text-center font-weight-bold">Original Price: ${product.product.price.toFixed(2)}</h5>`
+        + '</div>'
+}
 
 $(document).ready(function () {
-    $('#allRadio').attr('checked', true);
+    $('#ks').attr('checked', true);
 
-    fetch('http://localhost:8001/top-offers/all')
+    fetch('http://localhost:8000/top-offers/all')
         .then((response) => response.json())
         .then((json) => {
             $('.products-data').empty();
@@ -45,10 +55,10 @@ $(document).ready(function () {
         })
 });
 
-$('input[type=radio][name=selection]').change(function () {
+$('input[type=list][name=selection]').change(function () {
     let category = $(this).val();
 
-    fetch('http://localhost:8001/top-offers/' + category)
+    fetch('http://localhost:8000/top-offers/' + category)
         .then((response) => response.json())
         .then((json) => {
             $('.products-data').empty();
@@ -65,4 +75,3 @@ $('input[type=radio][name=selection]').change(function () {
             }
         })
 });
-</script>

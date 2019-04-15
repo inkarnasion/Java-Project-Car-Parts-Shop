@@ -18,7 +18,9 @@ public class UserServiceModel extends BaseServiceModel {
     private String phoneNumber;
 
     private String creditCardNumber;
+
     private String imageUrl;
+
     private Set<RoleServiceModel> authorities;
 
     public UserServiceModel() {

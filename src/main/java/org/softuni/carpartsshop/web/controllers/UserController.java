@@ -43,7 +43,7 @@ public class UserController extends BaseController {
         this.cloudinaryService = cloudinaryService;
     }
 
-    @GetMapping("/register")
+    @GetMapping(Constant.REGISTER_PAGE)
     @PreAuthorize("isAnonymous()")
     @PageTitle("Register")
     public ModelAndView register() {
@@ -61,7 +61,7 @@ public class UserController extends BaseController {
         if (!model.getImage().isEmpty()) {
             userServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
         }
-        this.userService.registerUser(this.modelMapper.map(model, UserServiceModel.class));
+        this.userService.registerUser(userServiceModel);
 
         return super.redirect("/login");
     }

@@ -2,6 +2,7 @@ package org.softuni.carpartsshop.web.controllers;
 
 import org.modelmapper.ModelMapper;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.models.binding.CategoryAddBindingModel;
 import org.softuni.carpartsshop.domain.models.service.CategoryServiceModel;
 import org.softuni.carpartsshop.domain.models.view.CategoryViewModel;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping(Constant.CATEGORIES_ACTION)
 public class CategoryController extends BaseController {
 
     private final CategoryService categoryService;
@@ -29,74 +30,74 @@ public class CategoryController extends BaseController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/add")
+    @GetMapping(Constant.GET_MAPPING_ADD)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    @PageTitle("Add Category")
+    @PageTitle(Constant.ADD_CATEGORIES)
     public ModelAndView addCategory() {
-        return super.view("category/add-category");
+        return super.view(Constant.ADD_CATEGORY_ACTION);
     }
 
-    @PostMapping("/add")
+    @PostMapping(Constant.POST_MAPPING_ADD)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView addCategoryConfirm(@ModelAttribute CategoryAddBindingModel model) {
         this.categoryService.addCategory(this.modelMapper.map(model, CategoryServiceModel.class));
 
-        return super.redirect("/categories/all");
+        return super.redirect(Constant.CATEGORY_CONFIRM_ALL);
     }
 
-    @GetMapping("/all")
+    @GetMapping(Constant.GET_MAPPING_ALL)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    @PageTitle("All Categories")
+    @PageTitle(Constant.ALL_CATEGORIES)
     public ModelAndView allCategories(ModelAndView modelAndView) {
-        modelAndView.addObject("categories",
+        modelAndView.addObject(Constant.CATEGORIES_ACTION_ALL,
                 this.categoryService.findAllCategories()
                         .stream()
                         .map(c -> this.modelMapper.map(c, CategoryViewModel.class))
                         .collect(Collectors.toList())
         );
 
-        return super.view("category/all-categories", modelAndView);
+        return super.view(Constant.CATEGORY_ADD_CATEGORY, modelAndView);
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping(Constant.GET_MAPPING_EDIT_ID)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    @PageTitle("Edit Category")
+    @PageTitle(Constant.EDIT_CATEGORY)
     public ModelAndView editCategory(@PathVariable String id, ModelAndView modelAndView) {
-        modelAndView.addObject("model",
+        modelAndView.addObject(Constant.ADD_OBJECT_MODEL,
                 this.modelMapper.map(this.categoryService.findCategoryById(id), CategoryViewModel.class)
         );
 
-        return super.view("category/edit-category", modelAndView);
+        return super.view(Constant.CATEGORY_EDIT_CATEGORY, modelAndView);
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping(Constant.POST_MAPPING_EDIT_ID)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView editCategoryConfirm(@PathVariable String id, @ModelAttribute CategoryAddBindingModel model) {
         this.categoryService.editCategory(id, this.modelMapper.map(model, CategoryServiceModel.class));
 
-        return super.redirect("/categories/all");
+        return super.redirect(Constant.CATEGORY_CONFIRM_ALL);
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping(Constant.GET_MAPPING_DELETE_ID)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    @PageTitle("Delete Category")
+    @PageTitle(Constant.DELETE_CATEGORY_ACTION)
     public ModelAndView deleteCategory(@PathVariable String id, ModelAndView modelAndView) {
-        modelAndView.addObject("model",
+        modelAndView.addObject(Constant.ADD_OBJECT_MODEL,
                 this.modelMapper.map(this.categoryService.findCategoryById(id), CategoryViewModel.class)
         );
 
-        return super.view("category/delete-category", modelAndView);
+        return super.view(Constant.CATEGORY_DELETE_CATEGORY, modelAndView);
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping(Constant.POST_MAPPING_DELETE_ID)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView deleteCategoryConfirm(@PathVariable String id) {
         this.categoryService.deleteCategory(id);
 
-        return super.redirect("/categories/all");
+        return super.redirect(Constant.CATEGORY_CONFIRM_ALL);
     }
 
-    @GetMapping("/fetch")
+    @GetMapping(Constant.GET_MAPPING_FETCH)
     @PreAuthorize("isAuthenticated()")
     @ResponseBody
     public List<CategoryViewModel> fetchCategories() {

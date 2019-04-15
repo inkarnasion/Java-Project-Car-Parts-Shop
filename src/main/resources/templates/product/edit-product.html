@@ -4,7 +4,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<th:block th:include="~{fragments/head}"></th:block>
-	<script th:src="@{/js/edit-product.js}" ></script>
+
 </head>
 
 <body>
@@ -52,6 +52,7 @@
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
 </body>
+	<!--script th:src="@{/js/edit-product.js}"></script-->
 <script th:inline="javascript">
 	fetch('/categories/fetch')
 			.then((response) => response.json())

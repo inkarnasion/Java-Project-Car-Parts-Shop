@@ -4,10 +4,12 @@ import org.modelmapper.ModelMapper;
 
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.models.service.CategoryServiceModel;
+import org.softuni.carpartsshop.domain.models.view.CategoryViewModel;
 import org.softuni.carpartsshop.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,5 +66,27 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository.delete(category);
 
         return this.modelMapper.map(category, CategoryServiceModel.class);
+    }
+    @Override
+    public List<CategoryViewModel> getCategoriesNames() {
+        List<CategoryViewModel> result;
+        result = findAllCategories().stream().map(o -> this.modelMapper.map(o, CategoryViewModel.class)).collect(Collectors.toList());
+
+        return result;
+    }
+
+    @Override
+    public List<CategoryServiceModel> getCategoriesByIds(List<String> ids) {
+
+            List<CategoryServiceModel> result = new ArrayList<>();
+
+            for (String id : ids) {
+
+                CategoryServiceModel model = findCategoryById(id);
+                result.add(model);
+            }
+
+            return result;
+
     }
 }

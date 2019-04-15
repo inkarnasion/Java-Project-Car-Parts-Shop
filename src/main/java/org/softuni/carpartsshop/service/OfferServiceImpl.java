@@ -38,7 +38,7 @@ public class OfferServiceImpl implements OfferService {
                 .collect(Collectors.toList());
     }
 
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(fixedRate = 10000)
     private void generateOffers() {
         this.offerRepository.deleteAll();
         List<ProductServiceModel> products = this.productService.findAllProducts();

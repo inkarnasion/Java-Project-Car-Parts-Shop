@@ -84,7 +84,7 @@ public class Product extends BaseEntity {
         this.orders = orders;
     }
 
-    @ManyToMany(targetEntity = Category.class)
+    @ManyToMany(targetEntity = Category.class,fetch = FetchType.EAGER)
     @JoinTable(
             name = "products_categories",
             joinColumns = @JoinColumn(

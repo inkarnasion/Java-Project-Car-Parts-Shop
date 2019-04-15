@@ -19,4 +19,5 @@ public interface ProductService {
     void deleteProduct(String id);
 
     List<ProductServiceModel> findAllByCategory(String category);
+
 }
