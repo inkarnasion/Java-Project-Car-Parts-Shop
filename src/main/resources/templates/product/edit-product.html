@@ -51,8 +51,8 @@
 	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
-</body>
 	<!--script th:src="@{/js/edit-product.js}"></script-->
+</body>
 <script th:inline="javascript">
 	fetch('/categories/fetch')
 			.then((response) => response.json())

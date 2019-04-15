@@ -1,112 +1,111 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<th:block th:include="~{fragments/head}"></th:block>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
 <body>
-	<header>
-		<th:block th:include="~{fragments/navbar}"></th:block>
-	</header>
-	<main class="mt-3">
-	<h1 class="text-center text-dark">𝔸𝕝𝕝 𝕌𝕤𝕖𝕣𝕤</h1>
-	<hr class="hr-2 bg-dark w-75">
-	<table class="table table-hover w-75 mx-auto">
-		<thead>
-			<tr class="row mx-auto">
-				<th class="col-md-2 text-center">#</th>
-				<th class="col-md-3 text-center">𝕌𝕤𝕖𝕣𝕟𝕒𝕞𝕖</th>
-				<th class="col-md-2 text-center">𝔼𝕞𝕒𝕚𝕝</th>
-				<th class="col-md-2 text-center">𝔽𝕚𝕣𝕤𝕥 ℕ𝕒𝕞𝕖</th>
-				<th class="col-md-2 text-center">𝕃𝕒𝕤𝕥 ℕ𝕒𝕞𝕖</th>
-				<th class="col-md-2 text-center">ℙ𝕙𝕠𝕟𝕖 ℕ𝕦𝕞𝕓𝕖𝕣</th>
-				<th class="col-md-2 text-center">ℂ𝕣𝕖𝕕𝕚𝕥ℂ𝕒𝕣𝕕 ℕ𝕦𝕞𝕓𝕖𝕣</th>
-				<th class="col-md-2 text-center">ℝ𝕠𝕝𝕖𝕤</th>
-				<th class="col-md-3 text-center">𝔸𝕔𝕥𝕚𝕠𝕟𝕤</th>
-			</tr>
-		</thead>
-		<tbody>
-			<th:block th:each="user, iter : ${users}">
-				<tr class="row mx-auto">
-					<th class="col-md-2 text-center" th:text="${iter.index + 1}"></th>
-					<td class="col-md-3 text-center" th:text="${user.username}"></td>
-					<td class="col-md-2 text-center" th:text="${user.email}"></td>
-					<td class="col-md-2 text-center" th:text="${user.firstName}"></td>
-					<td class="col-md-2 text-center" th:text="${user.lastName}"></td>
-					<td class="col-md-2 text-center" th:text="${user.phoneNumber}"></td>
-					<td class="col-md-2 text-center" th:text="${user.creditCardNumber}"></td>
-					<td class="col-md-2 text-center"
-						th:text="${#strings.listJoin(user.authorities, ', ')}"></td>
-					<td class="col-md-3 text-center">
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+        <script>
+            $(document).ready(function () {
+                $('#allUsers').DataTable();
+            });
+        </script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">Users</h1>
 
-						<div class="row">
-							<th:block
-								th:if="${#lists.contains(user.authorities, 'ROLE_USER') &&
-                            !#lists.contains(user.authorities, 'ROLE_MODERATOR') && !#lists.contains(user.authorities, 'ROLE_ADMIN')
-                        }">
-								<form th:action="@{/users/set-moderator/{id}(id=${user.id})}"
-									method="post">
-									<input type="hidden" name="_csrf"
-										value="80417983-fe8b-45c7-963e-31f6915a1560">
-									<button class="btn btn-dark">𝕄𝕆𝔻𝔼ℝ𝔸𝕋𝕆ℝ</button>
-								</form>
-								<form th:action="@{/users/set-admin/{id}(id=${user.id})}"
-									method="post">
-									<input type="hidden" name="_csrf"
-										value="80417983-fe8b-45c7-963e-31f6915a1560">
-									<button class="btn btn-dark">𝔸𝔻𝕄𝕀ℕ</button>
-								</form>
-							</th:block>
-							<th:block
-								th:if="${#lists.contains(user.authorities, 'ROLE_USER') &&
-                            #lists.contains(user.authorities, 'ROLE_MODERATOR') && !#lists.contains(user.authorities, 'ROLE_ADMIN')
-                        }">
-								<form th:action="@{/users/set-user/{id}(id=${user.id})}"
-									method="post">
-									<input type="hidden" name="_csrf"
-										value="80417983-fe8b-45c7-963e-31f6915a1560">
-									<button class="btn btn-dark">𝕌𝕊𝔼ℝ</button>
-								</form>
-								<form th:action="@{/users/set-admin/{id}(id=${user.id})}"
-									method="post">
-									<input type="hidden" name="_csrf"
-										value="80417983-fe8b-45c7-963e-31f6915a1560">
-									<button class="btn btn-dark">𝔸𝔻𝕄𝕀ℕ</button>
-								</form>
-							</th:block>
-							<th:block
-								th:if="${#lists.contains(user.authorities, 'ROLE_USER') &&
-                            #lists.contains(user.authorities, 'ROLE_MODERATOR') && #lists.contains(user.authorities, 'ROLE_ADMIN') && !#lists.contains(user.authorities, 'ROLE_ROOT')
-                        }">
-								<form th:action="@{/users/set-user/{id}(id=${user.id})}"
-									method="post">
-									<input type="hidden" name="_csrf"
-										value="80417983-fe8b-45c7-963e-31f6915a1560">
-									<button class="btn btn-dark">𝕌𝕊𝔼ℝ</button>
-								</form>
-								<form th:action="@{/users/set-moderator/{id}(id=${user.id})}"
-									method="post">
-									<input type="hidden" name="_csrf"
-										value="80417983-fe8b-45c7-963e-31f6915a1560">
-									<button class="btn btn-dark">𝕄𝕆𝔻𝔼ℝ𝔸𝕋𝕆ℝ</button>
-								</form>
-							</th:block>
-
-						</div>
-
-
-					</td>
-				</tr>
-			</th:block>
-
-
-		</tbody>
-	</table>
-	<hr class="hr-2 bg-dark">
-	</main>
-	<footer class="py-5 bg-dark">
-		<th:block th:include="~{fragments/footer}"></th:block>
-	</footer>
+        <table class="table" id="allUsers">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>CreditCard Number</th>
+                <th>Roles</th>
+                <th>Action</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user, iter : ${users}">
+                <td th:text="${iter.index} + 1"></td>
+                <td th:text="${user.username}" class="item"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.creditCardNumber}"></td>
+                <td th:text="${#strings.listJoin(user.authorities, ', ')}"></td>
+                <td>
+                    <div class="row">
+                        <th:block
+                                th:if="${#lists.contains(user.authorities, 'ROLE_USER') &&
+                                                    !#lists.contains(user.authorities, 'ROLE_MODERATOR') && !#lists.contains(user.authorities, 'ROLE_ADMIN')
+                                                }">
+                            <form th:action="@{/users/set-moderator/{id}(id=${user.id})}"
+                                  method="post">
+                                <input type="hidden" name="_csrf"
+                                       value="80417983-fe8b-45c7-963e-31f6915a1560">
+                                <button class="btn btn-dark">𝕄𝕆𝔻𝔼ℝ𝔸𝕋𝕆ℝ</button>
+                            </form>
+                            <form th:action="@{/users/set-admin/{id}(id=${user.id})}"
+                                  method="post">
+                                <input type="hidden" name="_csrf"
+                                       value="80417983-fe8b-45c7-963e-31f6915a1560">
+                                <button class="btn btn-dark">𝔸𝔻𝕄𝕀ℕ</button>
+                            </form>
+                        </th:block>
+                        <th:block
+                                th:if="${#lists.contains(user.authorities, 'ROLE_USER') &&
+                                                    #lists.contains(user.authorities, 'ROLE_MODERATOR') && !#lists.contains(user.authorities, 'ROLE_ADMIN')
+                                                }">
+                            <form th:action="@{/users/set-user/{id}(id=${user.id})}"
+                                  method="post">
+                                <input type="hidden" name="_csrf"
+                                       value="80417983-fe8b-45c7-963e-31f6915a1560">
+                                <button class="btn btn-dark">𝕌𝕊𝔼ℝ</button>
+                            </form>
+                            <form th:action="@{/users/set-admin/{id}(id=${user.id})}"
+                                  method="post">
+                                <input type="hidden" name="_csrf"
+                                       value="80417983-fe8b-45c7-963e-31f6915a1560">
+                                <button class="btn btn-dark">𝔸𝔻𝕄𝕀ℕ</button>
+                            </form>
+                        </th:block>
+                        <th:block
+                                th:if="${#lists.contains(user.authorities, 'ROLE_USER') &&
+                                                    #lists.contains(user.authorities, 'ROLE_MODERATOR') && #lists.contains(user.authorities, 'ROLE_ADMIN') && !#lists.contains(user.authorities, 'ROLE_ROOT')
+                                                }">
+                            <form th:action="@{/users/set-user/{id}(id=${user.id})}"
+                                  method="post">
+                                <input type="hidden" name="_csrf"
+                                       value="80417983-fe8b-45c7-963e-31f6915a1560">
+                                <button class="btn btn-dark">𝕌𝕊𝔼ℝ</button>
+                            </form>
+                            <form th:action="@{/users/set-moderator/{id}(id=${user.id})}"
+                                  method="post">
+                                <input type="hidden" name="_csrf"
+                                       value="80417983-fe8b-45c7-963e-31f6915a1560">
+                                <button class="btn btn-dark">𝕄𝕆𝔻𝔼ℝ𝔸𝕋𝕆ℝ</button>
+                            </form>
+                        </th:block>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer class="py-5 bg-dark">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
 </body>
 </html>

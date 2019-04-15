@@ -4,11 +4,13 @@ package org.softuni.carpartsshop.service;
 import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.domain.entites.Office;
 import org.softuni.carpartsshop.domain.models.service.OfficeServiceModel;
+import org.softuni.carpartsshop.domain.models.view.OfficeViewModel;
 import org.softuni.carpartsshop.repository.OfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.softuni.carpartsshop.config.Constant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -78,6 +80,21 @@ public class OfficeServiceImpl implements OfficeService {
          this.officeRepository.delete(office);
 
 
+    }
+
+    @Override
+    public List<OfficeViewModel> allOfficeAddresses(List<OfficeServiceModel> offices) {
+        List<OfficeViewModel> result =new ArrayList<>();
+        for (OfficeServiceModel m:offices) {
+            OfficeViewModel officeViewModel=new OfficeViewModel();
+            officeViewModel.setId(m.getId());
+            officeViewModel.setAddress(m.getAddress());
+
+            result.add(officeViewModel);
+
+        }
+
+        return result;
     }
 
 

@@ -47,7 +47,7 @@ public class Constant {
 
     //Cart Controller
     public static final String ADDING_PRODUCT = "/add-product";
-    public static final String CART_CART_DETAILS="cart/cart-details";
+    public static final String CART_CART_DETAILS="/cart/cart-details";
     public static final String CART_DETAILS="/cart/details";
     public static final String CHECK_OUT="/checkout";
     public static final String SHOPPING_CART="shopping-cart";

@@ -2,6 +2,7 @@ package org.softuni.carpartsshop.service;
 
 
 import org.softuni.carpartsshop.domain.models.service.OfficeServiceModel;
+import org.softuni.carpartsshop.domain.models.view.OfficeViewModel;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface OfficeService {
 	OfficeServiceModel findOfficeByID(String id);
 
 	void deleteOffice(OfficeServiceModel model);
+
+	List<OfficeViewModel> allOfficeAddresses(List<OfficeServiceModel> offices);
 
 }

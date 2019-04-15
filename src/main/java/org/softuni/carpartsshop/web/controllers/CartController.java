@@ -1,13 +1,13 @@
 package org.softuni.carpartsshop.web.controllers;
 
-import org.aspectj.apache.bcel.classfile.ConstantNameAndType;
-import org.hibernate.persister.collection.CollectionPropertyNames;
 import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.models.service.OrderServiceModel;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
+import org.softuni.carpartsshop.domain.models.view.OfficeViewModel;
 import org.softuni.carpartsshop.domain.models.view.ProductDetailsViewModel;
 import org.softuni.carpartsshop.domain.models.view.ShoppingCartItem;
+import org.softuni.carpartsshop.service.OfficeService;
 import org.softuni.carpartsshop.service.OrderService;
 import org.softuni.carpartsshop.service.ProductService;
 import org.softuni.carpartsshop.service.UserService;
@@ -15,10 +15,7 @@ import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +24,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(Constant.CART_PAGE)
@@ -36,13 +34,16 @@ public class CartController extends BaseController {
     private final UserService userService;
     private final OrderService orderService;
     private final ModelMapper modelMapper;
+    private final OfficeService officeService;
+
 
     @Autowired
-    public CartController(ProductService productService, UserService userService, OrderService orderService, ModelMapper modelMapper) {
+    public CartController(ProductService productService, UserService userService, OrderService orderService, ModelMapper modelMapper, OfficeService officeService) {
         this.productService = productService;
         this.userService = userService;
         this.orderService = orderService;
         this.modelMapper = modelMapper;
+        this.officeService = officeService;
     }
 
 
@@ -65,10 +66,11 @@ public class CartController extends BaseController {
     @GetMapping(Constant.DETAIL_ACTION)
     @PreAuthorize("isAuthenticated()")
     @PageTitle(Constant.PAGE_NAME_CART_DETAILS)
-    public ModelAndView cartDetails(ModelAndView modelAndView, HttpSession session) {
+    public ModelAndView cartDetails(ModelAndView modelAndView, HttpSession session, Principal principal, @ModelAttribute(name = "allOffices") OfficeViewModel officeViewModel) {
         var cart = this.retrieveCart(session);
         modelAndView.addObject(Constant.TOTAL_PRICE, this.calcTotal(cart));
-
+        modelAndView.addObject("customerCreditCart", this.userService.findUserByUserName(principal.getName()).getCreditCardNumber());
+        modelAndView.addObject("allOffices",this.officeService.allOfficeAddresses(this.officeService.findAllOffices()));
         return super.view(Constant.CART_CART_DETAILS, modelAndView);
     }
 
@@ -86,6 +88,10 @@ public class CartController extends BaseController {
         var cart = this.retrieveCart(session);
 
         OrderServiceModel orderServiceModel = this.prepareOrder(cart, principal.getName());
+        //SET Payment
+        orderServiceModel.setPayment(this.userService.findUserByUserName(principal.getName()).getCreditCardNumber());
+        //SET Delivery
+
         this.orderService.createOrder(orderServiceModel);
         return super.redirect(Constant.HOME_ACTION);
     }
@@ -143,4 +149,19 @@ public class CartController extends BaseController {
 
         return orderServiceModel;
     }
+
+    @GetMapping("/fetch")
+    @ResponseBody
+    public List<OfficeViewModel> fetchOffices() {
+        List<OfficeViewModel> result;
+
+        result = this.officeService.findAllOffices().stream()
+                .map(o -> this.modelMapper.map(o, OfficeViewModel.class))
+                .collect(Collectors.toList());
+
+
+        return result;
+    }
+
+
 }

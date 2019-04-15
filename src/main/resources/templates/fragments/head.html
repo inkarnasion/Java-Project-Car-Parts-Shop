@@ -1,4 +1,5 @@
-<th:block th:fragment>
+<th:block th:fragment xmlns:th="http://www.springframework.org/schema/jdbc">
+    <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -7,15 +8,13 @@
     <link rel="icon" th:href="${favicon}">
     <title th:text="${title}"></title>
 
-    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset-css.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/shop-homepage.css}" >
-
+        <link rel="stylesheet" type="text/css" th:href="@{/css/shop-homepage.css}" >
 
 <!--    <script th:src="@{/js/jquery-3.3.1.slim.min.js}"></script>-->
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
 </th:block>
