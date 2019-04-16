@@ -30,7 +30,7 @@ function validFormScript() {
     $(`#confirmPasswordRegister`).on(`keyup keypress`, function () {
 
         let field = $(`#confirmPasswordRegister`);
-        let helpText = $(`#confirmPasswordRegisterHelp`);
+        let helpText = $(`#ConfirmPasswordRegisterHelp`);
         let value = field.val().trim();
 
         if (value.length < 6 || value.length > 20) {
@@ -66,7 +66,7 @@ function validFormScript() {
     $(`#emailRegister`).on(`keyup keypress`, function () {
 
         let field = $(`#emailRegister`);
-        let helpText = $(`#emailRegisterHelp`);
+        let helpText = $(`#EmailRegisterHelp`);
         let value = field.val().trim();
 
         if (value.length < 2 || value.length > 20) {
