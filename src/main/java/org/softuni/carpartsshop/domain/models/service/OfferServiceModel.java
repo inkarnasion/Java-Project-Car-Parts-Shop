@@ -1,5 +1,7 @@
 package org.softuni.carpartsshop.domain.models.service;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class OfferServiceModel extends BaseServiceModel {
@@ -17,7 +19,8 @@ public class OfferServiceModel extends BaseServiceModel {
     public void setProduct(ProductServiceModel product) {
         this.product = product;
     }
-
+    @NotNull
+    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return price;
     }

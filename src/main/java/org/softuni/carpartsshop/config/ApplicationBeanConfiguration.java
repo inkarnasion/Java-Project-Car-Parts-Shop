@@ -2,6 +2,8 @@ package org.softuni.carpartsshop.config;
 
 import org.modelmapper.ModelMapper;
 
+import org.softuni.carpartsshop.utils.ValidationUtil;
+import org.softuni.carpartsshop.utils.ValidationUtilImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,5 +33,9 @@ public class ApplicationBeanConfiguration {
     public Validator validator()
     {
         return Validation.buildDefaultValidatorFactory().getValidator();
+    }
+    @Bean
+    public ValidationUtil validationUtil() {
+        return new ValidationUtilImpl();
     }
 }

@@ -8,6 +8,7 @@
 <body>
 <heder>
     <th:block th:insert="~{fragments/navbar}"></th:block>
+    <script th:src="@{/js/office-validate.js}"></script>
 </heder>
 <main>
     <div th:insert="~{fragments/office-form :: office-form-fragment(
@@ -23,5 +24,8 @@
 <footer class="py-5 bg-dark">
     <th:block th:include="~{fragments/footer}"></th:block>
 </footer>
+<script>
+    validFormScript();
+</script>
 </body>
 </html>

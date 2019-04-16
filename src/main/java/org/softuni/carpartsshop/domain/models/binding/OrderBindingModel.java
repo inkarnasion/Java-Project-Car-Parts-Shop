@@ -1,9 +1,11 @@
 package org.softuni.carpartsshop.domain.models.binding;
 
+import org.hibernate.validator.constraints.Length;
 import org.softuni.carpartsshop.domain.entites.Office;
 import org.softuni.carpartsshop.domain.entites.Shipment;
 import org.softuni.carpartsshop.domain.entites.Status;
 
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class OrderBindingModel {
@@ -28,6 +30,9 @@ public class OrderBindingModel {
         this.delivery = delivery;
     }
 
+    @NotNull
+    @Min(1)
+    @Max(10)
     public Integer getQuantity() {
         return this.quantity;
     }
@@ -36,6 +41,8 @@ public class OrderBindingModel {
         this.quantity = quantity;
     }
 
+    @NotNull(message = "Payment cannot be null")
+    @NotEmpty
     public String getPayment() {
         return this.payment;
     }
@@ -44,6 +51,8 @@ public class OrderBindingModel {
         this.payment = payment;
     }
 
+    @NotNull(message = "Shimpent cannot be null")
+    @NotEmpty
     public Shipment getShipment() {
         return this.shipment;
     }
@@ -52,6 +61,8 @@ public class OrderBindingModel {
         this.shipment = shipment;
     }
 
+    @NotNull(message = "Office cannot be null")
+    @NotEmpty
     public Office getOffice() {
         return this.office;
     }
@@ -60,6 +71,8 @@ public class OrderBindingModel {
         this.office = office;
     }
 
+    @NotNull(message = "Status cannot be null")
+    @NotEmpty
     public Status getStatus() {
         return this.status;
     }
@@ -72,6 +85,8 @@ public class OrderBindingModel {
         return this.price;
     }
 
+    @NotNull
+    @DecimalMin("0.01")
     public void setPrice(BigDecimal price) {
         this.price = price;
     }

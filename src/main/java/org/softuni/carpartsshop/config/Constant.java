@@ -8,6 +8,7 @@ public class Constant {
     public static final String FORM_METHOD_POST = "post";
     public static final String FORM_METHOD_PUT = "put";
     public static final String FORM_METHOD_DELETE = "delete";
+    public static final String FORM_METHOD = "post";
 
     //Mapping
     public static final String GET_MAPPING_ADD="/add";

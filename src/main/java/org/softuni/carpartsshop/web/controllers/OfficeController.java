@@ -12,9 +12,11 @@ import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,15 +47,18 @@ public class OfficeController extends BaseController {
 
     @PostMapping(Constant.ADD_OFFICE_ACTION)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView addOfficeConfirm(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") OfficeBindingModel officeBindingModel) throws IOException {
+    public ModelAndView addOfficeConfirm(@Valid ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") OfficeBindingModel officeBindingModel, BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return super.redirect(Constant.ADD_OFFICE_PAGE);
+        }
 
         OfficeServiceModel officeServiceModel = this.modelMapper.map(officeBindingModel, OfficeServiceModel.class);
         officeServiceModel.setImageUrl(this.cloudinaryService.uploadImage(officeBindingModel.getImage()));
 
         String id = this.officeService.addOffice(officeServiceModel);
-        if (id == null) {
-            return view(Constant.ADD_OFFICE_PAGE, modelAndView);
-        }
+//        if (id == null) {
+//            return view(Constant.ADD_OFFICE_PAGE, modelAndView);
+//        }
 
         return redirect(Constant.ALL_OFFICE_PAGE);
     }
@@ -83,9 +88,14 @@ public class OfficeController extends BaseController {
 
     @PostMapping(Constant.EDIT_OFFICE_ACTION + "{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView editOfficeConfirm(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") OfficeBindingModel officeBindingModel, @PathVariable String id) {
-
+    public ModelAndView editOfficeConfirm(@Valid  ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") OfficeBindingModel officeBindingModel, @PathVariable String id,BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return super.redirect(Constant.EDIT_OFFICE_PAGE);
+        }
         OfficeServiceModel officeServiceModel = this.modelMapper.map(officeBindingModel, OfficeServiceModel.class);
+        if (!officeBindingModel.getImage().isEmpty()) {
+            officeServiceModel.setImageUrl(this.cloudinaryService.uploadImage(officeBindingModel.getImage()));
+        }
         officeServiceModel.setId(id);
         officeServiceModel = this.officeService.editOffice(officeServiceModel);
         if (officeServiceModel == null) {

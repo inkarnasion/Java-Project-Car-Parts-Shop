@@ -5,6 +5,7 @@ import org.softuni.carpartsshop.domain.entites.Shipment;
 import org.softuni.carpartsshop.domain.entites.Status;
 import org.softuni.carpartsshop.domain.entites.User;
 
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,9 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setDelivery(String delivery) {
         this.delivery = delivery;
     }
-
+    @NotNull
+    @Min(1)
+    @Max(10)
     public Integer getQuantity() {
         return this.quantity;
     }
@@ -41,7 +44,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-
+    @NotNull(message = "Payment cannot be null")
+    @NotEmpty
     public String getPayment() {
         return this.payment;
     }
@@ -49,7 +53,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setPayment(String payment) {
         this.payment = payment;
     }
-
+    @NotNull(message = "Shimpent cannot be null")
+    @NotEmpty
     public Shipment getShipment() {
         return this.shipment;
     }
@@ -57,7 +62,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
     }
-
+    @NotNull(message = "Office cannot be null")
+    @NotEmpty
     public Office getOffice() {
         return this.office;
     }
@@ -65,7 +71,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setOffice(Office office) {
         this.office = office;
     }
-
+    @NotNull(message = "Status cannot be null")
+    @NotEmpty
     public Status getStatus() {
         return this.status;
     }
@@ -73,7 +80,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setStatus(Status status) {
         this.status = status;
     }
-
+    @NotNull
+    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }

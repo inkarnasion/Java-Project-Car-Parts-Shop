@@ -1,88 +1,68 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
 <body>
-<header>
-    <th:block th:include="~{fragments/navbar}"></th:block>
-</header>
-<main class="mt-3">
-    <h1 class="text-center text-dark">𝔸𝕝𝕝 ℙ𝕣𝕠𝕕𝕦𝕔𝕥𝕤</h1>
-    <hr class="hr-2 bg-dark w-75"/>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+        <script>
+            $(document).ready(function () {
+                $('#allProducts').DataTable();
+            });
+        </script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">All Products</h1>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="row">
-                    <th:block th:each="product : ${products}">
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <a href="#"><img class="card-img-top"
-                                                 th:src="${product.imageUrl}" width="150" height="150" alt=""></a>
-                                <div class="card-body">
-                                    <a class="card-title"> <label for="name"
-                                                                  class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        ℕ𝕒𝕞𝕖:</label>
-                                        <hr>
-                                        <a class="col-md-1 text-center"
-                                           th:text="${product.name}" id="name"></a>
-                                    </a>
-                                    <hr>
-                                    <label for="manufacture" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        𝕄𝕒𝕟𝕦𝕗𝕒𝕔𝕥𝕦𝕣𝕖:</label>
-                                    <hr>
-                                    <a class="col-md-3 text-center"
-                                       th:text="${product.manufacture}" id="manufacture"></a>
-                                    <hr>
-                                    <label for="model" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        𝕄𝕠𝕕𝕖𝕝:</label>
-                                    <hr>
-                                    <a class="col-md-3 text-center" th:text="${product.model}"
-                                       id="model"></a>
-                                    <hr>
-                                    <label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        ℙ𝕣𝕚𝕔𝕖:</label>
-                                    <hr>
-                                    <a class="col-md-2 text-center" th:text="${product.price}"
-                                       id="price"></a>
-                                    <hr>
-                                    <label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        𝔻𝕖𝕤𝕔𝕣𝕚𝕡𝕥𝕚𝕠𝕟:</label>
-                                    <hr>
-                                    <a class="col-md-3 text-center"
-                                       th:text="${product.description}"></a>
-                                    <hr>
-                                    <label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥
-                                        ℚ𝕦𝕒𝕟𝕥𝕚𝕥𝕪:</label>
-                                    <hr>
-                                    <a class="col-md-3 text-center" th:text="${product.quantity}"></a>
+        <table class="table" id="allProducts">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Manufacture</th>
+                <th>Model</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product, iter : ${products}">
+                <td th:text="${iter.index} + 1"></td>
+                <td><img th:src="${product.imageUrl}" width="40" height="40" alt="Product"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.manufacture}"></td>
+                <td th:text="${product.model}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.quantity}"></td>
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/products/details/{id}(id=${product.id})}" th:text="Details"></a>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/products/edit/{id}(id=${product.id})}" th:text="Edit"></a>
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/products/delete/{id}(id=${product.id})}" th:text="Delete"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-                                </div>
-
-                                <div class="card-footer">
-                                    <small class="text-muted">&#9733; &#9733; &#9733;
-                                        &#9733; &#9734;
-                                    </small>
-                                </div>
-                                <hr>
-                                <td class="col-md-3 text-center">
-                                    <a th:href="@{/products/details/{id}(id=${product.id})}" class="btn btn-secondary font-weight-bold text-white">Details</a>
-                                    <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-success font-weight-bold text-white">Edit</a>
-                                    <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger font-weight-bold text-white">Delete</a>
-                                </td>
-                            </div>
-                        </div>
-                    </th:block>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-<footer class="py-5 bg-dark">
-    <th:block th:include="~{fragments/footer}"></th:block>
-</footer>
+    </main>
+    <footer class="py-5 bg-dark">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
 </body>
 </html>
+

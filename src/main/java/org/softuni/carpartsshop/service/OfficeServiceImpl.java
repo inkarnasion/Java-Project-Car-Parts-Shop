@@ -6,6 +6,7 @@ import org.softuni.carpartsshop.domain.entites.Office;
 import org.softuni.carpartsshop.domain.models.service.OfficeServiceModel;
 import org.softuni.carpartsshop.domain.models.view.OfficeViewModel;
 import org.softuni.carpartsshop.repository.OfficeRepository;
+import org.softuni.carpartsshop.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.softuni.carpartsshop.config.Constant;
@@ -20,16 +21,21 @@ public class OfficeServiceImpl implements OfficeService {
 
     private final OfficeRepository officeRepository;
     private final ModelMapper modelMapper;
+    private final ValidationUtil validationUtil;
 
     @Autowired
-    public OfficeServiceImpl(OfficeRepository officeRepository, ModelMapper modelMapper) {
+    public OfficeServiceImpl(OfficeRepository officeRepository, ModelMapper modelMapper, ValidationUtil validationUtil) {
 
         this.officeRepository = officeRepository;
         this.modelMapper = modelMapper;
+        this.validationUtil = validationUtil;
     }
 
     @Override
     public String addOffice(OfficeServiceModel model) {
+        if (!this.validationUtil.isValid(model)) {
+            throw new IllegalArgumentException("Trying to add invalid data!");
+        }
         String result;
 
 
@@ -43,6 +49,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public OfficeServiceModel editOffice(OfficeServiceModel model) {
+        if (!this.validationUtil.isValid(model)) {
+            throw new IllegalArgumentException("Trying to add invalid data!");
+        }
         Office office = this.officeRepository.findById(model.getId()).orElseThrow(() -> new NoSuchElementException(Constant.ERROR_MESSAGE));
 
 

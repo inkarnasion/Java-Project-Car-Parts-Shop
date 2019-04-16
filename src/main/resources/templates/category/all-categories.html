@@ -1,48 +1,50 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<th:block th:include="~{fragments/head}"></th:block>
-
+	<th:block th:include="~{fragments/head}"></th:block>
+	<script type="text/javascript" charset="utf8"
+			src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
-
 <body>
+<div class="container-fluid">
 	<header>
 		<th:block th:include="~{fragments/navbar}"></th:block>
+		<script>
+			$(document).ready(function () {
+				$('#allOffices').DataTable();
+			});
+		</script>
 	</header>
 
-	<main class="mt-3">
-	<h1 class="text-center text-dark">𝔸𝕝𝕝 ℂ𝕒𝕥𝕖𝕘𝕠𝕣𝕚𝕖𝕤</h1>
-	<hr class="hr-2 bg-dark w-75">
-	<table class="table table-hover w-75 mx-auto">
-		<thead>
-			<tr class="row mx-auto">
-				<th class="col-md-2 text-center">#</th>
-				<th class="col-md-5 text-center">ℕ𝕒𝕞𝕖</th>
-				<th class="col-md-5 text-center">𝔸𝕔𝕥𝕚𝕠𝕟𝕤</th>
+	<main >
+		<h1 style="margin-top: 20px" class="text-center">All Categories</h1>
+
+		<table class="table" id="allOffices">
+			<thead>
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>Action</th>
+				<th></th>
 			</tr>
-		</thead>
-		<tbody>
+			</thead>
+			<tbody>
+			<tr th:each="category, iter : ${categories}">
+				<td th:text="${iter.index} + 1" ></td>
+				<td th:text="${category.name}"></td>
+				<td>
+					<a class="btn btn-outline-secondary"
+					   th:href="@{/categories/edit/{id}(id=${category.id})}" th:text="Edit"></a>
+				</td>
+				<td>
+					<a class="btn btn-outline-secondary"
+					   th:href="@{/categories/delete/{id}(id=${category.id})}" th:text="Delete"></a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
 
-			<th:block th:each="category, iter : ${categories}">
-				<tr class="row mx-auto">
-					<th class="col-md-2 text-center" th:text="${iter.index + 1}"></th>
-					<td class="col-md-5 text-center" th:text="${category.name}"></td>
-					<td class="col-md-5 text-center"><a
-						th:href="@{/categories/edit/{id}(id=${category.id})}"
-						class="btn btn-dark">𝔼𝕕𝕚𝕥</a> <a
-						th:href="@{/categories/delete/{id}(id=${category.id})}"
-						class="btn btn-dark">𝔻𝕖𝕝𝕖𝕥𝕖</a></td>
-				</tr>
-			</th:block>
-
-
-		</tbody>
-	</table>
-	<hr class="hr-2 bg-dark">
 	</main>
 
 

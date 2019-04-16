@@ -33,7 +33,7 @@ public class Product extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-    @Column(name = "image_url")
+    @Column(name = "image_url",nullable = false)
     public String getImageUrl() {
         return this.imageUrl;
     }

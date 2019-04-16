@@ -11,9 +11,11 @@ import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,11 +41,16 @@ public class CategoryController extends BaseController {
 
     @PostMapping(Constant.POST_MAPPING_ADD)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView addCategoryConfirm(@ModelAttribute CategoryAddBindingModel model) {
-        this.categoryService.addCategory(this.modelMapper.map(model, CategoryServiceModel.class));
+    public ModelAndView addCategoryConfirm(@Valid @ModelAttribute(name = "bindingModel")CategoryAddBindingModel model, BindingResult bindingResult ) {
 
+        if (bindingResult.hasErrors()) {
+            return super.view(Constant.ADD_CATEGORY_ACTION);
+        }
+
+        this.categoryService.addCategory(this.modelMapper.map(model, CategoryServiceModel.class));
         return super.redirect(Constant.CATEGORY_CONFIRM_ALL);
     }
+
 
     @GetMapping(Constant.GET_MAPPING_ALL)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
@@ -63,6 +70,7 @@ public class CategoryController extends BaseController {
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     @PageTitle(Constant.EDIT_CATEGORY)
     public ModelAndView editCategory(@PathVariable String id, ModelAndView modelAndView) {
+
         modelAndView.addObject(Constant.ADD_OBJECT_MODEL,
                 this.modelMapper.map(this.categoryService.findCategoryById(id), CategoryViewModel.class)
         );
@@ -70,9 +78,16 @@ public class CategoryController extends BaseController {
         return super.view(Constant.CATEGORY_EDIT_CATEGORY, modelAndView);
     }
 
-    @PostMapping(Constant.POST_MAPPING_EDIT_ID)
+    @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView editCategoryConfirm(@PathVariable String id, @ModelAttribute CategoryAddBindingModel model) {
+    public ModelAndView editCategoryConfirm(@Valid @ModelAttribute(name = "bindingModel")CategoryAddBindingModel model ,@PathVariable String id,BindingResult bindingResult,ModelAndView modelAndView) {
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject(Constant.ADD_OBJECT_MODEL,
+                    this.modelMapper.map(this.categoryService.findCategoryById(id), CategoryViewModel.class)
+            );
+            return super.view(Constant.CATEGORY_EDIT_CATEGORY,modelAndView);
+        }
         this.categoryService.editCategory(id, this.modelMapper.map(model, CategoryServiceModel.class));
 
         return super.redirect(Constant.CATEGORY_CONFIRM_ALL);

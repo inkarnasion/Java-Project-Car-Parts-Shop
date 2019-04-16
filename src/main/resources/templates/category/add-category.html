@@ -12,6 +12,7 @@
 <body>
 	<header>
 		<th:block th:include="~{fragments/navbar}"></th:block>
+		<script th:src="@{/js/category-validate.js}"></script>
 	</header>
 
 	<main class="mt-3">
@@ -21,10 +22,13 @@
 		th:action="@{/categories/add}" method="post">
 		<input type="hidden" name="_csrf"
 			value="c686cd14-a7f9-4216-8009-c093b7d3df86">
+
 		<div class="form-group">
 			<label for="add-category-name" class="font-weight-bold">ℕ𝕒𝕞𝕖</label>
-			<input type="text" class="form-control text-center"
-				id="add-category-name" name="name">
+			<input type="text" class="form-control text-center"name="name"
+				id="add-category-name" placeholder="Lenght must be between 2 and 50 characters" >
+			<small id="nameHelp" style="display: none" class="form-text text-muted"></small>
+
 		</div>
 		<hr class="hr-2 bg-dark">
 		<div class="button-holder d-flex justify-content-center">
@@ -33,21 +37,24 @@
 		</div>
 	</form>
 	</main>
-	<div class="jumbotron bg-light">
+<!--	<div class="jumbotron bg-light">-->
 
-		<hr>
-		<p>
-			𝕋𝕙𝕚𝕤 𝕚𝕤 𝕥𝕙𝕖 𝕓𝕚𝕘𝕘𝕖𝕤𝕥, 𝕓𝕖𝕤𝕥 𝕠𝕟𝕝𝕚𝕟𝕖 𝕔𝕒𝕣
-			𝕡𝕣𝕠𝕕𝕦𝕔𝕥𝕤 𝕤𝕙𝕠𝕡! <a rel="stylesheet"
-				href="/templates/login.html" th:href="@{/users/login}">𝕃𝕠𝕘𝕚𝕟</a>,
-			𝕚𝕗 𝕪𝕠𝕦 𝕕𝕠𝕟'𝕥 𝕙𝕒𝕧𝕖 𝕒𝕟 𝕒𝕔𝕔𝕠𝕦𝕟𝕥, 𝕕𝕠𝕟'𝕥
-			𝕙𝕖𝕤𝕚𝕥𝕒𝕥𝕖- <a rel="stylesheet" href="/templates/register.html"
-				th:href="@{/users/register}">ℝ𝕖𝕘𝕚𝕤𝕥𝕖𝕣</a>
-		</p>
-	</div>
+<!--		<hr>-->
+<!--		<p>-->
+<!--			𝕋𝕙𝕚𝕤 𝕚𝕤 𝕥𝕙𝕖 𝕓𝕚𝕘𝕘𝕖𝕤𝕥, 𝕓𝕖𝕤𝕥 𝕠𝕟𝕝𝕚𝕟𝕖 𝕔𝕒𝕣-->
+<!--			𝕡𝕣𝕠𝕕𝕦𝕔𝕥𝕤 𝕤𝕙𝕠𝕡! <a rel="stylesheet"-->
+<!--				href="/templates/login.html" th:href="@{/users/login}">𝕃𝕠𝕘𝕚𝕟</a>,-->
+<!--			𝕚𝕗 𝕪𝕠𝕦 𝕕𝕠𝕟'𝕥 𝕙𝕒𝕧𝕖 𝕒𝕟 𝕒𝕔𝕔𝕠𝕦𝕟𝕥, 𝕕𝕠𝕟'𝕥-->
+<!--			𝕙𝕖𝕤𝕚𝕥𝕒𝕥𝕖- <a rel="stylesheet" href="/templates/register.html"-->
+<!--				th:href="@{/users/register}">ℝ𝕖𝕘𝕚𝕤𝕥𝕖𝕣</a>-->
+<!--		</p>-->
+<!--	</div>-->
 
 	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
+	<script>
+		validFormScript();
+	</script>
 </body>
 </html>

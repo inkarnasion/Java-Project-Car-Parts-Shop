@@ -50,7 +50,7 @@ public class Order extends BaseEntity {
         this.payment = payment;
     }
 
-    @Column(name = "price")
+    @Column(name = "price",nullable = false)
     public BigDecimal getPrice() {
         return this.price;
     }

@@ -103,7 +103,7 @@ public class User extends BaseEntity implements UserDetails {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-@Column(name = "image_url")
+@Column(name = "image_url",nullable = false)
     public String getImageUrl() {
         return this.imageUrl;
     }
@@ -112,7 +112,7 @@ public class User extends BaseEntity implements UserDetails {
         this.imageUrl = imageUrl;
     }
 
-    @Column(name = "credit_card_number", nullable = false)
+    @Column(name = "credit_card_number", nullable = false,unique = true)
     public String getCreditCardNumber() {
         return this.creditCardNumber;
     }

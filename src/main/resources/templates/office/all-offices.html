@@ -1,54 +1,63 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:insert="~{fragments/head}"></th:block>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
 <body>
-<heder>
-    <th:block th:insert="~{fragments/navbar}"></th:block>
-</heder>
-<main class="mt-2">
-    <hr class="hr-2 bg-dark"/>
-    <h5 class="text-center text-dark" th:text="${'All Offices'}"></h5>
-    <hr class="hr-2 bg-dark w-75"/>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+        <script>
+            $(document).ready(function () {
+                $('#allOffices').DataTable();
+            });
+        </script>
+    </header>
+    <main>
+        <h1 style="margin-top: 20px" class="text-center">All Offices</h1>
 
-    <table class="table table-hover w-75 mx-auto">
-        <thead>
-        <tr class="row mx-auto">
-            <th class="col-md-1 text-center">#</th>
-            <th class="col-md-3 text-center">Image</th>
-            <th class="col-md-3 text-center">City</th>
-            <th class="col-md-2 text-center">Address</th>
-            <th class="col-md-3 text-center">Phone Number</th>
-            <th class="col-md-3 text-center">Email</th>
-            <th class="col-md-3 text-center">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="office, iter : ${offices}">
-            <tr class="row mx-auto">
-                <th class="col-md-1 text-center" th:text="${iter.index + 1}"></th>
-                <td class="col-md-3"><div class="text-center"><img th:src="${office.imageUrl}" width="40" height="40" alt="Product"></div></td>
-                <td class="col-md-3 text-center" th:text="${office.city}"></td>
-                <td class="col-md-3 text-center" th:text="${office.address}"></td>
-                <td class="col-md-2 text-center" th:text="${office.phoneNumber}"></td>
-                <td class="col-md-2 text-center" th:text="${office.email}"></td>
-                <td class="col-md-3 text-center">
-                    <a th:href="@{${T(org.softuni.carpartsshop.config.Constant).EDIT_OFFICE_ACTION}+${office.id}}" class="btn btn-success font-weight-bold text-white">Edit</a>
-                    <a th:href="@{${T(org.softuni.carpartsshop.config.Constant).DELETE_OFFICE_ACTION}+${office.id}}" class="btn btn-danger font-weight-bold text-white">Delete</a>
+        <table class="table" id="allOffices">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Action</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="office, iter : ${offices}">
+                <td th:text="${iter.index} + 1"></td>
+                <td><img th:src="${office.imageUrl}" width="40" height="40" alt="Product"></td>
+                <td th:text="${office.city}"></td>
+                <td th:text="${office.address}"></td>
+                <td th:text="${office.phoneNumber}"></td>
+                <td th:text="${office.email}"></td>
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{${T(org.softuni.carpartsshop.config.Constant).EDIT_OFFICE_ACTION}+${office.id}}"
+                       th:text="Edit"></a>
+                </td>
+                <td>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{${T(org.softuni.carpartsshop.config.Constant).DELETE_OFFICE_ACTION}+${office.id}}"
+                       th:text="Delete"></a>
                 </td>
             </tr>
-        </th:block>
-        </tbody>
-    </table>
-    <hr class="hr-2 bg-dark"/>
+            </tbody>
+        </table>
 
-
-</main>
-<footer class="py-5 bg-dark">
-    <th:block th:include="~{fragments/footer}"></th:block>
-</footer>
+    </main>
+    <footer class="py-5 bg-dark">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
 </body>
 </html>
