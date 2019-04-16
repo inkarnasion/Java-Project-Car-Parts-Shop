@@ -4,10 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.entites.Order;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -79,8 +76,7 @@ public class ProductServiceModel extends BaseServiceModel {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    @NotNull
-    @NotEmpty
+
     public String getImageUrl() {
         return this.imageUrl;
     }
@@ -97,8 +93,8 @@ public class ProductServiceModel extends BaseServiceModel {
         this.categories = categories;
     }
     @NotNull
-    @NotEmpty
     @Min(1)
+    @Max(100)
     public Integer getQuantity() {
         return this.quantity;
     }

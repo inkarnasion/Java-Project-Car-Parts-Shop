@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.domain.entites.User;
 import org.softuni.carpartsshop.domain.models.service.UserServiceModel;
 import org.softuni.carpartsshop.repository.UserRepository;
+import org.softuni.carpartsshop.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,17 +23,22 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ValidationUtil validationUtil;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder, ValidationUtil validationUtil) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.validationUtil = validationUtil;
     }
 
     @Override
     public UserServiceModel registerUser(UserServiceModel userServiceModel) {
+        if (!this.validationUtil.isValid(userServiceModel)) {
+            throw new IllegalArgumentException("Trying to add invalid data!");
+        }
         this.roleService.seedRolesInDb();
         if (this.userRepository.count() == 0) {
             userServiceModel.setAuthorities(this.roleService.findAllRoles());
@@ -67,6 +73,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword) {
+        if (!this.validationUtil.isValid(userServiceModel)) {
+            throw new IllegalArgumentException("Trying to add invalid data!");
+        }
         User user = this.userRepository.findByUsername(userServiceModel.getUsername())
                 .orElseThrow(()-> new UsernameNotFoundException("Username not found!"));
 

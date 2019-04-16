@@ -2,6 +2,7 @@ package org.softuni.carpartsshop.web.controllers;
 
 import org.modelmapper.ModelMapper;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.models.binding.ProductAddBindingModel;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
 import org.softuni.carpartsshop.domain.models.view.ProductAllViewModel;
@@ -15,9 +16,11 @@ import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,7 +52,11 @@ public class ProductController extends BaseController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     @PageTitle("Add Product")
-    public ModelAndView addProductConfirm(@ModelAttribute ProductAddBindingModel model) throws IOException {
+    public ModelAndView addProductConfirm(@Valid @ModelAttribute(name = "bindingModel") ProductAddBindingModel model, BindingResult bindingResult) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            return super.view("product/add-product");
+        }
         ProductServiceModel productServiceModel = this.modelMapper.map(model, ProductServiceModel.class);
 
         productServiceModel.setCategories(this.categoryService.findAllCategories().stream()
@@ -101,8 +108,10 @@ public class ProductController extends BaseController {
 
     @PostMapping("/edit/{id}")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public ModelAndView editProductConfirm(@PathVariable String id, @ModelAttribute ProductAddBindingModel model) {
-
+    public ModelAndView editProductConfirm(@PathVariable String id,@Valid @ModelAttribute(name = "bindingModel") ProductAddBindingModel model,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return super.redirect("product/edit-product");
+        }
         ProductServiceModel productServiceModel = this.modelMapper.map(model, ProductServiceModel.class);
         productServiceModel.setCategories(this.categoryService.getCategoriesByIds(model.getCategories()));
 

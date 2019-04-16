@@ -9,8 +9,10 @@
 <body>
 	<header>
 		<th:block th:include="~{fragments/navbar}"></th:block>
+		<script th:src="@{/js/product-validate.js}"></script>
+		<script th:src="@{/js/add-product.js}" ></script>
 	</header>
-	<script th:src="@{/js/add-product.js}" ></script>
+
 	<main class="mt-3">
 	<h1 class="text-center text-dark">𝔸𝕕𝕕 ℙ𝕣𝕠𝕕𝕦𝕔𝕥</h1>
 	<hr class="hr-2 bg-dark w-25">
@@ -21,34 +23,46 @@
 			value="c686cd14-a7f9-4216-8009-c093b7d3df86">
 		<div class="form-group">
 			<label for="add-product-name" class="font-weight-bold">ℕ𝕒𝕞𝕖</label>
-			<input type="text" class="form-control text-center"
+			<input type="text" class="form-control text-center" placeholder="Lenght must be between 2 and 20 characters"
 				id="add-product-name" name="name">
+			<small id="nameHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
+
 		<div class="form-group">
 			<label for="add-product-manufacture" class="font-weight-bold">𝕄𝕒𝕟𝕦𝕗𝕒𝕔𝕥𝕦𝕣𝕖</label>
-			<input type="text" class="form-control text-center"
+			<input type="text" class="form-control text-center" placeholder="Lenght must be between 2 and 20 characters"
 				id="add-product-manufacture" name="manufacture">
+			<small id="manufatureHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
+
 		<div class="form-group">
 			<label for="add-product-model" class="font-weight-bold">𝕄𝕠𝕕𝕖𝕝</label>
-			<input type="text" class="form-control text-center"
+			<input type="text" class="form-control text-center" placeholder="Lenght must be between 2 and 20 characters"
 				id="add-product-model" name="model">
+			<small id="modelHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
+
 		<div class="form-group">
 			<label for="add-product-description" class="font-weight-bold">𝔻𝕖𝕤𝕔𝕣𝕚𝕡𝕥𝕚𝕠𝕟</label>
-			<textarea name="description" id="add-product-description" cols="41"
+			<textarea name="description" id="add-product-description" cols="41" placeholder="Lenght must be between 2 and 20 characters"
 				rows="5"></textarea>
+			<small id="descriptionHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
+
 		<div class="form-group">
 			<label for="add-product-price" class="font-weight-bold">ℙ𝕣𝕚𝕔𝕖</label>
-			<input type="number" step="any" class="form-control text-center"
+			<input type="number" step="any" class="form-control text-center" placeholder="Input at least one number"
 				id="add-product-price" name="price">
+			<small id="priceHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
+
 		<div class="form-group">
 		<label for="add-product-quantity" class="font-weight-bold">ℚ𝕦𝕒𝕟𝕥𝕚𝕥𝕪</label>
-		<input type="number" step="any" class="form-control text-center"
+		<input type="number" step="any" class="form-control text-center" placeholder="Input at least one number"
 id="add-product-quantity" name="quantity">
+			<small id="quantityHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
+
 		<div class="form-group">
 			<label for="add-product-categories" class="font-weight-bold">ℂ𝕒𝕥𝕖𝕘𝕠𝕣𝕚𝕖𝕤</label>
 			<select multiple="" class="form-control" id="add-product-categories"
@@ -56,11 +70,13 @@ id="add-product-quantity" name="quantity">
 				<option selected="" disabled="">--- Select Categories ---</option>
 			</select>
 		</div>
+
 		<div class="form-group">
 			<label for="add-product-image" class="font-weight-bold">𝕀𝕞𝕒𝕘𝕖</label>
 			<input type="file" class="form-control-file" id="add-product-image"
 				name="image">
 		</div>
+
 		<hr class="hr-2 bg-dark w-25">
 		<div class="button-holder d-flex justify-content-center">
 			<button type="submit" class="btn btn-success">𝔸𝕕𝕕
@@ -71,5 +87,8 @@ id="add-product-quantity" name="quantity">
 	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
+	<script>
+		validFormScript();
+	</script>
 </body>
 </html>

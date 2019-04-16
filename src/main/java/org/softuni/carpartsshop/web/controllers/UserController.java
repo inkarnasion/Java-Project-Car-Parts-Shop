@@ -16,10 +16,12 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
@@ -52,7 +54,10 @@ public class UserController extends BaseController {
 
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
-    public ModelAndView registerConfirm(@ModelAttribute UserRegisterBindingModel model) throws IOException {
+    public ModelAndView registerConfirm(@Valid @ModelAttribute(name = "bindingModel") UserRegisterBindingModel model,BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return super.redirect(Constant.REGISTER_PAGE);
+        }
 
         if (!model.getPassword().equals(model.getConfirmPassword())) {
             return super.view("register");
@@ -111,7 +116,10 @@ public class UserController extends BaseController {
 
     @PatchMapping("/edit")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView editProfileConfirm(@ModelAttribute UserEditBindingModel model) throws IOException {
+    public ModelAndView editProfileConfirm(@Valid @ModelAttribute(name = "bindingModel") UserEditBindingModel model, BindingResult bindingResult) throws IOException {
+        if (bindingResult.hasErrors()) {
+            return super.redirect("edit-profile");
+        }
         if (!model.getPassword().equals(model.getConfirmPassword())) {
             return super.view("edit-profile");
         }

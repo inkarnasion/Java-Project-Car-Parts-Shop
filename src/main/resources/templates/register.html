@@ -11,6 +11,7 @@
 <body>
 	<header>
 		<th:block th:include="~{fragments/navbar}"></th:block>
+		<script th:src="@{/js/user-validate.js}"></script>
 	</header>
 
 
@@ -23,51 +24,60 @@
 		<input type="hidden" name="_csrf"
 			value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
 		<div class="form-group">
-			<label for="username" class="font-weight-bold">𝕌𝕤𝕖𝕣𝕟𝕒𝕞𝕖</label>
-			<input type="text" class="form-control" id="username"
+			<label for="usernameRegister" class="font-weight-bold">𝕌𝕤𝕖𝕣𝕟𝕒𝕞𝕖</label>
+			<input type="text" class="form-control" id="usernameRegister"
 				placeholder="Username..." name="username">
+			<small id="nameRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="password" class="font-weight-bold">ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕Password</label>
-			<input type="password" class="form-control" id="password"
+			<label for="passwordRegister" class="font-weight-bold">ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕Password</label>
+			<input type="password" class="form-control" id="passwordRegister"
 				placeholder="Password..." name="password">
+			<small id="passwordRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="confirmPassword" class="font-weight-bold">ℂ𝕠𝕟𝕗𝕚𝕣𝕞
+			<label for="confirmPasswordRegister" class="font-weight-bold">ℂ𝕠𝕟𝕗𝕚𝕣𝕞
 				ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕</label> <input type="password" class="form-control"
-				id="confirmPassword" placeholder="Confirm Password..."
+				id="confirmPasswordRegister" placeholder="Confirm Password..."
 				name="confirmPassword">
+			<small id="ConfirmPasswordRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="firstName" class="font-weight-bold">𝔽𝕚𝕣𝕤𝕥
-				ℕ𝕒𝕞𝕖</label> <input type="text" class="form-control" id="firstName"
+			<label for="firstNameRegister" class="font-weight-bold">𝔽𝕚𝕣𝕤𝕥
+				ℕ𝕒𝕞𝕖</label> <input type="text" class="form-control" id="firstNameRegister"
 				placeholder="firstName..." name="firstName">
+			<small id="firstNameRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="lastName" class="font-weight-bold">𝕃𝕒𝕤𝕥
-				ℕ𝕒𝕞𝕖</label> <input type="text" class="form-control" id="lastName"
+			<label for="lastNameRegister" class="font-weight-bold">𝕃𝕒𝕤𝕥
+				ℕ𝕒𝕞𝕖</label> <input type="text" class="form-control" id="lastNameRegister"
 				placeholder="lastName..." name="lastName">
+			<small id="LastNameRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="email" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label> <input
-				type="email" class="form-control" id="email" placeholder="Email..."
+			<label for="emailRegister" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label> <input
+				type="email" class="form-control" id="emailRegister" placeholder="Email..."
 				name="email">
+			<small id="EmailRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="phoneNumber" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖
-				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" class="form-control" id="phoneNumber"
+			<label for="phoneNumberRegister" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖
+				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" class="form-control" id="phoneNumberRegister"
 				placeholder="Phone Number..." name="phoneNumber">
+			<small id="phoneNumberRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="creditCardNumber" class="font-weight-bold">ℂ𝕣𝕖𝕕𝕚𝕥ℂ𝕒𝕣𝕕
+			<label for="creditCardNumberRegister" class="font-weight-bold">ℂ𝕣𝕖𝕕𝕚𝕥ℂ𝕒𝕣𝕕
 				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" class="form-control"
-				id="creditCardNumber" placeholder="CreditCard Number..."
+				id="creditCardNumberRegister" placeholder="CreditCard Number..."
 				name="creditCardNumber">
+			<small id="creditCardNumberRegisterHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
 			<label for="add-product-image" class="font-weight-bold">𝕀𝕞𝕒𝕘𝕖</label>
 			<input type="file" class="form-control-file" id="add-product-image"
 				   name="image">
+
 		</div>
 		<hr class="hr-2 bg-dark">
 		<div class="button-holder d-flex justify-content-center">
@@ -81,5 +91,8 @@
 	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
+	<script>
+		validFormScript();
+	</script>
 </body>
 </html>

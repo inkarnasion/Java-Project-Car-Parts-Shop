@@ -103,7 +103,7 @@ public class User extends BaseEntity implements UserDetails {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-@Column(name = "image_url",nullable = false)
+@Column(name = "image_url")
     public String getImageUrl() {
         return this.imageUrl;
     }

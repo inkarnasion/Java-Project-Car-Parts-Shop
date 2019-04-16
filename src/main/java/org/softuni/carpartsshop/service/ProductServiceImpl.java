@@ -4,16 +4,15 @@ import org.modelmapper.ModelMapper;
 
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.entites.Product;
-import org.softuni.carpartsshop.domain.models.service.CategoryServiceModel;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
 import org.softuni.carpartsshop.error.ProductNameAlreadyExistsException;
 import org.softuni.carpartsshop.error.ProductNotFoundException;
 import org.softuni.carpartsshop.repository.OfferRepository;
 import org.softuni.carpartsshop.repository.ProductRepository;
+import org.softuni.carpartsshop.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,18 +23,23 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryService categoryService;
     private final ModelMapper modelMapper;
     private final OfferRepository offerRepository;
+    private final ValidationUtil validationUtil;
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService,
-                              ModelMapper modelMapper, OfferRepository offerRepository) {
+                              ModelMapper modelMapper, OfferRepository offerRepository, ValidationUtil validationUtil) {
         this.productRepository = productRepository;
         this.categoryService = categoryService;
         this.modelMapper = modelMapper;
         this.offerRepository = offerRepository;
+        this.validationUtil = validationUtil;
     }
 
     @Override
     public ProductServiceModel addProduct(ProductServiceModel productServiceModel) {
+        if (!this.validationUtil.isValid(productServiceModel)) {
+            throw new IllegalArgumentException("Trying to add invalid data!");
+        }
 
         Product product = this.productRepository
                 .findByName(productServiceModel.getName())
@@ -74,7 +78,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductServiceModel editProduct(String id, ProductServiceModel productServiceModel) {
-        Product product = this.productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+        if (!this.validationUtil.isValid(productServiceModel)) {
+            throw new IllegalArgumentException("Trying to add invalid data!");
+        }
+        Product product = this.productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with the given id was not found!"));
 
         product.setName(productServiceModel.getName());
         product.setDescription(productServiceModel.getDescription());
@@ -88,10 +95,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(String id) {
-        Product product = this.productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+        Product product = this.productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with the given id was not found!"));
 
         this.productRepository.delete(product);
     }
+
 
     @Override
     public List<ProductServiceModel> findAllByCategory(String categoryId) {

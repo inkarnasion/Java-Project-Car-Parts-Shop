@@ -118,8 +118,7 @@ public class UserRegisterBindingModel {
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
     }
-    @NotNull
-    @NotEmpty
+
     public MultipartFile getImage() {
         return this.image;
     }

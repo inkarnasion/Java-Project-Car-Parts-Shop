@@ -49,7 +49,7 @@ public class OfferServiceImpl implements OfferService {
 
         Random rnd = new Random();
         List<Offer> offers = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             Offer offer = new Offer();
             offer.setProduct(this.modelMapper.map(products.get(rnd.nextInt(products.size())), Product.class));
             offer.setPrice(offer.getProduct().getPrice().multiply(new BigDecimal(0.8)));

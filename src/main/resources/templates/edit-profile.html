@@ -8,6 +8,7 @@
 <body>
 	<header>
 		<th:block th:include="~{fragments/navbar}"></th:block>
+		<script th:src="@{/js/user-validate.js}"></script>
 	</header>
 	<main class="mt-3">
 	<h1 class="text-center text-dark">𝔼𝕕𝕚𝕥 ℙ𝕣𝕠𝕗𝕚𝕝𝕖</h1>
@@ -17,52 +18,61 @@
 		<input type="hidden" name="_csrf"
 			value="80417983-fe8b-45c7-963e-31f6915a1560">
 		<div class="form-group">
-			<label for="username" class="font-weight-bold">𝕌𝕤𝕖𝕣𝕟𝕒𝕞𝕖</label>
-			<input type="text" th:value="${model.username}" class="form-control"
-				name="username" id="username" readonly>
+			<label for="usernameEdit" class="font-weight-bold">𝕌𝕤𝕖𝕣𝕟𝕒𝕞𝕖</label>
+			<input type="text" th:value="${model.username}" class="form-control" placeholder="Lenght must be between 2 and 20 characters"
+				name="username" id="usernameEdit" readonly>
+			<small id="userNameEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="oldPassword" class="font-weight-bold">𝕆𝕝𝕕
+			<label for="oldPasswordEdit" class="font-weight-bold">𝕆𝕝𝕕
 				ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕</label> <input type="password" class="form-control"
-				id="oldPassword" placeholder="Password..." name="oldPassword"
+				id="oldPasswordEdit" placeholder="Password..." name="oldPassword"
 				required>
+			<small id="oldPasswordEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="password" class="font-weight-bold">ℕ𝕖𝕨
+			<label for="newpasswordEdit" class="font-weight-bold">ℕ𝕖𝕨
 				ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕</label> <input type="password" class="form-control"
-				id="password" placeholder="New Password..." name="password">
+				id="newpasswordEdit" placeholder="New Password..." name="password">
+			<small id="newPasswordEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="confirmPassword" class="font-weight-bold">ℂ𝕠𝕟𝕗𝕚𝕣𝕞
+			<label for="confirmPasswordEdit" class="font-weight-bold">ℂ𝕠𝕟𝕗𝕚𝕣𝕞
 				ℕ𝕖𝕨 ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕</label> <input type="password" class="form-control"
-				id="confirmPassword" placeholder="Confirm New Password..."
+				id="confirmPasswordEdit" placeholder="Confirm New Password..."
 				name="confirmPassword">
+			<small id="confirmPasswordEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="email" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label> <input
+			<label for="emailEdit" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label> <input
 				type="email" th:value="${model.email}" class="form-control"
-				id="email" placeholder="Email..." name="email">
+				id="emailEdit" placeholder="Email..." name="email">
+			<small id="EmailEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="firstName" class="font-weight-bold">𝔽𝕚𝕣𝕤𝕥
+			<label for="firstNameEdit" class="font-weight-bold">𝔽𝕚𝕣𝕤𝕥
 				ℕ𝕒𝕞𝕖</label> <input type="text" th:value="${model.firstName}"
-				class="form-control" name="firstName" id="firstName" readonly>
+				class="form-control" name="firstName" id="firstNameEdit" readonly>
+			<small id="firstNameEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="lastName" class="font-weight-bold">𝕃𝕒𝕤𝕥
+			<label for="lastNameEdit" class="font-weight-bold">𝕃𝕒𝕤𝕥
 				ℕ𝕒𝕞𝕖</label> <input type="text" th:value="${model.lastName}"
-				class="form-control" name="lastName" id="lastName" readonly>
+				class="form-control" name="lastName" id="lastNameEdit" readonly>
+			<small id="lastNameEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="phoneNumber" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖
+			<label for="phoneNumberEdit" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖
 				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" th:value="${model.phoneNumber}"
-				class="form-control" name="phoneNumber" id="phoneNumber" readonly>
+				class="form-control" name="phoneNumber" id="phoneNumberEdit" readonly>
+			<small id="phoneNumberEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
-			<label for="creditCardNumber" class="font-weight-bold">ℂ𝕣𝕖𝕕𝕚𝕥ℂ𝕒𝕣𝕕
+			<label for="creditCardNumberEdit" class="font-weight-bold">ℂ𝕣𝕖𝕕𝕚𝕥ℂ𝕒𝕣𝕕
 				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" th:value="${model.creditCardNumber}"
-				class="form-control" name="creditCardNumber" id="creditCardNumber"
+				class="form-control" name="creditCardNumber" id="creditCardNumberEdit"
 				readonly>
+			<small id="creditCardEditHelp" style="display: none" class="form-text text-muted"></small>
 		</div>
 		<div class="form-group">
 			<label for="add-product-image" class="font-weight-bold">𝕀𝕞𝕒𝕘𝕖</label>
@@ -78,5 +88,8 @@
 	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>
+	<script>
+		validFormScript();
+	</script>
 </body>
 </html>

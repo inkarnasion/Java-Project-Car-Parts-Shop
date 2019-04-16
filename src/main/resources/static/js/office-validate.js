@@ -1,5 +1,6 @@
 function validFormScript() {
     const ERROR_INVALID_CATEGORY_LENGHT = "Lenght must be in range of 2 and 20 characters long.";
+    const ERROR_INVALID_NUMBER_LENGHT = "Input at least one number.";
 
 
     $(`#input-city`).on(`keyup keypress`, function () {

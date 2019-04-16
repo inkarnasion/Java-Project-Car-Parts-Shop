@@ -108,8 +108,7 @@ public class UserServiceModel extends BaseServiceModel {
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
     }
-    @NotNull
-    @NotEmpty
+
     public String getImageUrl() {
         return this.imageUrl;
     }

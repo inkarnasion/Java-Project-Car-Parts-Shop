@@ -77,8 +77,7 @@ public class ProductAddBindingModel {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    @NotNull
-    @NotEmpty
+
     public MultipartFile getImage() {
         return this.image;
     }
@@ -103,8 +102,8 @@ public class ProductAddBindingModel {
         this.orders = orders;
     }
 @NotNull
-@NotEmpty
 @Min(1)
+@Max(100)
     public Integer getQuantity() {
         return this.quantity;
     }
