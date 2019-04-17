@@ -17,71 +17,66 @@
 
 
 	<main class="mt-3">
-	<h1 class="text-center text-dark">ℝ𝕖𝕘𝕚𝕤𝕥𝕖𝕣</h1>
+	<h1 class="text-center text-dark">Register</h1>
 	<hr class="hr-2 bg-dark w-25">
 	<form class="form w-25 mx-auto" th:action="@{/users/register}"
 		th:method="post" enctype="multipart/form-data">
 		<input type="hidden" name="_csrf"
 			value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
 		<div class="form-group">
-			<label for="usernameRegister" class="font-weight-bold">𝕌𝕤𝕖𝕣𝕟𝕒𝕞𝕖</label>
+			<label for="usernameRegister" class="font-weight-bold">Username</label>
 			<input type="text" class="form-control" id="usernameRegister"
 				placeholder="Username..." name="username">
 			<large id="nameRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="passwordRegister" class="font-weight-bold">ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕</label>
+			<label for="passwordRegister" class="font-weight-bold">Password</label>
 			<input type="password" class="form-control" id="passwordRegister"
 				placeholder="Password..." name="password">
 			<large id="passwordRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="confirmPasswordRegister" class="font-weight-bold">ℂ𝕠𝕟𝕗𝕚𝕣𝕞
-				ℙ𝕒𝕤𝕤𝕨𝕠𝕣𝕕</label> <input type="password" class="form-control"
+			<label for="confirmPasswordRegister" class="font-weight-bold">Confirm Password</label> <input type="password" class="form-control"
 				id="confirmPasswordRegister" placeholder="Confirm Password..."
 				name="confirmPassword">
 			<large id="ConfirmPasswordRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="firstNameRegister" class="font-weight-bold">𝔽𝕚𝕣𝕤𝕥
-				ℕ𝕒𝕞𝕖</label> <input type="text" class="form-control" id="firstNameRegister"
+			<label for="firstNameRegister" class="font-weight-bold">First Name</label> <input type="text" class="form-control" id="firstNameRegister"
 				placeholder="firstName..." name="firstName">
 			<large id="firstNameRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="lastNameRegister" class="font-weight-bold">𝕃𝕒𝕤𝕥
-				ℕ𝕒𝕞𝕖</label> <input type="text" class="form-control" id="lastNameRegister"
+			<label for="lastNameRegister" class="font-weight-bold">LAst Name</label> <input type="text" class="form-control" id="lastNameRegister"
 				placeholder="lastName..." name="lastName">
 			<large id="LastNameRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="emailRegister" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label> <input
+			<label for="emailRegister" class="font-weight-bold">Email</label> <input
 				type="email" class="form-control" id="emailRegister" placeholder="Email..."
 				name="email">
 			<large id="EmailRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="phoneNumberRegister" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖
-				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" class="form-control" id="phoneNumberRegister"
+			<label for="phoneNumberRegister" class="font-weight-bold">Phone Number</label> <input type="text" class="form-control" id="phoneNumberRegister"
 				placeholder="Phone Number..." name="phoneNumber">
 			<large id="phoneNumberRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="creditCardNumberRegister" class="font-weight-bold">ℂ𝕣𝕖𝕕𝕚𝕥ℂ𝕒𝕣𝕕
-				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" class="form-control"
+			<label for="creditCardNumberRegister" class="font-weight-bold">CreditCard Number</label> <input type="text" class="form-control"
 				id="creditCardNumberRegister" placeholder="CreditCard Number..."
 				name="creditCardNumber">
 			<large id="creditCardNumberRegisterHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<div class="form-group">
-			<label for="add-product-image" class="font-weight-bold">𝕀𝕞𝕒𝕘𝕖</label>
+			<label for="add-product-image" class="font-weight-bold">Image</label>
 			<input type="file" class="form-control-file" id="add-product-image"
 				   name="image">
 
 		</div>
 		<hr class="hr-2 bg-dark">
 		<div class="button-holder d-flex justify-content-center">
-			<button type="submit" class="btn btn-dark">ℝ𝕖𝕘𝕚𝕤𝕥𝕖𝕣</button>
+			<button type="submit" class="btn btn-dark">Register</button>
 		</div>
 	</form>
 	</main>

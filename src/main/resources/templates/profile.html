@@ -10,7 +10,7 @@
     <th:block th:include="~{fragments/navbar}"></th:block>
 </header>
 <main class="mt-3">
-    <h1 class="text-center text-dark">ℙ𝕣𝕠𝕗𝕚𝕝𝕖</h1>
+    <h1 class="text-center text-dark">Profile</h1>
     <hr class="hr-2 bg-dark w-75"/>
 
     	<div class="jumbotron bg-light">
@@ -18,38 +18,34 @@
     			<img th:src="${model.imageUrl}" width="350" height="350" alt="">
     		</div>
     		<div class="form-group">
-    			<label for="username" class="font-weight-bold">𝕌𝕤𝕖𝕣𝕟𝕒𝕞𝕖</label>
+    			<label for="username" class="font-weight-bold">Username</label>
     			<input type="text" th:value="${model.username}" class="form-control"
     				id="username">
     		</div>
     		<div class="form-group">
-    			<label for="email" class="font-weight-bold">𝔼𝕞𝕒𝕚𝕝</label> <input
+    			<label for="email" class="font-weight-bold">Email</label> <input
     				type="email" th:value="${model.email}" class="form-control"
     				id="email">
     		</div>
     		<div class="form-group">
-    			<label for="firstName" class="font-weight-bold">𝔽𝕚𝕣𝕤𝕥 ℕ𝕒𝕞𝕖</label> <input type="text" th:value="${model.firstName}"
+    			<label for="firstName" class="font-weight-bold">First Name</label> <input type="text" th:value="${model.firstName}"
     				class="form-control" id="firstName">
     		</div>
     		<div class="form-group">
-    			<label for="lastName" class="font-weight-bold">𝕃𝕒𝕤𝕥
-    				ℕ𝕒𝕞𝕖</label> <input type="text" th:value="${model.lastName}"
+    			<label for="lastName" class="font-weight-bold">Last Name</label> <input type="text" th:value="${model.lastName}"
     				class="form-control" id="lastName">
     		</div>
     		<div class="form-group">
-    			<label for="phoneNumber" class="font-weight-bold">ℙ𝕙𝕠𝕟𝕖
-    				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" th:value="${model.phoneNumber}"
+    			<label for="phoneNumber" class="font-weight-bold">Phone Number</label> <input type="text" th:value="${model.phoneNumber}"
     				class="form-control" id="phoneNumber">
     		</div>
     		<div class="form-group">
-    			<label for="creditCardNumber" class="font-weight-bold">ℂ𝕣𝕖𝕕𝕚𝕥ℂ𝕒𝕣𝕕
-    				ℕ𝕦𝕞𝕓𝕖𝕣</label> <input type="text" th:value="${model.creditCardNumber}"
+    			<label for="creditCardNumber" class="font-weight-bold">CreditCard Number</label> <input type="text" th:value="${model.creditCardNumber}"
     				class="form-control" id="creditCardNumber">
     		</div>
     		<hr class="hr-2 bg-dark">
     		<div class="button-holder d-flex justify-content-center">
-    			<a th:href="@{/users/edit}" class="btn btn-dark">𝔼𝕕𝕚𝕥
-    				ℙ𝕣𝕠𝕗𝕚𝕝𝕖</a>
+    			<a th:href="@{/users/edit}" class="btn btn-dark">Edit Profile</a>
     		</div>
     	</div>
 

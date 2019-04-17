@@ -18,22 +18,21 @@
 	</header>
 
 	<main class="mt-3">
-	<h1 class="text-center text-dark">𝔼𝕕𝕚𝕥 ℂ𝕒𝕥𝕖𝕘𝕠𝕣𝕪</h1>
+	<h1 class="text-center text-dark">Edit Category</h1>
 	<hr class="hr-2 bg-dark w-25">
 	<form id="edit-category-form" class="form w-25 mx-auto"
 		th:action="@{/categories/edit/{id}(id=${model.id})}" method="post">
 		<input type="hidden" name="_csrf"
 			value="c686cd14-a7f9-4216-8009-c093b7d3df86">
 		<div class="form-group">
-			<label for="edit-category-name" class="font-weight-bold">ℕ𝕒𝕞𝕖</label>
+			<label for="edit-category-name" class="font-weight-bold">Name</label>
 			<input type="text" class="form-control text-center"
 				id="edit-category-name" name="name" placeholder="Lenght must be between 2 and 50 characters" th:value="${model.name}">
             <large id="nameHelp" style="display: none" class="form-text text-muted"></large>
 		</div>
 		<hr class="hr-2 bg-dark">
 		<div class="button-holder d-flex justify-content-center">
-			<button type="submit" class="btn btn-info">𝔼𝕕𝕚𝕥
-				ℂ𝕒𝕥𝕖𝕘𝕠𝕣𝕪</button>
+			<button type="submit" class="btn btn-info">Edit Category</button>
 		</div>
 	</form>
 	</main>
