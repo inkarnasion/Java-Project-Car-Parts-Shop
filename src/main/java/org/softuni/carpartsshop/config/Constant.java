@@ -9,6 +9,8 @@ public class Constant {
     public static final String FORM_METHOD_PUT = "put";
     public static final String FORM_METHOD_DELETE = "delete";
     public static final String FORM_METHOD = "post";
+    public static final String FORM_REDIRECT = "redirect:";
+    public static final String FORM_FETCH="/fetch";
 
     //Mapping
     public static final String GET_MAPPING_ADD="/add";
@@ -20,6 +22,7 @@ public class Constant {
     public static final String POST_MAPPING_DELETE_ID="/delete/{id}";
     public static final String GET_MAPPING_DELETE_ID="/delete/{id}";
     // urls
+    public static final String ERROR_PAGE_404="/errors/404";
     public static final String INDEX_ACTION = "/";
     public static final String HOME_ACTION = "/home";
     public static final String ABOUT_ACTION = "/about";
@@ -54,6 +57,8 @@ public class Constant {
     public static final String SHOPPING_CART="shopping-cart";
     public static final String REMOVE_PRODUCT="/remove-product";
     public static final String PAGE_NAME_CART_DETAILS = "Cart Details";
+    public static final String CUSTOMER_CREDIT_CARD="customerCreditCart";
+    public static final String ALL_OFFICES="allOffices";
 
 
     //Categories Controller
@@ -70,10 +75,13 @@ public class Constant {
     public static final String CATEGORY_DELETE_CATEGORY="category/delete-category";
 
 
+
     //Error handler controller
-    public static final String ERROR_NOT_FOUND= "/errors/error-not-found";
-    public static final String GENERAL_ERROR= "/errors/error-general";
+   // public static final String ERROR_NOT_FOUND= "/errors/error-not-found";
+    public static final String ERROR_NOT_FOUND= "/errors/404";
+    public static final String GENERAL_ERROR= "errors/error-general";
     public static final String ADD_OBJECT_MESSAGE= "message";
+
 
     //Home controller
     public static final String PAGE_TITLE_INDEX="Index";

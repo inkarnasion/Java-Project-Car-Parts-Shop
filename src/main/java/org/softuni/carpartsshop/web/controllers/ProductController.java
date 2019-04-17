@@ -7,8 +7,6 @@ import org.softuni.carpartsshop.domain.models.binding.ProductAddBindingModel;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
 import org.softuni.carpartsshop.domain.models.view.ProductAllViewModel;
 import org.softuni.carpartsshop.domain.models.view.ProductDetailsViewModel;
-import org.softuni.carpartsshop.error.ProductNameAlreadyExistsException;
-import org.softuni.carpartsshop.error.ProductNotFoundException;
 import org.softuni.carpartsshop.service.CategoryService;
 import org.softuni.carpartsshop.service.CloudinaryService;
 import org.softuni.carpartsshop.service.ProductService;
@@ -159,23 +157,23 @@ public class ProductController extends BaseController {
 
         return result;
     }
-
-    @ExceptionHandler({ProductNotFoundException.class})
-    public ModelAndView handleProductNotFound(ProductNotFoundException e) {
-        ModelAndView modelAndView = new ModelAndView("error");
-        modelAndView.addObject("message", e.getMessage());
-        modelAndView.addObject("statusCode", e.getStatusCode());
-
-        return modelAndView;
-    }
-
-    @ExceptionHandler({ProductNameAlreadyExistsException.class})
-    public ModelAndView handleProductNameALreadyExist(ProductNameAlreadyExistsException e) {
-        ModelAndView modelAndView = new ModelAndView("error");
-        modelAndView.addObject("message", e.getMessage());
-        modelAndView.addObject("statusCode", e.getStatusCode());
-
-        return modelAndView;
-    }
+//
+//    @ExceptionHandler({ProductNotFoundException.class})
+//    public ModelAndView handleProductNotFound(ProductNotFoundException e) {
+//        ModelAndView modelAndView = new ModelAndView("error");
+//        modelAndView.addObject("message", e.getMessage());
+//        modelAndView.addObject("statusCode", e.getStatusCode());
+//
+//        return modelAndView;
+//    }
+//
+//    @ExceptionHandler({ProductNameAlreadyExistsException.class})
+//    public ModelAndView handleProductNameALreadyExist(ProductNameAlreadyExistsException e) {
+//        ModelAndView modelAndView = new ModelAndView("error");
+//        modelAndView.addObject("message", e.getMessage());
+//        modelAndView.addObject("statusCode", e.getStatusCode());
+//
+//        return modelAndView;
+//    }
 
 }

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
->
+
 
 
 <head>
@@ -27,9 +27,17 @@
 
 		<div class="jumbotron">
 
-			<p>The page you're looking for could not be found. Here are some
-				helpful links to get you back on track:</p>
-			<ul>
+
+
+			<div>
+				<h1 th:text="${message}"></h1>
+				<h2>Error: 404</h2>
+				<hr/>
+			</div>
+			<ul class="d-inline-block">
+			<h1><p>The page you're looking for could not be found. Here are some
+				helpful links to get you back on track:</p></h1>
+				<hr>
 				<li><a href="../index.html">Home</a></li>
 				<li><a href="../about.html">About</a></li>
 				<li><a href="../contact.html">Contact</a></li>

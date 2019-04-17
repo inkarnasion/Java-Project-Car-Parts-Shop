@@ -5,8 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.entites.Product;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
-import org.softuni.carpartsshop.error.ProductNameAlreadyExistsException;
-import org.softuni.carpartsshop.error.ProductNotFoundException;
+import org.softuni.carpartsshop.error.NotFoundExceptions;
 import org.softuni.carpartsshop.repository.OfferRepository;
 import org.softuni.carpartsshop.repository.ProductRepository;
 import org.softuni.carpartsshop.utils.ValidationUtil;
@@ -46,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
                 .orElse(null);
 
         if (product != null) {
-            throw new ProductNameAlreadyExistsException("Product already exists");
+            throw new IllegalArgumentException("Product already exists");
         }
 
         product = this.modelMapper.map(productServiceModel, Product.class);
@@ -73,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
 
                     return productServiceModel;
                 })
-                .orElseThrow(() -> new ProductNotFoundException("Product with the given id was not found!"));
+                .orElseThrow(() -> new NotFoundExceptions("Product with the given id was not found!"));
     }
 
     @Override
@@ -81,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
         if (!this.validationUtil.isValid(productServiceModel)) {
             throw new IllegalArgumentException("Trying to add invalid data!");
         }
-        Product product = this.productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with the given id was not found!"));
+        Product product = this.productRepository.findById(id).orElseThrow(() -> new NotFoundExceptions("Product with the given id was not found!"));
 
         product.setName(productServiceModel.getName());
         product.setDescription(productServiceModel.getDescription());
@@ -95,9 +94,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(String id) {
-        Product product = this.productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with the given id was not found!"));
+        Product product = this.productRepository.findById(id).orElseThrow(() -> new NotFoundExceptions("Product with the given id was not found!"));
 
-        this.productRepository.delete(product);
+        try {
+            this.productRepository.delete(product);
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new IllegalArgumentException("Something get wrong during deletion");
+
+        }
     }
 
 

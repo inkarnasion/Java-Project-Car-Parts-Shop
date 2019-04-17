@@ -69,8 +69,8 @@ public class CartController extends BaseController {
     public ModelAndView cartDetails(ModelAndView modelAndView, HttpSession session, Principal principal, @ModelAttribute(name = "allOffices") OfficeViewModel officeViewModel) {
         var cart = this.retrieveCart(session);
         modelAndView.addObject(Constant.TOTAL_PRICE, this.calcTotal(cart));
-        modelAndView.addObject("customerCreditCart", this.userService.findUserByUserName(principal.getName()).getCreditCardNumber());
-        modelAndView.addObject("allOffices",this.officeService.allOfficeAddresses(this.officeService.findAllOffices()));
+        modelAndView.addObject(Constant.CUSTOMER_CREDIT_CARD, this.userService.findUserByUserName(principal.getName()).getCreditCardNumber());
+        modelAndView.addObject(Constant.ALL_OFFICES,this.officeService.allOfficeAddresses(this.officeService.findAllOffices()));
         return super.view(Constant.CART_CART_DETAILS, modelAndView);
     }
 
@@ -150,7 +150,7 @@ public class CartController extends BaseController {
         return orderServiceModel;
     }
 
-    @GetMapping("/fetch")
+    @GetMapping(Constant.FORM_FETCH)
     @ResponseBody
     public List<OfficeViewModel> fetchOffices() {
         List<OfficeViewModel> result;

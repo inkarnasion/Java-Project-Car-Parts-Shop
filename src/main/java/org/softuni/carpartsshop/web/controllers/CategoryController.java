@@ -78,7 +78,7 @@ public class CategoryController extends BaseController {
         return super.view(Constant.CATEGORY_EDIT_CATEGORY, modelAndView);
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping(Constant.POST_MAPPING_EDIT_ID)
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public ModelAndView editCategoryConfirm(@Valid @ModelAttribute(name = "bindingModel")CategoryAddBindingModel model ,@PathVariable String id,BindingResult bindingResult,ModelAndView modelAndView) {
 

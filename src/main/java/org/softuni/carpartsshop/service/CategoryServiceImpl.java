@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.models.service.CategoryServiceModel;
 import org.softuni.carpartsshop.domain.models.view.CategoryViewModel;
+import org.softuni.carpartsshop.error.NotFoundExceptions;
 import org.softuni.carpartsshop.repository.CategoryRepository;
 import org.softuni.carpartsshop.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryServiceModel addCategory(CategoryServiceModel categoryServiceModel) {
         if (!this.validationUtil.isValid(categoryServiceModel)) {
-            throw new IllegalArgumentException("Trying to add boat with invalid data!");
+            throw new NotFoundExceptions("Trying to add category witch exist!");
         }
 
         Category category = this.modelMapper.map(categoryServiceModel, Category.class);
+
+        if (category != null) {
+            throw new IllegalArgumentException("Category already exists");
+        }
 
         return this.modelMapper.map(this.categoryRepository.saveAndFlush(category), CategoryServiceModel.class);
     }

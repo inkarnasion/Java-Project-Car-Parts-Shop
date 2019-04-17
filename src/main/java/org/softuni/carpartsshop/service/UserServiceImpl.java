@@ -52,6 +52,10 @@ public class UserServiceImpl implements UserService {
         User user = this.modelMapper.map(userServiceModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
 
+        if (this.userRepository.findByUsername(user.getUsername()).orElse(null) != null) {
+            throw new IllegalArgumentException("There is user with this username!");
+        }
+
         user=this.userRepository.saveAndFlush(user);
 
         return this.modelMapper.map(user, UserServiceModel.class);
@@ -61,7 +65,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository
                 .findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found!"));
+                .orElseThrow(() -> new IllegalArgumentException("Username not found!"));
     }
 
     @Override

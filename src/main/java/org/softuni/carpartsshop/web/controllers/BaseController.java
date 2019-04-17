@@ -1,5 +1,6 @@
 package org.softuni.carpartsshop.web.controllers;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.springframework.web.servlet.ModelAndView;
 
 public class BaseController {
@@ -15,6 +16,6 @@ public class BaseController {
     }
 
     protected ModelAndView redirect(String url){
-        return this.view("redirect:" + url);
+        return this.view(Constant.FORM_REDIRECT + url);
     }
 }

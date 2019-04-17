@@ -40,6 +40,10 @@ public class OfficeServiceImpl implements OfficeService {
 
 
         Office office = this.modelMapper.map(model, Office.class);
+
+        if (office != null) {
+            throw new IllegalArgumentException("Office already exists");
+        }
         office = this.officeRepository.saveAndFlush(office);
         result = office.getId();
 
@@ -50,12 +54,13 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public OfficeServiceModel editOffice(OfficeServiceModel model) {
         if (!this.validationUtil.isValid(model)) {
-            throw new IllegalArgumentException("Trying to add invalid data!");
+            throw new IllegalArgumentException("There is office with same data!");
         }
         Office office = this.officeRepository.findById(model.getId()).orElseThrow(() -> new NoSuchElementException(Constant.ERROR_MESSAGE));
 
 
         Office officeNew = this.modelMapper.map(model, Office.class);
+
 
         Office mappedOffice = this.officeRepository.saveAndFlush(officeNew);
 
