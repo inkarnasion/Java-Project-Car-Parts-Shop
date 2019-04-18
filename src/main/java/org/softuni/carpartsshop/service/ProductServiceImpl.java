@@ -108,4 +108,19 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
+	public int reduceQuantity(ProductServiceModel productServiceModel, int quantity) {
+		int result;
+
+		Product product = this.productRepository.findById(productServiceModel.getId()).orElseThrow(() -> new NotFoundExceptions(Constant.PRODUCT_WITH_GIVEN_ID_NOT_FOUND));
+
+		result = product.getQuantity() - quantity;
+
+		if (result >= 0) {
+			product.setQuantity(result);
+			this.productRepository.save(product);
+		}
+
+		return result;
+	}
 }

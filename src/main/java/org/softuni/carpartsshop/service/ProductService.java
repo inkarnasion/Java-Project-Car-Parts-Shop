@@ -1,23 +1,22 @@
 package org.softuni.carpartsshop.service;
 
-
+import java.util.List;
 
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
 
-import java.util.List;
-
 public interface ProductService {
 
-    ProductServiceModel addProduct(ProductServiceModel productServiceModel);
+	ProductServiceModel addProduct(ProductServiceModel productServiceModel);
 
-    List<ProductServiceModel> findAllProducts();
+	List<ProductServiceModel> findAllProducts();
 
-    ProductServiceModel findProductById(String id);
+	ProductServiceModel findProductById(String id);
 
-    ProductServiceModel editProduct(String id, ProductServiceModel productServiceModel);
+	ProductServiceModel editProduct(String id, ProductServiceModel productServiceModel);
 
-    void deleteProduct(String id);
+	void deleteProduct(String id);
 
-    List<ProductServiceModel> findAllByCategory(String category);
+	List<ProductServiceModel> findAllByCategory(String category);
 
+	int reduceQuantity(ProductServiceModel product, int quantity);
 }

@@ -14,6 +14,7 @@ import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.Status;
 import org.softuni.carpartsshop.domain.models.service.OrderItemServiceModel;
 import org.softuni.carpartsshop.domain.models.service.OrderServiceModel;
+import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
 import org.softuni.carpartsshop.domain.models.service.ShipmentServiceModel;
 import org.softuni.carpartsshop.domain.models.service.UserServiceModel;
 import org.softuni.carpartsshop.domain.models.view.OfficeViewModel;
@@ -118,6 +119,14 @@ public class CartController extends BaseController {
 			shipment.setOrder(orderServiceModel);
 		} else {
 			throw new IllegalArgumentException("Either Office or Delivery Address should be provided");
+		}
+
+		for (OrderItemServiceModel orderItem : orderItems) {
+			ProductServiceModel product = orderItem.getProduct();
+			int quantity = this.productService.reduceQuantity(product, orderItem.getQuantity());
+			if (quantity < 0) {
+				throw new IllegalArgumentException("Product " + product.getName() + " quantity available is less then requested. Please reduce the ordered quantity with " + -quantity);
+			}
 		}
 
 		this.orderService.createOrder(orderServiceModel);

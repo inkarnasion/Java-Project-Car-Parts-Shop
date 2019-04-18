@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	public void createOrder(OrderServiceModel orderServiceModel) {
 		Order order = this.modelMapper.map(orderServiceModel, Order.class);
+
 		this.orderRepository.saveAndFlush(order);
 	}
 
