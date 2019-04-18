@@ -1,156 +1,174 @@
 package org.softuni.carpartsshop.domain.entites;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import org.springframework.security.core.GrantedAuthority;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.*;
-import java.util.*;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
 
-    private String username;
-    private String password;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String imageUrl;
-    private String creditCardNumber;
-    private Set<Role> authorities;
-    private List<Order> orders;
+	@NotNull
+	@Column(name = "username", nullable = false, unique = true)
+	private String username;
 
-    public User() {
-        this.authorities = new HashSet<>();
-        this.orders = new ArrayList<>();
-    }
+	@NotNull
+	@Column(name = "password", nullable = false)
+	private String password;
 
-    @Override
-    @Column(name = "username", nullable = false, unique = true, updatable = false)
-    public String getUsername() {
-        return username;
-    }
+	@NotNull
+	@Column(name = "email", nullable = false, unique = true)
+	private String email;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	@NotNull
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
 
-    @Override
-    @Column(name = "password", nullable = false)
-    public String getPassword() {
-        return password;
-    }
+	@NotNull
+	@Column(name = "last_name", nullable = false)
+	private String lastName;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	@NotNull
+	@Column(name = "phone_number", nullable = false)
+	private String phoneNumber;
 
-    @Column(name = "email", nullable = false, unique = true)
-    public String getEmail() {
-        return email;
-    }
+	@Column(name = "image_url")
+	private String imageUrl;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@NotNull
+	@Column(name = "credit_card_number", nullable = false, unique = true)
+	private String creditCardNumber;
 
-    @Override
-    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id",
-                    referencedColumnName = "id"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id",
-                    referencedColumnName = "id"
-            )
-    )
-    public Set<Role> getAuthorities() {
-        return authorities;
-    }
+	@ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Set<Role> authorities;
 
-    public void setAuthorities(Set<Role> authorities) {
-        this.authorities = authorities;
-    }
+	@OneToMany(targetEntity = Order.class, mappedBy = "user")
+	private List<Order> orders;
 
-    @Column(name = "first_name", nullable = false)
-    public String getFirstName() {
-        return this.firstName;
-    }
+	public User() {
+		this.authorities = new HashSet<>();
+		this.orders = new ArrayList<>();
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	@Override
+	public String getUsername() {
+		return username;
+	}
 
-    @Column(name = "last_name", nullable = false)
-    public String getLastName() {
-        return this.lastName;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	@Override
+	public String getPassword() {
+		return password;
+	}
 
-    @Column(name = "phone_number", nullable = false)
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-@Column(name = "image_url")
-    public String getImageUrl() {
-        return this.imageUrl;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    @Column(name = "credit_card_number", nullable = false,unique = true)
-    public String getCreditCardNumber() {
-        return this.creditCardNumber;
-    }
+	@Override
+	public Set<Role> getAuthorities() {
+		return authorities;
+	}
 
-    public void setCreditCardNumber(String creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
-    }
+	public void setAuthorities(Set<Role> authorities) {
+		this.authorities = authorities;
+	}
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "user")
-    public List<Order> getOrders() {
-        return this.orders;
-    }
+	public String getFirstName() {
+		return this.firstName;
+	}
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    @Override
-    @Transient
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	public String getLastName() {
+		return this.lastName;
+	}
 
-    @Override
-    @Transient
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    @Override
-    @Transient
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
 
-    @Override
-    @Transient
-    public boolean isEnabled() {
-        return true;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getImageUrl() {
+		return this.imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getCreditCardNumber() {
+		return this.creditCardNumber;
+	}
+
+	public void setCreditCardNumber(String creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
+	}
+
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	@Override
+	@Transient
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	@Transient
+	public boolean isEnabled() {
+		return true;
+	}
 }

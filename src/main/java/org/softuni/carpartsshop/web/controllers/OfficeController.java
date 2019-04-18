@@ -37,7 +37,7 @@ public class OfficeController extends BaseController {
 
 	@GetMapping(Constant.ADD_OFFICE_ACTION)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PageTitle("Add Offices")
+	@PageTitle(Constant.PAGE_TITLE_OFFICES)
 	public ModelAndView addOffice(ModelAndView modelAndView, @ModelAttribute(name = "bindingModel") OfficeBindingModel officeBindingModel) {
 		return view(Constant.ADD_OFFICE_PAGE, modelAndView);
 	}
@@ -53,16 +53,13 @@ public class OfficeController extends BaseController {
 		officeServiceModel.setImageUrl(this.cloudinaryService.uploadImage(officeBindingModel.getImage()));
 
 		String id = this.officeService.addOffice(officeServiceModel);
-//        if (id == null) {
-//            return view(Constant.ADD_OFFICE_PAGE, modelAndView);
-//        }
 
 		return redirect(Constant.ALL_OFFICE_PAGE);
 	}
 
 	@GetMapping(Constant.ALL_OFFICE_ACTION)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PageTitle("All Offices")
+	@PageTitle(Constant.PAGE_TITLE__ALL_OFFICES)
 	public ModelAndView allOffices(ModelAndView modelAndView) {
 		List<OfficeServiceModel> officeServiceModels = this.officeService.findAllOffices();
 		List<OfficeAllViewModel> officeAllViewModels = officeServiceModels.stream().map(o -> this.modelMapper.map(o, OfficeAllViewModel.class)).collect(Collectors.toList());
@@ -73,7 +70,7 @@ public class OfficeController extends BaseController {
 
 	@GetMapping(Constant.EDIT_OFFICE_ACTION + "{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PageTitle("Edit Offices")
+	@PageTitle(Constant.PAGE_TITLE__EDIT_OFFICES)
 	public ModelAndView editOffice(ModelAndView modelAndView, @PathVariable String id) {
 		OfficeBindingModel officeBindingModel = this.modelMapper.map(this.officeService.findOfficeByID(id), OfficeBindingModel.class);
 		modelAndView.addObject("bindingModel", officeBindingModel);
@@ -104,7 +101,7 @@ public class OfficeController extends BaseController {
 
 	@GetMapping(Constant.DELETE_OFFICE_ACTION + "{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PageTitle("Delete Offices")
+	@PageTitle(Constant.PAGE_TITLE__DELETE_OFFICES)
 	public ModelAndView deleteOffice(ModelAndView modelAndView, @PathVariable String id) {
 
 		OfficeBindingModel officeBindingModel = this.modelMapper.map(this.officeService.findOfficeByID(id), OfficeBindingModel.class);

@@ -12,77 +12,18 @@
 		<script th:src="@{/js/product-validate.js}"></script>
 		<script th:src="@{/js/add-product.js}" ></script>
 	</header>
+		<main class="mt-3">
+			<div th:insert="~{fragments/product-form :: product-form-fragment(
+        url=@{${T(org.softuni.carpartsshop.config.Constant).REQUEST_MAPING_PRODUCTS}+${T(org.softuni.carpartsshop.config.Constant).PRODUCT_POST_MAPPING_ADD}},
+        title=${'Add Product'},
+        methodLabel=${T(org.softuni.carpartsshop.config.Constant).FORM_METHOD},
+        buttonText=${'add'}
+        )}">
 
-	<main class="mt-3">
-	<h1 class="text-center text-dark">Add Product</h1>
-	<hr class="hr-2 bg-dark w-25">
-	<form id="add-product-form" class="form w-25 mx-auto"
-		th:action="@{/products/add}" method="post"
-		enctype="multipart/form-data">
-		<input type="hidden" name="_csrf"
-			value="c686cd14-a7f9-4216-8009-c093b7d3df86">
-		<div class="form-group">
-			<label for="add-product-name" class="font-weight-bold">Name</label>
-			<input type="text" class="form-control text-center" placeholder="Lenght must be between 2 and 20 characters"
-				id="add-product-name" name="name">
-			<large id="nameHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
+	</div>
 
-		<div class="form-group">
-			<label for="add-product-manufacture" class="font-weight-bold">Manufacture</label>
-			<input type="text" class="form-control text-center" placeholder="Lenght must be between 2 and 20 characters"
-				id="add-product-manufacture" name="manufacture">
-			<large id="manufatureHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
+</main>
 
-		<div class="form-group">
-			<label for="add-product-model" class="font-weight-bold">Model</label>
-			<input type="text" class="form-control text-center" placeholder="Lenght must be between 2 and 20 characters"
-				id="add-product-model" name="model">
-			<large id="modelHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-
-		<div class="form-group">
-			<label for="add-product-description" class="font-weight-bold">Description</label>
-			<textarea name="description" id="add-product-description" cols="41" placeholder="Lenght must be between 2 and 20 characters"
-				rows="5"></textarea>
-			<large id="descriptionHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-
-		<div class="form-group">
-			<label for="add-product-price" class="font-weight-bold">Price</label>
-			<input type="number" step="any" class="form-control text-center" placeholder="Input at least one number"
-				id="add-product-price" name="price">
-			<large id="priceHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-
-		<div class="form-group">
-		<label for="add-product-quantity" class="font-weight-bold">Quantity</label>
-		<input type="number" step="any" class="form-control text-center" placeholder="Input at least one number"
-id="add-product-quantity" name="quantity">
-			<large id="quantityHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-
-		<div class="form-group">
-			<label for="add-product-categories" class="font-weight-bold">Categories</label>
-			<select multiple="" class="form-control" id="add-product-categories"
-				name="categories">
-				<option selected="" disabled="">--- Select Categories ---</option>
-			</select>
-		</div>
-
-		<div class="form-group">
-			<label for="add-product-image" class="font-weight-bold">Image</label>
-			<input type="file" class="form-control-file" id="add-product-image"
-				name="image">
-		</div>
-
-		<hr class="hr-2 bg-dark w-25">
-		<div class="button-holder d-flex justify-content-center">
-			<button type="submit" class="btn btn-success">Add Product</button>
-		</div>
-	</form>
-	</main>
 	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>

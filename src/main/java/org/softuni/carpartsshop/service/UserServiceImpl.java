@@ -1,7 +1,11 @@
 package org.softuni.carpartsshop.service;
 
-import org.modelmapper.ModelMapper;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.User;
 import org.softuni.carpartsshop.domain.models.service.UserServiceModel;
 import org.softuni.carpartsshop.repository.UserRepository;
@@ -12,117 +16,113 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final RoleService roleService;
-    private final ModelMapper modelMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final ValidationUtil validationUtil;
+	private final UserRepository userRepository;
+	private final RoleService roleService;
+	private final ModelMapper modelMapper;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final ValidationUtil validationUtil;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder, ValidationUtil validationUtil) {
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-        this.modelMapper = modelMapper;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.validationUtil = validationUtil;
-    }
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository, RoleService roleService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder,
+	    ValidationUtil validationUtil) {
+		this.userRepository = userRepository;
+		this.roleService = roleService;
+		this.modelMapper = modelMapper;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.validationUtil = validationUtil;
+	}
 
-    @Override
-    public UserServiceModel registerUser(UserServiceModel userServiceModel) {
-        if (!this.validationUtil.isValid(userServiceModel)) {
-            throw new IllegalArgumentException("Trying to add invalid data!");
-        }
-        this.roleService.seedRolesInDb();
-        if (this.userRepository.count() == 0) {
-            userServiceModel.setAuthorities(this.roleService.findAllRoles());
-        } else {
-            userServiceModel.setAuthorities(new LinkedHashSet<>());
+	@Override
+	public UserServiceModel registerUser(UserServiceModel userServiceModel) {
+		if (!this.validationUtil.isValid(userServiceModel)) {
+			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
+		}
+		this.roleService.seedRolesInDb();
+		if (this.userRepository.count() == 0) {
+			userServiceModel.setAuthorities(this.roleService.findAllRoles());
+		} else {
+			userServiceModel.setAuthorities(new LinkedHashSet<>());
 
-            userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
-        }
+			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+		}
 
+		User user = this.modelMapper.map(userServiceModel, User.class);
+		user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
 
-        User user = this.modelMapper.map(userServiceModel, User.class);
-        user.setPassword(this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()));
+		if (this.userRepository.findByUsername(user.getUsername()).orElse(null) != null) {
+			throw new IllegalArgumentException(Constant.EXIST_USER_IN_DATABASE);
+		}
 
-        if (this.userRepository.findByUsername(user.getUsername()).orElse(null) != null) {
-            throw new IllegalArgumentException("There is user with this username!");
-        }
+		user = this.userRepository.saveAndFlush(user);
 
-        user=this.userRepository.saveAndFlush(user);
+		return this.modelMapper.map(user, UserServiceModel.class);
+	}
 
-        return this.modelMapper.map(user, UserServiceModel.class);
-    }
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return this.userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException(Constant.USERNAME_NOT_FOUND));
+	}
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.userRepository
-                .findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("Username not found!"));
-    }
+	@Override
+	public UserServiceModel findUserByUserName(String username) {
+		return this.userRepository.findByUsername(username).map(u -> this.modelMapper.map(u, UserServiceModel.class)).orElseThrow(() -> new UsernameNotFoundException(
+		    Constant.USERNAME_NOT_FOUND));
+	}
 
-    @Override
-    public UserServiceModel findUserByUserName(String username) {
-        return this.userRepository.findByUsername(username)
-                .map(u -> this.modelMapper.map(u, UserServiceModel.class))
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found!"));
-    }
+	@Override
+	public UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword) {
+		if (!this.validationUtil.isValid(userServiceModel)) {
+			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
+		}
 
-    @Override
-    public UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword) {
-        if (!this.validationUtil.isValid(userServiceModel)) {
-            throw new IllegalArgumentException("Trying to add invalid data!");
-        }
-        User user = this.userRepository.findByUsername(userServiceModel.getUsername())
-                .orElseThrow(()-> new UsernameNotFoundException("Username not found!"));
+		User user = this.userRepository.findByUsername(userServiceModel.getUsername()).orElseThrow(() -> new UsernameNotFoundException(Constant.USERNAME_NOT_FOUND));
 
-        if (!this.bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new IllegalArgumentException("Incorrect password!");
-        }
+		if (userServiceModel.getPassword() != null) {
+			if (!this.bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
+				throw new IllegalArgumentException(Constant.INCORECT_PASSWORD);
+			}
 
-        user.setPassword(!"".equals(userServiceModel.getPassword()) ?
-                this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()) :
-                user.getPassword());
-        user.setEmail(userServiceModel.getEmail());
+			user.setPassword(!"".equals(userServiceModel.getPassword()) ? this.bCryptPasswordEncoder.encode(userServiceModel.getPassword()) : user.getPassword());
+		} else {
 
-        return this.modelMapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
-    }
+		}
 
-    @Override
-    public List<UserServiceModel> findAllUsers() {
-        return this.userRepository.findAll().stream().map(u -> this.modelMapper.map(u, UserServiceModel.class)).collect(Collectors.toList());
-    }
+		user.setEmail(userServiceModel.getEmail());
+		user.setImageUrl(userServiceModel.getImageUrl());
 
-    @Override
-    public void setUserRole(String id, String role) {
-        User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Incorrect id!"));
+		return this.modelMapper.map(this.userRepository.saveAndFlush(user), UserServiceModel.class);
+	}
 
-        UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
-        userServiceModel.getAuthorities().clear();
+	@Override
+	public List<UserServiceModel> findAllUsers() {
+		return this.userRepository.findAll().stream().map(u -> this.modelMapper.map(u, UserServiceModel.class)).collect(Collectors.toList());
+	}
 
-        switch (role) {
-            case "user":
-                userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
-                break;
-            case "moderator":
-                userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
-                userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_MODERATOR"));
-                break;
-            case "admin":
-                userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
-                userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_MODERATOR"));
-                userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_ADMIN"));
-                break;
-        }
+	@Override
+	public void setUserRole(String id, String role) {
+		User user = this.userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(Constant.INCORECT_ID));
 
-        this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));
-    }
+		UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
+		userServiceModel.getAuthorities().clear();
+
+		switch (role) {
+		case "user":
+			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+			break;
+		case "moderator":
+			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_MODERATOR"));
+			break;
+		case "admin":
+			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_MODERATOR"));
+			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_ADMIN"));
+			break;
+		}
+
+		this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));
+	}
 }

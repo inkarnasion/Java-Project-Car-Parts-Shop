@@ -1,0 +1,54 @@
+<th:block th:fragment="product-form-fragment(url, title, methodLabel, buttonText)">
+
+  <h1 class="text-center text-dark" th:text="${title}"></h1>
+  <hr class="hr-2 bg-dark w-25">
+  <form id="add-product-form" class="form w-25 mx-auto" th:action="${url}" th:method="${methodLabel}" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="c686cd14-a7f9-4216-8009-c093b7d3df86">
+    <div class="form-group">
+      <label for="add-product-name" class="font-weight-bold">Name</label> <input type="text" class="form-control text-center"
+        placeholder="Lenght must be between 2 and 20 characters" id="add-product-name" th:name="name" th:field="*{product.name}">
+      <large id="nameHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+
+    <div class="form-group">
+      <label for="add-product-manufacture" class="font-weight-bold">Manufacture</label> <input type="text" class="form-control text-center"
+        placeholder="Lenght must be between 2 and 20 characters" id="add-product-manufacture" th:name="manufacture" th:field="*{product.manufacture}">
+      <large id="manufatureHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+
+    <div class="form-group">
+      <label for="add-product-model" class="font-weight-bold">Model</label> <input type="text" class="form-control text-center"
+        placeholder="Lenght must be between 2 and 20 characters" id="add-product-model" name="model" th:field="*{product.model}">
+      <large id="modelHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+
+    <div class="form-group">
+      <label for="add-product-description" class="font-weight-bold">Description</label>
+      <textarea th:name="${product.description}" th:id="add-product-description" th:cols="41" placeholder="Lenght must be between 2 and 20 characters" th:rows="5"
+        th:field="*{product.description}"></textarea>
+      <large id="descriptionHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+
+    <div class="form-group">
+      <label for="add-product-price" class="font-weight-bold">Price</label> <input type="number" step="any" class="form-control text-center" placeholder="Input at least one number"
+        id="add-product-price" name="price" th:field="*{product.price}">
+      <large id="priceHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+
+    <div class="form-group">
+      <label for="add-product-quantity" class="font-weight-bold">Quantity</label> <input type="number" step="any" class="form-control text-center"
+        placeholder="Input at least one number" id="add-product-quantity" name="quantity" th:field="*{product.quantity}">
+      <large id="quantityHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+    <div th:replace="~{fragments/components/select-category :: select( inputCategory,${categoryNames} )}"></div>
+    <div class="form-group">
+      <label for="add-product-image" class="font-weight-bold">Image</label> <input type="file" class="form-control-file" id="add-product-image" name="image"
+        th:field="*{product.image}">
+    </div>
+
+    <hr class="hr-2 bg-dark w-25">
+    <div class="button-holder d-flex justify-content-center">
+      <button type="submit" class="btn btn-success" th:text="${buttonText}"></button>
+    </div>
+  </form>
+</th:block>

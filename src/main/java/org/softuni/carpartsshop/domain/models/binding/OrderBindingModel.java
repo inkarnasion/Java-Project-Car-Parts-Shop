@@ -21,7 +21,8 @@ public class OrderBindingModel {
 
     public OrderBindingModel() {
     }
-
+    @NotNull
+    @Size(min = 2,max = 20)
     public String getDelivery() {
         return this.delivery;
     }
@@ -32,7 +33,7 @@ public class OrderBindingModel {
 
     @NotNull
     @Min(1)
-    @Max(10)
+    @Max(100)
     public Integer getQuantity() {
         return this.quantity;
     }
@@ -41,8 +42,10 @@ public class OrderBindingModel {
         this.quantity = quantity;
     }
 
-    @NotNull(message = "Payment cannot be null")
+
     @NotEmpty
+    @NotNull
+    @Size(min = 2,max = 20)
     public String getPayment() {
         return this.payment;
     }
@@ -80,13 +83,13 @@ public class OrderBindingModel {
     public void setStatus(Status status) {
         this.status = status;
     }
-
+    @NotNull
+    @DecimalMin("0.01")
     public BigDecimal getPrice() {
         return this.price;
     }
 
-    @NotNull
-    @DecimalMin("0.01")
+
     public void setPrice(BigDecimal price) {
         this.price = price;
     }

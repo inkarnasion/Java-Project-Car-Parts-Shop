@@ -1,5 +1,6 @@
 package org.softuni.carpartsshop.web.interceptor;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.web.annotations.PageTitle;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -14,7 +15,7 @@ public class TitleInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        String title = "Cart Parts Shop";
+        String title = Constant.SHOP_NAME;
 
         if (modelAndView == null) {
             modelAndView = new ModelAndView();
@@ -24,7 +25,7 @@ public class TitleInterceptor extends HandlerInterceptorAdapter {
 
                 if (methodAnnotation != null) {
                     modelAndView
-                            .addObject("title", title + " - " + methodAnnotation.value());
+                            .addObject(Constant.ADD_OBJECT_TITLE, title + " - " + methodAnnotation.value());
                 }
             }
         }

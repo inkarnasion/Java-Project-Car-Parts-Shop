@@ -1,37 +1,40 @@
 package org.softuni.carpartsshop.domain.entites;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "offers")
 public class Offer extends BaseEntity {
 
-    private Product product;
-    private BigDecimal price;
+	@ManyToOne(targetEntity = Product.class)
+	@JoinColumn(name = "product_id", referencedColumnName = "id")
+	private Product product;
 
-    public Offer() {
-    }
+	@Column(name = "price")
+	private BigDecimal price;
 
-    @ManyToOne(targetEntity = Product.class)
-    @JoinColumn(
-            name = "product_id",
-            referencedColumnName = "id"
-    )
-    public Product getProduct() {
-        return product;
-    }
+	public Offer() {
+	}
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+	public Product getProduct() {
+		return product;
+	}
 
-    @Column(name = "price")
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 }

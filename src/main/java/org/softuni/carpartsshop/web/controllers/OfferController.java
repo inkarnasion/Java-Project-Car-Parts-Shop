@@ -1,6 +1,7 @@
 package org.softuni.carpartsshop.web.controllers;
 
 import org.modelmapper.ModelMapper;
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.models.view.OfferViewModel;
 import org.softuni.carpartsshop.service.OfferService;
 
@@ -28,15 +29,15 @@ public class OfferController extends BaseController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/top-offers")
+    @GetMapping(Constant.GET_MAPPING_TOP_OFFERS)
     @PreAuthorize("isAuthenticated()")
-    @PageTitle("Top Offers")
+    @PageTitle(Constant.PAGE_TITLE_TOP_OFFERS)
     public ModelAndView topOffers(ModelAndView modelAndView) {
 
-        return super.view("offer/top-offers", modelAndView);
+        return super.view(Constant.OFFERS_TOP_OFFERS, modelAndView);
     }
 
-    @GetMapping("/top-offers/{category}")
+    @GetMapping(Constant.GET_MAPPING_OFFERS_CATEGORY)
     @ResponseBody
     public List<OfferViewModel> fetchByCategory(@PathVariable String category) {
         List<OfferViewModel> offerViewModels = this.offerService.findAllOffers()

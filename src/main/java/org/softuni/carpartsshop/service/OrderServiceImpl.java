@@ -2,6 +2,7 @@ package org.softuni.carpartsshop.service;
 
 import org.modelmapper.ModelMapper;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.Order;
 import org.softuni.carpartsshop.domain.entites.User;
 import org.softuni.carpartsshop.domain.models.service.OrderServiceModel;
@@ -75,6 +76,6 @@ public class OrderServiceImpl implements OrderService {
     public OrderServiceModel findOrderById(String id) {
         return this.orderRepository.findById(id)
                 .map(o -> this.modelMapper.map(o, OrderServiceModel.class))
-                .orElseThrow(() -> new NotFoundExceptions("Order you selected is not exist!"));
+                .orElseThrow(() -> new NotFoundExceptions(Constant.ORDER_YOU_SELECT_NOT_EXIST));
     }
 }

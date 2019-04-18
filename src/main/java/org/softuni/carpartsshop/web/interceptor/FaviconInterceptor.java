@@ -1,5 +1,6 @@
 package org.softuni.carpartsshop.web.interceptor;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -15,7 +16,7 @@ public class FaviconInterceptor extends HandlerInterceptorAdapter {
         String link = "http://decorous.net/wp-content/uploads/2016/01/cropped-favico.png";
 
         if (modelAndView != null) {
-            modelAndView.addObject("favicon", link);
+            modelAndView.addObject(Constant.ADD_OBJECT_FAVICON, link);
         }
     }
 }

@@ -1,115 +1,131 @@
 package org.softuni.carpartsshop.domain.entites;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
-    private String delivery;
-    private Integer quantity;
-    private String payment;
-    private Shipment shipment;
-    private Office office;
-    private Status status;
-    private BigDecimal price;
-    private User user;
-    private List<Product> products;
+	@NotNull
+	@Column(name = "delivery", nullable = false)
+	private String delivery;
 
+	@NotNull
+	@Column(name = "quantity", nullable = false)
+	private Integer quantity;
 
-    public Order() {
-    }
+	@NotNull
+	@Column(name = "payment", nullable = false)
+	private String payment;
 
-    @Column(name = "delivery", nullable = false)
-    public String getDelivery() {
-        return this.delivery;
-    }
+	@ManyToOne(targetEntity = Shipment.class)
+	@JoinColumn(name = "shipment_id", referencedColumnName = "id")
+	private Shipment shipment;
 
-    public void setDelivery(String delivery) {
-        this.delivery = delivery;
-    }
+	@ManyToOne(targetEntity = Office.class)
+	@JoinColumn(name = "office_id", referencedColumnName = "id")
+	private Office office;
 
-    @Column(name = "quantity", nullable = false)
-    public Integer getQuantity() {
-        return this.quantity;
-    }
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private Status status;
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+	@NotNull
+	@Column(name = "price", nullable = false)
+	private BigDecimal price;
 
+	@ManyToOne(targetEntity = User.class)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private User user;
 
-    @Column(name = "payment", nullable = false)
-    public String getPayment() {
-        return this.payment;
-    }
+	@ManyToMany(targetEntity = Product.class)
+	@JoinTable(name = "orders_product", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
+	private List<Product> products;
 
-    public void setPayment(String payment) {
-        this.payment = payment;
-    }
+	public Order() {
+	}
 
-    @Column(name = "price",nullable = false)
-    public BigDecimal getPrice() {
-        return this.price;
-    }
+	public String getDelivery() {
+		return this.delivery;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setDelivery(String delivery) {
+		this.delivery = delivery;
+	}
 
-    @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    public User getUser() {
-        return this.user;
-    }
+	public Integer getQuantity() {
+		return this.quantity;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 
-    @ManyToMany(targetEntity = Product.class)
-    @JoinTable(name = "orders_product",
-            joinColumns = @JoinColumn(name = "order_id",
-                    referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id",
-                    referencedColumnName = "id"))
-    public List<Product> getProducts() {
-        return this.products;
-    }
+	public String getPayment() {
+		return this.payment;
+	}
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
 
-    @ManyToOne(targetEntity = Shipment.class)
-    @JoinColumn(name = "shipment_id", referencedColumnName = "id")
-    public Shipment getShipment() {
-        return this.shipment;
-    }
+	public BigDecimal getPrice() {
+		return this.price;
+	}
 
-    public void setShipment(Shipment shipment) {
-        this.shipment = shipment;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    @ManyToOne(targetEntity = Office.class)
-    @JoinColumn(name = "office_id", referencedColumnName = "id")
-    public Office getOffice() {
-        return this.office;
-    }
+	public User getUser() {
+		return this.user;
+	}
 
-    public void setOffice(Office office) {
-        this.office = office;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    public Status getStatus() {
-        return this.status;
-    }
+	public List<Product> getProducts() {
+		return this.products;
+	}
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public Shipment getShipment() {
+		return this.shipment;
+	}
+
+	public void setShipment(Shipment shipment) {
+		this.shipment = shipment;
+	}
+
+	public Office getOffice() {
+		return this.office;
+	}
+
+	public void setOffice(Office office) {
+		this.office = office;
+	}
+
+	public Status getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 }

@@ -1,6 +1,7 @@
 package org.softuni.carpartsshop.service;
 
 import com.cloudinary.Cloudinary;
+import org.softuni.carpartsshop.config.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,11 +23,11 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     @Override
     public String uploadImage(MultipartFile multipartFile) throws IOException {
         File file = File
-                .createTempFile("temp-file", multipartFile.getOriginalFilename());
+                .createTempFile(Constant.CREATE_TEMP_FILE, multipartFile.getOriginalFilename());
         multipartFile.transferTo(file);
 
         return this.cloudinary.uploader()
                 .upload(file, new HashMap())
-                .get("url").toString();
+                .get(Constant.GET_URL).toString();
     }
 }

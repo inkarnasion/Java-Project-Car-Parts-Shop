@@ -1,8 +1,8 @@
 <th:block th:fragment="select( componentId, itemsList )">
-	<div class="form-label-group" th:id="'div'+${componentId}" style="display: none;">
-		<select class="form-control" th:id="${componentId}" th:field="*{allOffices}">
-			<option value="Please select...">Please select Office...</option>
-			<option th:each="i : ${itemsList}" th:name="${i.id}" th:value="${i.id}" th:text="${i.address}"></option>
-		</select>
-	</div>
+  <div class="form-label-group" th:id="'div'+${componentId}" style="display: none;">
+    <select class="form-control" th:id="${componentId}" th:field="*{allOffices}">
+      <option value="Please select...">Please select Office...</option>
+      <option th:each="i : ${itemsList}" th:name="${i.id}" th:value="${i.id}" th:text="${i.address}"></option>
+    </select>
+  </div>
 </th:block>

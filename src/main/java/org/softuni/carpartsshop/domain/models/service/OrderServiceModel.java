@@ -26,7 +26,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public OrderServiceModel() {
         products=new ArrayList<>();
     }
-
+    @NotNull
+    @Size(min = 2,max = 20)
     public String getDelivery() {
         return this.delivery;
     }
@@ -36,7 +37,7 @@ public class OrderServiceModel extends BaseServiceModel {
     }
     @NotNull
     @Min(1)
-    @Max(10)
+    @Max(100)
     public Integer getQuantity() {
         return this.quantity;
     }
@@ -44,8 +45,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-    @NotNull(message = "Payment cannot be null")
-    @NotEmpty
+    @NotNull
+    @Size(min = 2,max = 20)
     public String getPayment() {
         return this.payment;
     }
@@ -105,7 +106,8 @@ public class OrderServiceModel extends BaseServiceModel {
     public void setProducts(List<ProductServiceModel> products) {
         this.products = products;
     }
-
+    @NotNull
+    @DecimalMin("0.01")
     public BigDecimal getTotalPrice() {
         return this.totalPrice;
     }

@@ -34,15 +34,15 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public String addOffice(OfficeServiceModel model) {
         if (!this.validationUtil.isValid(model)) {
-            throw new IllegalArgumentException("Trying to add invalid data!");
+            throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
         }
         String result;
 
 
         Office office = this.modelMapper.map(model, Office.class);
 
-        if (office != null) {
-            throw new IllegalArgumentException("Office already exists");
+        if (this.officeRepository.findByAddress(office.getAddress()).orElse(null) != null) {
+            throw new IllegalArgumentException(Constant.OFFICE_WITH_THIS_DATA_ALREADY_EXIST);
         }
         office = this.officeRepository.saveAndFlush(office);
         result = office.getId();
@@ -54,7 +54,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public OfficeServiceModel editOffice(OfficeServiceModel model) {
         if (!this.validationUtil.isValid(model)) {
-            throw new IllegalArgumentException("There is office with same data!");
+            throw new IllegalArgumentException(Constant.THERE_IS_OFFICE_WITH_SAME_DATA);
         }
         Office office = this.officeRepository.findById(model.getId()).orElseThrow(() -> new NoSuchElementException(Constant.ERROR_MESSAGE));
 

@@ -1,44 +1,35 @@
 <th:block th:fragment="office-form-fragment(url, title, methodLabel, buttonText)">
 
-	<h1 class="text-center text-dark"th:text="${title}"></h1>
-	<hr class="hr-2 bg-dark w-25">
-	<form id="add-product-form" class="form w-25 mx-auto"
-		  th:action="${url}" th:method="${methodLabel}"
-		  enctype="multipart/form-data">
-		<input type="hidden" name="_csrf"
-			   value="c686cd14-a7f9-4216-8009-c093b7d3df86">
-		<div class="form-group">
-			<label for="input-city" class="font-weight-bold">City</label>
-			<input type="text" class="form-control text-center"
-				   id="input-city" name="city" placeholder="CityName must be at least 2 characters long." th:value="${bindingModel.city}">
-			<large id="cityHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-		<div class="form-group">
-			<label for="input-address" class="font-weight-bold">Address</label>
-			<input type="text" class="form-control text-center"
-				   id="input-address" name="address" placeholder="Addresses must be at least 2 characters long." th:value="${bindingModel.address}">
-			<large id="addressHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-		<div class="form-group">
-			<label for="input-phone-number" class="font-weight-bold">Phone Number</label>
-			<input type="text" class="form-control text-center"
-				   id="input-phone-number" name="phoneNumber" placeholder="PhoneNumber must be at least 6 characters long." th:value="${bindingModel.phoneNumber}">
-			<large id="phoneNumberHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-		<div class="form-group">
-			<label for="input-email" class="font-weight-bold">Email</label>
-			<input type="email" class="form-control text-center"
-				   id="input-email" name="email" placeholder="Email must be at least 2 characters long." th:value="${bindingModel.email}">
-			<large id="emailHelp" style="display: none" class="form-text text-muted"></large>
-		</div>
-		<div class="form-group">
-			<label for="input-image" class="font-weight-bold">Image</label>
-			<input type="file" class="form-control-file" id="input-image"
-				   name="image" th:value="${bindingModel.image}">
-		</div>
-		<hr class="hr-2 bg-dark w-25">
-		<div class="button-holder d-flex justify-content-center">
-			<button type="submit" class="btn btn-success"th:text="${buttonText}"></button>
-		</div>
-	</form>
+  <h1 class="text-center text-dark" th:text="${title}"></h1>
+  <hr class="hr-2 bg-dark w-25">
+  <form id="add-product-form" class="form w-25 mx-auto" th:action="${url}" th:method="${methodLabel}" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="c686cd14-a7f9-4216-8009-c093b7d3df86">
+    <div class="form-group">
+      <label for="input-city" class="font-weight-bold">City</label> <input type="text" class="form-control text-center" id="input-city" name="city"
+        placeholder="CityName must be at least 2 characters long." th:value="${bindingModel.city}">
+      <large id="cityHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+    <div class="form-group">
+      <label for="input-address" class="font-weight-bold">Address</label> <input type="text" class="form-control text-center" id="input-address" name="address"
+        placeholder="Addresses must be at least 2 characters long." th:value="${bindingModel.address}">
+      <large id="addressHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+    <div class="form-group">
+      <label for="input-phone-number" class="font-weight-bold">Phone Number</label> <input type="text" class="form-control text-center" id="input-phone-number" name="phoneNumber"
+        placeholder="PhoneNumber must be at least 6 characters long." th:value="${bindingModel.phoneNumber}">
+      <large id="phoneNumberHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+    <div class="form-group">
+      <label for="input-email" class="font-weight-bold">Email</label> <input type="email" class="form-control text-center" id="input-email" name="email"
+        placeholder="Email must be at least 2 characters long." th:value="${bindingModel.email}">
+      <large id="emailHelp" style="display: none" class="form-text text-muted"></large>
+    </div>
+    <div class="form-group">
+      <label for="input-image" class="font-weight-bold">Image</label> <input type="file" class="form-control-file" id="input-image" name="image" th:value="${bindingModel.image}">
+    </div>
+    <hr class="hr-2 bg-dark w-25">
+    <div class="button-holder d-flex justify-content-center">
+      <button type="submit" class="btn btn-success" th:text="${buttonText}"></button>
+    </div>
+  </form>
 </th:block>
