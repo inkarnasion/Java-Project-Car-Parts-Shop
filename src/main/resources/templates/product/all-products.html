@@ -37,7 +37,7 @@
             <tbody>
             <tr th:each="product, iter : ${products}">
                 <td th:text="${iter.index} + 1"></td>
-                <td><img th:src="${product.imageUrl}" width="40" height="40" alt="Product"></td>
+                <td><img th:src="${product.imageUrl}" width="80" height="80" alt="Product"></td>
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.manufacture}"></td>
                 <td th:text="${product.model}"></td>

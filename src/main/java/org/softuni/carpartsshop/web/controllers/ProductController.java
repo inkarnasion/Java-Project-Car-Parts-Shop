@@ -99,7 +99,7 @@ public class ProductController extends BaseController {
 		ProductServiceModel productServiceModel = this.productService.findProductById(id);
 		ProductAddBindingModel model = this.modelMapper.map(productServiceModel, ProductAddBindingModel.class);
 
-		modelAndView.addObject("categoryNames", this.categoryService.getCategoriesNames());
+		modelAndView.addObject(Constant.ADD_OBJECT_CATEGORY_NAMES, this.categoryService.getCategoriesNames());
 		modelAndView.addObject(Constant.ADD_OBJECT_PRODUCTS, model);
 		modelAndView.addObject(Constant.ADD_OBJECT_PRODUCT_ID, id);
 
@@ -115,7 +115,7 @@ public class ProductController extends BaseController {
 		if (bindingResult.hasErrors()) {
 			productServiceModel = this.productService.findProductById(id);
 			model = this.modelMapper.map(productServiceModel, ProductAddBindingModel.class);
-			modelAndView.addObject("categoryNames", this.categoryService.getCategoriesNames());
+			modelAndView.addObject(Constant.ADD_OBJECT_CATEGORY_NAMES, this.categoryService.getCategoriesNames());
 
 			return super.view(Constant.PRODUCT_EDIT_PRODUCT, modelAndView);
 		}
@@ -147,7 +147,7 @@ public class ProductController extends BaseController {
 		ProductServiceModel productServiceModel = this.productService.findProductById(id);
 		ProductAddBindingModel model = this.modelMapper.map(productServiceModel, ProductAddBindingModel.class);
 
-		modelAndView.addObject("categoryNames", this.categoryService.getCategoriesNames());
+		modelAndView.addObject(Constant.ADD_OBJECT_CATEGORY_NAMES, this.categoryService.getCategoriesNames());
 		modelAndView.addObject(Constant.ADD_OBJECT_PRODUCTS, model);
 
 		return super.view(Constant.VIEW_PRODUCT_DELETE_PRODUCT, modelAndView);

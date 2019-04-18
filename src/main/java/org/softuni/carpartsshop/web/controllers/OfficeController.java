@@ -63,7 +63,7 @@ public class OfficeController extends BaseController {
 	public ModelAndView allOffices(ModelAndView modelAndView) {
 		List<OfficeServiceModel> officeServiceModels = this.officeService.findAllOffices();
 		List<OfficeAllViewModel> officeAllViewModels = officeServiceModels.stream().map(o -> this.modelMapper.map(o, OfficeAllViewModel.class)).collect(Collectors.toList());
-		modelAndView.addObject("offices", officeAllViewModels);
+		modelAndView.addObject(Constant.ADD_OBJECT_OFFICES, officeAllViewModels);
 
 		return view(Constant.ALL_OFFICE_PAGE, modelAndView);
 	}

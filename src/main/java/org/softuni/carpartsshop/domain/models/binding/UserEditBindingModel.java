@@ -34,8 +34,7 @@ public class UserEditBindingModel {
 		this.username = username;
 	}
 
-//    @NotNull(message = "Name cannot be null")
-//	@NotEmpty
+
 	@Length(min = 6, message = "Password must be at least 2 characters long.")
 	@Length(max = 20, message = "Password must be maximum 20 characters long.")
 	public String getOldPassword() {
@@ -46,8 +45,7 @@ public class UserEditBindingModel {
 		this.oldPassword = oldPassword;
 	}
 
-//    @NotNull(message = "Name cannot be null")
-//	@NotEmpty
+
 	@Length(min = 6, message = "Password must be at least 2 characters long.")
 	@Length(max = 20, message = "Password must be maximum 20 characters long.")
 	public String getPassword() {
@@ -58,8 +56,7 @@ public class UserEditBindingModel {
 		this.password = password;
 	}
 
-//    @NotNull(message = "Name cannot be null")
-//	@NotEmpty
+
 	@Length(min = 6, message = "Password must be at least 2 characters long.")
 	@Length(max = 20, message = "Password must be maximum 20 characters long.")
 	public String getConfirmPassword() {

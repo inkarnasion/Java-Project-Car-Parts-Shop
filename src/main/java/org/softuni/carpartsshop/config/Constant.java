@@ -120,6 +120,7 @@ public class Constant {
 	public static final String VIEW_PRODUCT_DELETE_PRODUCT = "product/delete-product";
 	public static final String PRODUCT_FETCH_CATEGORY_ID = "/fetch/";
 	public static final String PRODUCT_ALL = "all";
+	public static final String ADD_OBJECT_CATEGORY_NAMES="categoryNames";
 
 	// Users Controller
 	public static final String REQUEST_MAPPING_USERS = "/users";
