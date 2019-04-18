@@ -36,6 +36,9 @@ function activateBuyButton(){
   let selectedOffice = document.getElementById("inputOffice").value;
   let inputAddressLength   = document.getElementById("inputAddress").value.length;
   
+  let inputOfficeSelect = document.getElementById("inputOffice");
+  inputOfficeSelect.setAttribute("name", "inputOffice");
+  
   console.log("ïnput="+document.getElementById("inputAddress").value);
   console.log("length="+inputAddressLength);
 

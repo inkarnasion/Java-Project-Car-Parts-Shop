@@ -2,90 +2,81 @@ package org.softuni.carpartsshop.domain.models.view;
 
 import java.math.BigDecimal;
 
-public class ProductDetailsViewModel {
+public class ProductDetailsViewModel extends BaseVieweModel {
 
-    private String id;
-    private String name;
-    private String manufacture;
-    private String model;
-    private String description;
-    private BigDecimal price;
-    private BigDecimal discountedPrice;
-    private String imageUrl;
-    private Integer quantity;
+	private String name;
+	private String manufacture;
+	private String model;
+	private String description;
+	private BigDecimal price;
+	private BigDecimal discountedPrice;
+	private String imageUrl;
+	private Integer quantity;
 
-    public ProductDetailsViewModel() {
-    }
+	public ProductDetailsViewModel() {
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public BigDecimal getDiscountedPrice() {
+		return this.discountedPrice;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setDiscountedPrice(BigDecimal discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
 
-    public BigDecimal getDiscountedPrice() {
-        return this.discountedPrice;
-    }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public void setDiscountedPrice(BigDecimal discountedPrice) {
-        this.discountedPrice = discountedPrice;
-    }
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public String getManufacture() {
+		return this.manufacture;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setManufacture(String manufacture) {
+		this.manufacture = manufacture;
+	}
 
-    public String getManufacture() {
-        return this.manufacture;
-    }
+	public String getModel() {
+		return this.model;
+	}
 
-    public void setManufacture(String manufacture) {
-        this.manufacture = manufacture;
-    }
+	public void setModel(String model) {
+		this.model = model;
+	}
 
-    public String getModel() {
-        return this.model;
-    }
+	public Integer getQuantity() {
+		return this.quantity;
+	}
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public Integer getQuantity() {
-        return this.quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 }

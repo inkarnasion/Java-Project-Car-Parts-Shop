@@ -3,14 +3,15 @@ package org.softuni.carpartsshop.domain.entites;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -19,18 +20,10 @@ import javax.validation.constraints.NotNull;
 public class Order extends BaseEntity {
 
 	@NotNull
-	@Column(name = "delivery", nullable = false)
-	private String delivery;
-
-	@NotNull
-	@Column(name = "quantity", nullable = false)
-	private Integer quantity;
-
-	@NotNull
 	@Column(name = "payment", nullable = false)
 	private String payment;
 
-	@ManyToOne(targetEntity = Shipment.class)
+	@OneToOne(targetEntity = Shipment.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "shipment_id", referencedColumnName = "id")
 	private Shipment shipment;
 
@@ -47,30 +40,13 @@ public class Order extends BaseEntity {
 	private BigDecimal price;
 
 	@ManyToOne(targetEntity = User.class)
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	private User user;
+	@JoinColumn(name = "customer_id", referencedColumnName = "id")
+	private User customer;
 
-	@ManyToMany(targetEntity = Product.class)
-	@JoinTable(name = "orders_product", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
-	private List<Product> products;
+	@OneToMany(targetEntity = OrderItem.class, mappedBy = "order", cascade = CascadeType.ALL)
+	private List<OrderItem> orderItems;
 
 	public Order() {
-	}
-
-	public String getDelivery() {
-		return this.delivery;
-	}
-
-	public void setDelivery(String delivery) {
-		this.delivery = delivery;
-	}
-
-	public Integer getQuantity() {
-		return this.quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
 	}
 
 	public String getPayment() {
@@ -89,20 +65,20 @@ public class Order extends BaseEntity {
 		this.price = price;
 	}
 
-	public User getUser() {
-		return this.user;
+	public User getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(User customer) {
+		this.customer = customer;
 	}
 
-	public List<Product> getProducts() {
-		return this.products;
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	public Shipment getShipment() {

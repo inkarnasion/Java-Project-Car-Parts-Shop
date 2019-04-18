@@ -69,7 +69,7 @@ function validFormScript() {
         let helpText = $(`#quantityHelp`);
         let value = field.val().trim();
 
-        if (value.length < 2 || value.length > 100) {
+        if (value.length < 1 || value.length > 100) {
             showHelpText(field, helpText, ERROR_INVALID_NUMBER_LENGHT);
         } else {
             removeHelpText(field, helpText);

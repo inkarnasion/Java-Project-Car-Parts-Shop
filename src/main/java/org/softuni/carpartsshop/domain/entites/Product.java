@@ -1,14 +1,12 @@
 package org.softuni.carpartsshop.domain.entites;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -49,14 +47,13 @@ public class Product extends BaseEntity {
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 
-	@ManyToMany(targetEntity = Order.class, mappedBy = "products")
-	private List<Order> orders;
+	@ManyToOne(targetEntity = OrderItem.class)
+	private List<OrderItem> orderItems;
 
 	@OneToMany(targetEntity = Offer.class, mappedBy = "product", cascade = CascadeType.REMOVE)
 	private List<Offer> offers;
 
 	public Product() {
-		this.orders = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -107,12 +104,12 @@ public class Product extends BaseEntity {
 		this.price = price;
 	}
 
-	public List<Order> getOrders() {
-		return this.orders;
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 	public Category getCategory() {

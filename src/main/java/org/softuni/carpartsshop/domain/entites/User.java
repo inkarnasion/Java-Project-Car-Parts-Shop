@@ -57,7 +57,7 @@ public class User extends BaseEntity implements UserDetails {
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> authorities;
 
-	@OneToMany(targetEntity = Order.class, mappedBy = "user")
+	@OneToMany(targetEntity = Order.class, mappedBy = "customer")
 	private List<Order> orders;
 
 	public User() {

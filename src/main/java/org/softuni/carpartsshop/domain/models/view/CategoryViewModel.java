@@ -1,26 +1,17 @@
 package org.softuni.carpartsshop.domain.models.view;
 
-public class CategoryViewModel {
+public class CategoryViewModel extends BaseVieweModel {
 
-    private String id;
-    private String name;
+	private String name;
 
-    public CategoryViewModel() {
-    }
+	public CategoryViewModel() {
+	}
 
-    public String getId() {
-        return id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 }

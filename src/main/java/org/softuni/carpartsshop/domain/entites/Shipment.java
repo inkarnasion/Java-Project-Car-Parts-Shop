@@ -1,12 +1,9 @@
 package org.softuni.carpartsshop.domain.entites;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -15,26 +12,13 @@ import javax.validation.constraints.NotNull;
 public class Shipment extends BaseEntity {
 
 	@NotNull
-	@Column(name = "shipment_price", nullable = false)
-	private BigDecimal shipmentPrice;
-
-	@NotNull
 	@Column(name = "shipment_address", nullable = false)
 	private String shipmentAddress;
 
-	@OneToMany(targetEntity = Order.class, mappedBy = "shipment")
-	private List<Order> orders;
+	@OneToOne(targetEntity = Order.class, mappedBy = "shipment", cascade = CascadeType.ALL)
+	private Order order;
 
 	public Shipment() {
-		this.orders = new ArrayList<>();
-	}
-
-	public BigDecimal getShipmentPrice() {
-		return this.shipmentPrice;
-	}
-
-	public void setShipmentPrice(BigDecimal shipmentPrice) {
-		this.shipmentPrice = shipmentPrice;
 	}
 
 	public String getShipmentAddress() {
@@ -45,11 +29,11 @@ public class Shipment extends BaseEntity {
 		this.shipmentAddress = shipmentAddress;
 	}
 
-	public List<Order> getOrders() {
-		return this.orders;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 }

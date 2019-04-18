@@ -1,62 +1,53 @@
 package org.softuni.carpartsshop.domain.models.view;
 
-public class OfficeAllViewModel {
+public class OfficeAllViewModel extends BaseVieweModel {
 
-    private String id;
-    private String city;
-    private String address;
-    private String phoneNumber;
-    private String email;
-    private String imageUrl;
+	private String city;
+	private String address;
+	private String phoneNumber;
+	private String email;
+	private String imageUrl;
 
-    public OfficeAllViewModel() {
-    }
+	public OfficeAllViewModel() {
+	}
 
-    public String getId() {
-        return this.id;
-    }
+	public String getCity() {
+		return this.city;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public String getCity() {
-        return this.city;
-    }
+	public String getAddress() {
+		return this.address;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public String getAddress() {
-        return this.address;
-    }
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
+	public String getEmail() {
+		return this.email;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getEmail() {
-        return this.email;
-    }
+	public String getImageUrl() {
+		return this.imageUrl;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getImageUrl() {
-        return this.imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 }

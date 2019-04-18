@@ -2,9 +2,8 @@ package org.softuni.carpartsshop.domain.models.view;
 
 import java.math.BigDecimal;
 
-public class ProductAllViewModel {
+public class ProductAllViewModel extends BaseVieweModel {
 
-	private String id;
 	private String name;
 	private String manufacture;
 	private String model;
@@ -14,14 +13,6 @@ public class ProductAllViewModel {
 	private Integer quantity;
 
 	public ProductAllViewModel() {
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getName() {
