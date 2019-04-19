@@ -1,0 +1,50 @@
+<th:block th:fragment="order-form-fragment(title)">
+
+    <h1 style="margin-top: 20px" class="text-center"th:text="${title}"></h1>
+
+    <table class="table" id="allProducts">1
+        <thead>
+        <tr>
+            <th>#</th>
+            <th id="userNameHeader">UserName</th>
+            <th>Total Price</th>
+            <th>Delivery</th>
+            <th>Finished On</th>
+            <th>Status</th>
+            <th>Status Change</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order, iter : ${orders}">
+            <td th:text="${iter.index} + 1"></td>
+            <td id="userName" th:text="${order.user}"></td>
+            <td th:text="${order.totalPrice}"></td>
+            <td th:text="${order.delivery}"></td>
+            <td th:text="${order.finishedOn}"></td>
+            <td th:text="${order.status}"></td>
+            <td>
+             <div class="text-center">
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/orders/all/change-status/{id}(id=*{id})}" class="btn btn-info" >Change</a>
+                </th:block>
+                <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/orders/my/confirm-delivery/{id}(id=*{id})}" class="btn btn-info">Change</a>
+                </th:block>
+            </div>
+            </td>
+            <td>  <div class="text-center">
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/orders/all/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+                </th:block>
+                <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/orders/my/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+                </th:block>
+            </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</th:block>

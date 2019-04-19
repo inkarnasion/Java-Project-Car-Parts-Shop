@@ -2,6 +2,7 @@ package org.softuni.carpartsshop.web.controllers;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -104,9 +105,10 @@ public class CartController extends BaseController {
 			orderItemServiceModel.setOrder(orderServiceModel);
 		}
 
-		orderServiceModel.setTotalPrice(calcTotal(cart));
+		orderServiceModel.setPrice(calcTotal(cart));
 		orderServiceModel.setStatus(Status.Pending);
 		orderServiceModel.setCustomer(user);
+		orderServiceModel.setFinishedOn(LocalDateTime.now());
 
 		String officeId = request.getParameter("inputOffice");
 		String address = request.getParameter("address");

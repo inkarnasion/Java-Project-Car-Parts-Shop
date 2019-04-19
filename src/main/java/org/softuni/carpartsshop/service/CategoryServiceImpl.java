@@ -31,13 +31,13 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public CategoryServiceModel addCategory(CategoryServiceModel categoryServiceModel) {
 		if (!this.validationUtil.isValid(categoryServiceModel)) {
-			throw new NotFoundExceptions("Trying to add category witch exist!");
+			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_EXIST_CATEGORY);
 		}
 
 		Category category = this.modelMapper.map(categoryServiceModel, Category.class);
 
 		if (this.categoryRepository.findByName(category.getName()).orElse(null) != null) {
-			throw new IllegalArgumentException(Constant.EXIST_USER_IN_DATABASE);
+			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_EXIST_CATEGORY);
 		}
 
 		return this.modelMapper.map(this.categoryRepository.saveAndFlush(category), CategoryServiceModel.class);

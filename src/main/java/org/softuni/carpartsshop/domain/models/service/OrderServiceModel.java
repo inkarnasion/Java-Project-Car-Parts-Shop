@@ -1,6 +1,7 @@
 package org.softuni.carpartsshop.domain.models.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +28,22 @@ public class OrderServiceModel extends BaseServiceModel {
 
 	@NotNull
 	@DecimalMin("0.01")
-	private BigDecimal totalPrice;
+	private BigDecimal price;
 
 	private UserServiceModel customer;
 
 	private List<OrderItemServiceModel> orderItems;
 
+	private LocalDateTime finishedOn;
+
+
+
+
+
 	public OrderServiceModel() {
 		orderItems = new ArrayList<>();
 	}
+
 
 	public String getPayment() {
 		return this.payment;
@@ -85,11 +93,19 @@ public class OrderServiceModel extends BaseServiceModel {
 		this.orderItems = orderItems;
 	}
 
-	public BigDecimal getTotalPrice() {
-		return this.totalPrice;
+	public BigDecimal getPrice() {
+		return this.price;
 	}
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public LocalDateTime getFinishedOn() {
+		return this.finishedOn;
+	}
+
+	public void setFinishedOn(LocalDateTime finishedOn) {
+		this.finishedOn = finishedOn;
 	}
 }

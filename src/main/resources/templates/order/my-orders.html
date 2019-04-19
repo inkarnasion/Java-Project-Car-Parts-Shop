@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+        <script>
+            $(document).ready(function () {
+                $('#allProducts').DataTable();
+            });
+        </script>
+    </header>
+    <main>
+        <div th:insert="~{fragments/order-form::order-form-fragment(
+        title=${'My Orders'}
+       )}">
+        </div>
+
+<!--        <script>-->
+<!--            $(document).ready(function () {-->
+<!--                $('#userNameHeader').hide();-->
+<!--                $('#userName').hide();-->
+<!--            });-->
+<!--        </script>-->
+    </main>
+    <footer class="py-5 bg-dark">
+        <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+</div>
+</body>
+</html>

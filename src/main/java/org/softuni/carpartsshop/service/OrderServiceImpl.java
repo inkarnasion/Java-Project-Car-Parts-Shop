@@ -1,5 +1,6 @@
 package org.softuni.carpartsshop.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,31 +10,29 @@ import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.Order;
 import org.softuni.carpartsshop.domain.entites.User;
+import org.softuni.carpartsshop.domain.models.service.OfficeServiceModel;
 import org.softuni.carpartsshop.domain.models.service.OrderServiceModel;
+import org.softuni.carpartsshop.domain.models.service.ShipmentServiceModel;
+import org.softuni.carpartsshop.domain.models.service.UserServiceModel;
+import org.softuni.carpartsshop.domain.models.view.MyOrdersViewModel;
+import org.softuni.carpartsshop.domain.models.view.ProductDetailsViewModel;
 import org.softuni.carpartsshop.error.NotFoundExceptions;
 import org.softuni.carpartsshop.repository.OrderRepository;
-import org.softuni.carpartsshop.repository.ProductRepository;
-import org.softuni.carpartsshop.validation.ProductValidationService;
-import org.softuni.carpartsshop.validation.UserValidationService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
 	private final OrderRepository orderRepository;
-	private final ProductRepository productRepository;
 	private final UserService userService;
 	private final ModelMapper modelMapper;
-	private final UserValidationService userValidation;
-	private final ProductValidationService productValidation;
 
-	public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, UserService userService, UserValidationService userValidation,
-	    ProductValidationService productValidation, ModelMapper modelMapper) {
+
+	public OrderServiceImpl(OrderRepository orderRepository, UserService userService, ModelMapper modelMapper) {
 		this.orderRepository = orderRepository;
-		this.productRepository = productRepository;
+
 		this.userService = userService;
-		this.userValidation = userValidation;
-		this.productValidation = productValidation;
+
 		this.modelMapper = modelMapper;
 	}
 
@@ -64,4 +63,32 @@ public class OrderServiceImpl implements OrderService {
 		return this.orderRepository.findById(id).map(o -> this.modelMapper.map(o, OrderServiceModel.class)).orElseThrow(() -> new NotFoundExceptions(
 		    Constant.ORDER_YOU_SELECT_NOT_EXIST));
 	}
+
+	@Override
+	public List<MyOrdersViewModel> mapServiceToViewModel(List<OrderServiceModel> orderServices) {
+		List<MyOrdersViewModel> result= new ArrayList<>();
+
+		for (OrderServiceModel orderService : orderServices) {
+			MyOrdersViewModel viewModel = new MyOrdersViewModel();
+
+			viewModel.setUser(orderService.getCustomer().getUsername());
+			viewModel.setTotalPrice(orderService.getPrice());
+			if (orderService.getOffice()==null){
+				viewModel.setDelivery("Courier on address:"+ orderService.getShipment().getShipmentAddress());
+			}else {
+				viewModel.setDelivery("Take order from:"+  orderService.getOffice().getAddress());
+			}
+			viewModel.setFinishedOn(orderService.getFinishedOn());
+			viewModel.setStatus(orderService.getStatus().toString());
+
+
+//			List<ProductDetailsViewModel> productDetailsViewModels=orderService.getOrderItems().stream().map(o-> this.modelMapper.map(o,ProductDetailsViewModel.class)).collect(Collectors.toList());
+//			viewModel.setProductDetailsViewModelList( );
+		result.add(viewModel);
+		}
+
+		return result;
+	}
+
+
 }

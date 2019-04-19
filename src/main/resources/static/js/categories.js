@@ -34,35 +34,31 @@ function formatProduct(product) {
 		+ '<div class="card h-100">'
 		+ `<a href="/products/details/${product.id}"><img src="${product.imageUrl}" class="product-image-home img-thumbnail px-auto" alt="Image not loaded..."/></a>`
 		+ '<div class="card-body">'
-		+ `<a class="card-title"> <label for="name" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥 ℕ𝕒𝕞𝕖:</label>`
+		+ `<a class="card-title"> <label for="name" class="font-weight-bold">Name:</label>`
 		+ `<hr>`
 		+ `<a class="col-md-1 text-center" id="name">${product.name}</a>`
 		+ `</a>`
 		+ `<hr>`
-		+ `<label for="manufacture" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥 𝕄𝕒𝕟𝕦𝕗𝕒𝕔𝕥𝕦𝕣𝕖:</label>`
+		+ `<label for="manufacture" class="font-weight-bold">Manufacture:</label>`
 		+ `<hr>`
 		+ `<a class="col-md-3 text-center" id="manufacture">${product.manufacture}</a>`
 		+ `<hr>`
-		+ `<label for="model" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥 𝕄𝕠𝕕𝕖𝕝:</label>`
+		+ `<label for="model" class="font-weight-bold">Model:</label>`
 		+ `<hr>`
 		+ `<a class="col-md-3 text-center" id="model">${product.model}</a>`
 		+ `<hr>`
-		+ `<label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥 ℙ𝕣𝕚𝕔𝕖:</label>`
+		+ `<label for="price" class="font-weight-bold">Price:</label>`
 		+ `<hr>`
 		+ `<a class="col-md-3 text-center">${product.price}</a>`
 		+ `<hr>`
-		+ `<label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥 𝔻𝕖𝕤𝕔𝕣𝕚𝕡𝕥𝕚𝕠𝕟:</label>`
+		+ `<label for="price" class="font-weight-bold">Description:</label>`
 		+ `<hr>`
 		+ `<a class="col-md-3 text-center">${product.description}</a>`
 		+ `<hr>`
-		+ `<label for="price" class="font-weight-bold">ℙ𝕣𝕠𝕕𝕦𝕔𝕥 ℚ𝕦𝕒𝕟𝕥𝕚𝕥𝕪:</label>`
+		+ `<label for="price" class="font-weight-bold">Quantity:</label>`
 		+ `<hr>`
 		+ `<a class="col-md-3 text-center">${product.quantity}</a>`
 		+ '</div>'
-		+ '<div class="card-footer">'
-		+ `<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; </small>`
-		+ '</div>'
-		+ `<hr>`
 		+ '</div>'
 		+ '</div>'
 		+ '</div>'

@@ -187,6 +187,7 @@ public class Constant {
 	public static final String ID_ERROR_MESSAGE = "Incorrect id!";
 	public static final String ERROR_MESSAGE = "The searched item not found!";
 	public static final String TRYING_TO_ADD_INVALID_DATA = "Trying to add invalid data!";
+	public static final String TRYING_TO_ADD_EXIST_CATEGORY="Trying to add category witch exist!";
 	public static final String EXIST_USER_IN_DATABASE = "There is a user with this username!";
 	public static final String USERNAME_NOT_FOUND = "Username not found!";
 	public static final String INCORECT_PASSWORD = "Incorrect password!";

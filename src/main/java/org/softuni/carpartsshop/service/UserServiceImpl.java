@@ -35,11 +35,12 @@ public class UserServiceImpl implements UserService {
 		this.validationUtil = validationUtil;
 	}
 
+
 	@Override
 	public UserServiceModel registerUser(UserServiceModel userServiceModel) {
-		if (!this.validationUtil.isValid(userServiceModel)) {
-			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
-		}
+//		if (!this.validationUtil.isValid(userServiceModel)) {
+//			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
+//		}
 		this.roleService.seedRolesInDb();
 		if (this.userRepository.count() == 0) {
 			userServiceModel.setAuthorities(this.roleService.findAllRoles());
@@ -62,13 +63,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws IllegalArgumentException {
 		return this.userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException(Constant.USERNAME_NOT_FOUND));
 	}
 
 	@Override
 	public UserServiceModel findUserByUserName(String username) {
-		return this.userRepository.findByUsername(username).map(u -> this.modelMapper.map(u, UserServiceModel.class)).orElseThrow(() -> new UsernameNotFoundException(
+		return this.userRepository.findByUsername(username).map(u -> this.modelMapper.map(u, UserServiceModel.class)).orElseThrow(() -> new IllegalArgumentException(
 		    Constant.USERNAME_NOT_FOUND));
 	}
 
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService {
 			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
 		}
 
-		User user = this.userRepository.findByUsername(userServiceModel.getUsername()).orElseThrow(() -> new UsernameNotFoundException(Constant.USERNAME_NOT_FOUND));
+		User user = this.userRepository.findByUsername(userServiceModel.getUsername()).orElseThrow(() -> new IllegalArgumentException(Constant.USERNAME_NOT_FOUND));
 
 		if (userServiceModel.getPassword() != null) {
 			if (!this.bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {

@@ -1,6 +1,7 @@
 package org.softuni.carpartsshop.domain.entites;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -45,6 +46,10 @@ public class Order extends BaseEntity {
 
 	@OneToMany(targetEntity = OrderItem.class, mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
+
+
+	@Column(name = "finished_on")
+	private LocalDateTime finishedOn;
 
 	public Order() {
 	}
@@ -103,5 +108,13 @@ public class Order extends BaseEntity {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public LocalDateTime getFinishedOn() {
+		return this.finishedOn;
+	}
+
+	public void setFinishedOn(LocalDateTime finishedOn) {
+		this.finishedOn = finishedOn;
 	}
 }
