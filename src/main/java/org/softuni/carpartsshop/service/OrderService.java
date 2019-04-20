@@ -1,22 +1,22 @@
 package org.softuni.carpartsshop.service;
 
-import org.softuni.carpartsshop.domain.entites.Order;
+import java.util.List;
+
+import org.softuni.carpartsshop.domain.entites.Status;
 import org.softuni.carpartsshop.domain.models.service.OrderServiceModel;
 import org.softuni.carpartsshop.domain.models.view.MyOrdersViewModel;
 
-
-import java.util.List;
-
 public interface OrderService {
 
-    void createOrder(OrderServiceModel orderServiceModel);
+	void createOrder(OrderServiceModel orderServiceModel);
 
-    List<OrderServiceModel> findAllOrders();
+	List<OrderServiceModel> findAllOrders();
 
-    List<OrderServiceModel> findOrdersByCustomer(String username);
+	List<OrderServiceModel> findOrdersByCustomer(String username);
 
-    OrderServiceModel findOrderById(String id);
+	OrderServiceModel findOrderById(String id);
 
-    List<MyOrdersViewModel> mapServiceToViewModel(List<OrderServiceModel> orderServices);
+	List<MyOrdersViewModel> mapServiceToViewModel(List<OrderServiceModel> orderServices);
 
+	void setStatus(String orderId, Status status);
 }

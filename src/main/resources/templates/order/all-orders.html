@@ -1,31 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="~{fragments/head}"></th:block>
-    <script type="text/javascript" charset="utf8"
-            src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<th:block th:include="~{fragments/head}"></th:block>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 </head>
 <body>
-<div class="container-fluid">
+  <div class="container-fluid">
     <header>
-        <th:block th:include="~{fragments/navbar}"></th:block>
-        <script>
-            $(document).ready(function () {
-                $('#allProducts').DataTable();
-            });
-        </script>
+      <th:block th:include="~{fragments/navbar}"></th:block>
+      <script>
+							$(document).ready(function() {
+								$('#allProducts').DataTable();
+							});
+						</script>
     </header>
     <main>
-        <div th:insert="~{fragments/order-form::order-form-fragment(
-        title=${'All Orders'}
-       )}">
-        </div>
+    
+     <h1 style="margin-top: 20px" class="text-center">All Orders</h1>
+      <table class="table" id="allProducts">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>UserName</th>
+        <th>Total Price</th>
+        <th>Delivery</th>
+        <th>Finished On</th>
+        <th>Status</th>
+        <th>Status Change</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="order, iter : ${orders}">
+        <td th:text="${iter.index} + 1"></td>
+        <td id="userName" th:text="${order.customer}"></td>
+        <td th:text="${order.totalPrice}"></td>
+        <td th:text="${order.delivery}"></td>
+        <td th:text="${order.finishedOn}"></td>
+        <td th:text="${order.status}"></td>
 
+        <td><th:block sec:authorize="hasRole('ROLE_ADMIN')">
+
+            <div class="text-center">
+              <form th:action="@{/orders/set-ship/{id}(id=${order.id})}" method="post">
+                <input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
+                <button class="btn btn-info">Shipped</button>
+              </form>
+            </div>
+            </th:block>
+<!--            <th:block sec:authorize="hasRole('ROLE_USER')">-->
+<!--            <div class="text-center">-->
+<!--              <form th:action="@{/orders/set-deliver/{id}(id=${order.id})}" method="post">-->
+<!--                <input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">-->
+<!--                <button class="btn btn-info">Delivered</button>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--          </th:block>-->
+          </td>
+      <td>
+          <div class="text-center">
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+              <a th:href="@{/orders/all/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+            </th:block>
+            <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
+              <a th:href="@{/orders/my/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+            </th:block>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
     </main>
     <footer class="py-5 bg-dark">
-        <th:block th:include="~{fragments/footer}"></th:block>
+      <th:block th:include="~{fragments/footer}"></th:block>
     </footer>
-</div>
+  </div>
 </body>
 </html>

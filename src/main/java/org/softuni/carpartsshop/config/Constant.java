@@ -120,7 +120,7 @@ public class Constant {
 	public static final String VIEW_PRODUCT_DELETE_PRODUCT = "product/delete-product";
 	public static final String PRODUCT_FETCH_CATEGORY_ID = "/fetch/";
 	public static final String PRODUCT_ALL = "all";
-	public static final String ADD_OBJECT_CATEGORY_NAMES="categoryNames";
+	public static final String ADD_OBJECT_CATEGORY_NAMES = "categoryNames";
 
 	// Users Controller
 	public static final String REQUEST_MAPPING_USERS = "/users";
@@ -154,6 +154,8 @@ public class Constant {
 	public static final String SET_ROLE_MODERATOR = "moderator";
 	public static final String SET_ADMIN_ID = "/set-admin/{id}";
 	public static final String SET_ROLE_ADMIN = "admin";
+	public static final String POST_MAPPING_SET_SHIP_ID = "/set-ship/{id}";
+	public static final String POST_MAPPING_SET_DELIVER_ID = "/set-deliver/{id}";
 //    public static final String
 //    public static final String
 //    public static final String
@@ -187,7 +189,7 @@ public class Constant {
 	public static final String ID_ERROR_MESSAGE = "Incorrect id!";
 	public static final String ERROR_MESSAGE = "The searched item not found!";
 	public static final String TRYING_TO_ADD_INVALID_DATA = "Trying to add invalid data!";
-	public static final String TRYING_TO_ADD_EXIST_CATEGORY="Trying to add category witch exist!";
+	public static final String TRYING_TO_ADD_EXIST_CATEGORY = "Trying to add category witch exist!";
 	public static final String EXIST_USER_IN_DATABASE = "There is a user with this username!";
 	public static final String USERNAME_NOT_FOUND = "Username not found!";
 	public static final String INCORECT_PASSWORD = "Incorrect password!";

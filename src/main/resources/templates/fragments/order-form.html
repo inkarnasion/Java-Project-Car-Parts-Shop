@@ -1,50 +1,62 @@
-<th:block th:fragment="order-form-fragment(title)">
+<th:block th:fragment="order-form-fragment(title, buttonLabel)">
 
-    <h1 style="margin-top: 20px" class="text-center"th:text="${title}"></h1>
+  <h1 style="margin-top: 20px" class="text-center" th:text="${title}"></h1>
 
-    <table class="table" id="allProducts">1
-        <thead>
-        <tr>
-            <th>#</th>
-            <th id="userNameHeader">UserName</th>
-            <th>Total Price</th>
-            <th>Delivery</th>
-            <th>Finished On</th>
-            <th>Status</th>
-            <th>Status Change</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order, iter : ${orders}">
-            <td th:text="${iter.index} + 1"></td>
-            <td id="userName" th:text="${order.user}"></td>
-            <td th:text="${order.totalPrice}"></td>
-            <td th:text="${order.delivery}"></td>
-            <td th:text="${order.finishedOn}"></td>
-            <td th:text="${order.status}"></td>
-            <td>
-             <div class="text-center">
-                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/orders/all/change-status/{id}(id=*{id})}" class="btn btn-info" >Change</a>
-                </th:block>
-                <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/orders/my/confirm-delivery/{id}(id=*{id})}" class="btn btn-info">Change</a>
-                </th:block>
+  <table class="table" id="allProducts">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th id="userNameHeader">UserName</th>
+        <th>Total Price</th>
+        <th>Delivery</th>
+        <th>Finished On</th>
+        <th>Status</th>
+        <th>Status Change</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="order, iter : ${orders}">
+        <td th:text="${iter.index} + 1"></td>
+        <td id="userName" th:text="${order.customer}"></td>
+        <td th:text="${order.totalPrice}"></td>
+        <td th:text="${order.delivery}"></td>
+        <td th:text="${order.finishedOn}"></td>
+        <td th:text="${order.status}"></td>
+        <td>
+
+<!--          <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--        -->
+<!--            <div class="text-center">-->
+<!--              <form th:action="@{/orders/set-ship/{id}(id=${order.id})}" method="post">-->
+<!--                <input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">-->
+<!--                <button class="btn btn-info">Shipped</button>-->
+<!--              </form>-->
+<!--            </div>-->
+<!--            </th:block>-->
+<!--          -->
+            <th:block sec:authorize="hasRole('ROLE_USER')">
+            <div class="text-center">
+              <form th:action="@{/orders/set-deliver/{id}(id=${order.id})}" method="post">
+                <input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">
+                <button class="btn btn-info">Delivered</button>
+              </form>
             </div>
-            </td>
-            <td>  <div class="text-center">
-                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/orders/all/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
-                </th:block>
-                <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/orders/my/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
-                </th:block>
-            </div>
-            </td>
+          </th:block>
+        </td>
+        <td>
+          <div class="text-center">
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+              <a th:href="@{/orders/all/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+            </th:block>
+            <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
+              <a th:href="@{/orders/my/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+            </th:block>
+          </div>
+        </td>
 
-        </tr>
-        </tbody>
-    </table>
+      </tr>
+    </tbody>
+  </table>
 
 </th:block>

@@ -36,14 +36,9 @@ public class OrderServiceModel extends BaseServiceModel {
 
 	private LocalDateTime finishedOn;
 
-
-
-
-
 	public OrderServiceModel() {
 		orderItems = new ArrayList<>();
 	}
-
 
 	public String getPayment() {
 		return this.payment;

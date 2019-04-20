@@ -6,61 +6,61 @@ import java.util.List;
 
 public class MyOrdersViewModel extends BaseVieweModel {
 
-    private String user;
-    private BigDecimal totalPrice;
-    private String status;
-    private String delivery;
-    private LocalDateTime finishedOn;
-    private List<ProductDetailsViewModel> productDetailsViewModelList;
+	private String customer;
+	private BigDecimal totalPrice;
+	private String status;
+	private String delivery;
+	private LocalDateTime finishedOn;
+	private List<ProductDetailsViewModel> productDetailsViewModelList;
 
-    public MyOrdersViewModel() {
-    }
+	public MyOrdersViewModel() {
+	}
 
-    public String getUser() {
-        return this.user;
-    }
+	public String getCustomer() {
+		return customer;
+	}
 
-    public void setUser(String user) {
-        this.user = user;
-    }
+	public void setCustomer(String customer) {
+		this.customer = customer;
+	}
 
-    public BigDecimal getTotalPrice() {
-        return this.totalPrice;
-    }
+	public BigDecimal getTotalPrice() {
+		return this.totalPrice;
+	}
 
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+	public void setTotalPrice(BigDecimal totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
-    public String getStatus() {
-        return this.status;
-    }
+	public String getStatus() {
+		return this.status;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public String getDelivery() {
-        return this.delivery;
-    }
+	public String getDelivery() {
+		return this.delivery;
+	}
 
-    public void setDelivery(String delivery) {
-        this.delivery = delivery;
-    }
+	public void setDelivery(String delivery) {
+		this.delivery = delivery;
+	}
 
-    public LocalDateTime getFinishedOn() {
-        return this.finishedOn;
-    }
+	public LocalDateTime getFinishedOn() {
+		return this.finishedOn;
+	}
 
-    public void setFinishedOn(LocalDateTime finishedOn) {
-        this.finishedOn = finishedOn;
-    }
+	public void setFinishedOn(LocalDateTime finishedOn) {
+		this.finishedOn = finishedOn;
+	}
 
-    public List<ProductDetailsViewModel> getProductDetailsViewModelList() {
-        return this.productDetailsViewModelList;
-    }
+	public List<ProductDetailsViewModel> getProductDetailsViewModelList() {
+		return this.productDetailsViewModelList;
+	}
 
-    public void setProductDetailsViewModelList(List<ProductDetailsViewModel> productDetailsViewModelList) {
-        this.productDetailsViewModelList = productDetailsViewModelList;
-    }
+	public void setProductDetailsViewModelList(List<ProductDetailsViewModel> productDetailsViewModelList) {
+		this.productDetailsViewModelList = productDetailsViewModelList;
+	}
 }

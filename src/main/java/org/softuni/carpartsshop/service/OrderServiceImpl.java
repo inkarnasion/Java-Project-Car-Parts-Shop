@@ -9,13 +9,10 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.Order;
+import org.softuni.carpartsshop.domain.entites.Status;
 import org.softuni.carpartsshop.domain.entites.User;
-import org.softuni.carpartsshop.domain.models.service.OfficeServiceModel;
 import org.softuni.carpartsshop.domain.models.service.OrderServiceModel;
-import org.softuni.carpartsshop.domain.models.service.ShipmentServiceModel;
-import org.softuni.carpartsshop.domain.models.service.UserServiceModel;
 import org.softuni.carpartsshop.domain.models.view.MyOrdersViewModel;
-import org.softuni.carpartsshop.domain.models.view.ProductDetailsViewModel;
 import org.softuni.carpartsshop.error.NotFoundExceptions;
 import org.softuni.carpartsshop.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -26,7 +23,6 @@ public class OrderServiceImpl implements OrderService {
 	private final OrderRepository orderRepository;
 	private final UserService userService;
 	private final ModelMapper modelMapper;
-
 
 	public OrderServiceImpl(OrderRepository orderRepository, UserService userService, ModelMapper modelMapper) {
 		this.orderRepository = orderRepository;
@@ -66,29 +62,34 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<MyOrdersViewModel> mapServiceToViewModel(List<OrderServiceModel> orderServices) {
-		List<MyOrdersViewModel> result= new ArrayList<>();
+		List<MyOrdersViewModel> result = new ArrayList<>();
 
 		for (OrderServiceModel orderService : orderServices) {
 			MyOrdersViewModel viewModel = new MyOrdersViewModel();
 
-			viewModel.setUser(orderService.getCustomer().getUsername());
+			viewModel.setId(orderService.getId());
+			viewModel.setCustomer(orderService.getCustomer().getUsername());
 			viewModel.setTotalPrice(orderService.getPrice());
-			if (orderService.getOffice()==null){
-				viewModel.setDelivery("Courier on address:"+ orderService.getShipment().getShipmentAddress());
-			}else {
-				viewModel.setDelivery("Take order from:"+  orderService.getOffice().getAddress());
+			if (orderService.getOffice() == null) {
+				viewModel.setDelivery("Courier on address:" + orderService.getShipment().getShipmentAddress());
+			} else {
+				viewModel.setDelivery("Take order from office address:" + orderService.getOffice().getAddress());
 			}
 			viewModel.setFinishedOn(orderService.getFinishedOn());
 			viewModel.setStatus(orderService.getStatus().toString());
 
-
-//			List<ProductDetailsViewModel> productDetailsViewModels=orderService.getOrderItems().stream().map(o-> this.modelMapper.map(o,ProductDetailsViewModel.class)).collect(Collectors.toList());
-//			viewModel.setProductDetailsViewModelList( );
-		result.add(viewModel);
+			result.add(viewModel);
 		}
 
 		return result;
 	}
 
+	@Override
+	public void setStatus(String orderId, Status status) {
+		Order order = this.orderRepository.findById(orderId).orElseThrow(() -> new NotFoundExceptions(Constant.ORDER_YOU_SELECT_NOT_EXIST));
 
+		order.setStatus(status);
+
+		this.orderRepository.saveAndFlush(order);
+	}
 }
