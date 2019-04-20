@@ -2,6 +2,7 @@ package org.softuni.carpartsshop.domain.models.view;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyOrdersViewModel extends BaseVieweModel {
@@ -11,9 +12,10 @@ public class MyOrdersViewModel extends BaseVieweModel {
 	private String status;
 	private String delivery;
 	private LocalDateTime finishedOn;
-	private List<ProductDetailsViewModel> productDetailsViewModelList;
+	private List<ProductDetailsViewModel> products;
 
 	public MyOrdersViewModel() {
+		products = new ArrayList<ProductDetailsViewModel>();
 	}
 
 	public String getCustomer() {
@@ -56,11 +58,11 @@ public class MyOrdersViewModel extends BaseVieweModel {
 		this.finishedOn = finishedOn;
 	}
 
-	public List<ProductDetailsViewModel> getProductDetailsViewModelList() {
-		return this.productDetailsViewModelList;
+	public List<ProductDetailsViewModel> getProducts() {
+		return products;
 	}
 
-	public void setProductDetailsViewModelList(List<ProductDetailsViewModel> productDetailsViewModelList) {
-		this.productDetailsViewModelList = productDetailsViewModelList;
+	public void setProducts(List<ProductDetailsViewModel> products) {
+		this.products = products;
 	}
 }

@@ -38,7 +38,7 @@ public class OrdersController extends BaseController {
 	@PageTitle("All Orders")
 	public ModelAndView getAllOrders(ModelAndView modelAndView) {
 		List<OrderServiceModel> orderServiceModels = orderService.findAllOrders();
-		List<MyOrdersViewModel> myOrdersViewModels = this.orderService.mapServiceToViewModel(orderServiceModels);
+		List<MyOrdersViewModel> myOrdersViewModels = this.orderService.mapServiceToViewModel(orderServiceModels, this.productService);
 		modelAndView.addObject("orders", myOrdersViewModels);
 
 		return view("order/all-orders", modelAndView);
@@ -67,7 +67,7 @@ public class OrdersController extends BaseController {
 	@PageTitle("My Orders")
 	public ModelAndView getMyOrders(ModelAndView modelAndView, Principal principal) {
 		List<OrderServiceModel> orderServiceModels = orderService.findOrdersByCustomer(principal.getName());
-		List<MyOrdersViewModel> myOrdersViewModels = this.orderService.mapServiceToViewModel(orderServiceModels);
+		List<MyOrdersViewModel> myOrdersViewModels = this.orderService.mapServiceToViewModel(orderServiceModels, this.productService);
 
 		modelAndView.addObject("orders", myOrdersViewModels);
 
@@ -82,11 +82,13 @@ public class OrdersController extends BaseController {
 		return super.redirect("/orders/my");
 	}
 
-	@GetMapping("/my/details/{id}")
+	@GetMapping("/details/{id}")
 	@PreAuthorize("isAuthenticated()")
 	@PageTitle("Orders Details")
 	public ModelAndView myOrderDetails(@PathVariable String id, ModelAndView modelAndView) {
-		MyOrdersViewModel orderViewModel = this.mapper.map(this.orderService.findOrderById(id), MyOrdersViewModel.class);
+		OrderServiceModel o = this.orderService.findOrderById(id);
+
+		MyOrdersViewModel orderViewModel = this.orderService.mapServiceToViewModel(o, this.productService);
 		modelAndView.addObject("order", orderViewModel);
 
 		return super.view("order/order-details", modelAndView);

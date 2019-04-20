@@ -8,6 +8,7 @@ import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.Category;
 import org.softuni.carpartsshop.domain.entites.Product;
 import org.softuni.carpartsshop.domain.models.service.ProductServiceModel;
+import org.softuni.carpartsshop.domain.models.view.ProductDetailsViewModel;
 import org.softuni.carpartsshop.error.NotFoundExceptions;
 import org.softuni.carpartsshop.repository.OfferRepository;
 import org.softuni.carpartsshop.repository.ProductRepository;
@@ -122,5 +123,18 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public ProductDetailsViewModel mapServiceToViewModel(ProductServiceModel product) {
+		ProductDetailsViewModel viewModel = new ProductDetailsViewModel();
+
+		viewModel.setId(product.getId());
+		viewModel.setName(product.getName());
+		viewModel.setDescription(product.getDescription());
+		viewModel.setPrice(product.getPrice());
+		viewModel.setImageUrl(product.getImageUrl());
+
+		return viewModel;
 	}
 }

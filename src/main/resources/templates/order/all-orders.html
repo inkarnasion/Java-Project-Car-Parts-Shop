@@ -49,22 +49,14 @@
               </form>
             </div>
             </th:block>
-<!--            <th:block sec:authorize="hasRole('ROLE_USER')">-->
-<!--            <div class="text-center">-->
-<!--              <form th:action="@{/orders/set-deliver/{id}(id=${order.id})}" method="post">-->
-<!--                <input type="hidden" name="_csrf" value="80417983-fe8b-45c7-963e-31f6915a1560">-->
-<!--                <button class="btn btn-info">Delivered</button>-->
-<!--              </form>-->
-<!--            </div>-->
-<!--          </th:block>-->
           </td>
       <td>
           <div class="text-center">
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-              <a th:href="@{/orders/all/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+              <a th:href="@{/orders/details/{id}(id=*{order.id})}" class="btn btn-info">Details</a>
             </th:block>
             <th:block sec:authorize="!hasRole('ROLE_ADMIN')">
-              <a th:href="@{/orders/my/details/{id}(id=*{id})}" class="btn btn-info">Details</a>
+              <a th:href="@{/orders/details/{id}(id=*{order.id})}" class="btn btn-info">Details</a>
             </th:block>
           </div>
         </td>

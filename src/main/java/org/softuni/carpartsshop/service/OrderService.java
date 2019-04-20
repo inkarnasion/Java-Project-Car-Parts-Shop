@@ -16,7 +16,9 @@ public interface OrderService {
 
 	OrderServiceModel findOrderById(String id);
 
-	List<MyOrdersViewModel> mapServiceToViewModel(List<OrderServiceModel> orderServices);
-
 	void setStatus(String orderId, Status status);
+
+	List<MyOrdersViewModel> mapServiceToViewModel(List<OrderServiceModel> orderServices, ProductService productService);
+
+	MyOrdersViewModel mapServiceToViewModel(OrderServiceModel orderService, ProductService productService);
 }
