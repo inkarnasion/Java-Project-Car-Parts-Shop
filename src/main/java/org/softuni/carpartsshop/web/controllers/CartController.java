@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.Status;
 import org.softuni.carpartsshop.domain.models.service.OrderItemServiceModel;
@@ -40,6 +42,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(Constant.CART_PAGE)
 public class CartController extends BaseController {
+	private Logger LOGGER = LoggerFactory.getLogger(CartController.class);
 
 	private final ProductService productService;
 	private final UserService userService;
@@ -110,11 +113,13 @@ public class CartController extends BaseController {
 		orderServiceModel.setCustomer(user);
 		orderServiceModel.setFinishedOn(LocalDateTime.now());
 
+		String delivery = request.getParameter("delivery");
 		String officeId = request.getParameter("inputOffice");
 		String address = request.getParameter("address");
-		if (officeId != null) {
+
+		if ("Office".equals(delivery) && officeId != null && !officeId.equals("Please select...")) {
 			orderServiceModel.setOffice(this.officeService.findOfficeByID(officeId));
-		} else if (address != null && address.length() > 0) {
+		} else if ("Courier".equals(delivery) && address != null && address.length() > 0) {
 			ShipmentServiceModel shipment = new ShipmentServiceModel();
 			shipment.setShipmentAddress(address);
 			orderServiceModel.setShipment(shipment);

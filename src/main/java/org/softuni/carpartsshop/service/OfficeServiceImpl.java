@@ -40,8 +40,9 @@ public class OfficeServiceImpl implements OfficeService {
 
 
         Office office = this.modelMapper.map(model, Office.class);
+        String officeAddress = office.getAddress();
 
-        if (this.officeRepository.findByAddress(office.getAddress()).orElse(null) != null) {
+        if (this.officeRepository.findByAddress(officeAddress).orElse(null) != null) {
             throw new IllegalArgumentException(Constant.OFFICE_WITH_THIS_DATA_ALREADY_EXIST);
         }
         office = this.officeRepository.saveAndFlush(office);

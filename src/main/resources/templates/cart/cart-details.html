@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <th:block th:replace="fragments/head"></th:block>
 <script th:src="@{/js/deliveries.js}"></script>
 </head>
 <body>
-	<div class="container-fluid">
-		<th:block th:replace="fragments/navbar"></th:block>
-		<main class="mt-3">
-		<h1 class="text-center text-dark">Shopping Cart</h1>
-		<hr class="hr-2 bg-dark w-75">
+  <div class="container-fluid">
+    <th:block th:replace="fragments/navbar"></th:block>
+    <main class="mt-3">
+    <h1 class="text-center text-dark">Shopping Cart</h1>
+    <hr class="hr-2 bg-dark w-75">
     <table class="table table-hover w-75 mx-auto">
       <thead>
         <tr class="row mx-auto">
@@ -43,37 +42,29 @@
       </tbody>
     </table>
     <hr class="hr-2 bg-dark">
-		<div class="text-center">
-			<h3 th:text="|Total: ${totalPrice}|"></h3>
-			<hr />
-			<h3 th:text="|Credit Card Number: ${customerCreditCart}|"></h3>
-			<hr />
-			<h3 th:text="|Delivery:|"></h3>
+    <div class="text-center">
+      <h3 th:text="|Total: ${totalPrice}|"></h3>
+      <hr />
+      <h3 th:text="|Credit Card Number: ${customerCreditCart}|"></h3>
+      <hr />
+      <h3 th:text="|Delivery:|"></h3>
 
-			<div class="custom-control custom-radio mt-3">
-				<form action="">
-					<input th:id="deliveryOffice" th:type="radio" th:name="delivery"
-						th:value="Office"></input> <label for="delivery">Office</label><br />
-					<input th:id="deliveryCourier" th:type="radio" th:name="delivery"
-						th:value="Courier"></input> <label for="delivery">Courier</label>
-				</form>
-			</div>
-			<!--TODO-->
-			<div>
-				<form th:action="@{/cart/checkout}" th:method="post">
-					<div
-						th:replace="~{fragments/components/select-office :: select(inputOffice, ${allOffices})}"></div>
-					<div
-						th:replace="~{fragments/components/input ::input( text, inputAddress, address, 'Enter addres...' )}"></div>
-					<div class="button-holder d-flex justify-content-center">
-						<button id="buyButton" type="submit" class="btn btn-success" disabled="true">Buy</button>
-					</div>
-				</form>
-			</div>
-		</main>
-		<footer class="py-5 bg-dark">
-			<th:block th:include="~{fragments/footer}"></th:block>
-		</footer>
-	</div>
+      <div class="custom-control custom-radio mt-3">
+        <form th:action="@{/cart/checkout}" th:method="post">
+          <input th:id="deliveryOffice" th:type="radio" th:name="delivery" th:value="Office"></input> <label for="delivery">Office</label><br /> <input th:id="deliveryCourier"
+            th:type="radio" th:name="delivery" th:value="Courier"></input> <label for="delivery">Courier</label>
+          <div th:replace="~{fragments/components/select-office :: select(inputOffice, ${allOffices})}"></div>
+          <div th:replace="~{fragments/components/input ::input( text, inputAddress, address, 'Enter addres...' )}"></div>
+          <div class="button-holder d-flex justify-content-center">
+            <button id="buyButton" type="submit" class="btn btn-success" disabled="true">Buy</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </main>
+    <footer class="py-5 bg-dark">
+      <th:block th:include="~{fragments/footer}"></th:block>
+    </footer>
+  </div>
 </body>
 </html>

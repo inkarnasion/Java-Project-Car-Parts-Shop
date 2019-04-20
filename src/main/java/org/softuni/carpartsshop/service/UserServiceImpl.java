@@ -38,9 +38,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserServiceModel registerUser(UserServiceModel userServiceModel) {
-//		if (!this.validationUtil.isValid(userServiceModel)) {
-//			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
-//		}
+		if (!this.validationUtil.isValid(userServiceModel)) {
+			throw new IllegalArgumentException(Constant.TRYING_TO_ADD_INVALID_DATA);
+		}
 		this.roleService.seedRolesInDb();
 		if (this.userRepository.count() == 0) {
 			userServiceModel.setAuthorities(this.roleService.findAllRoles());
@@ -64,6 +64,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws IllegalArgumentException {
+
+
 		return this.userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException(Constant.USERNAME_NOT_FOUND));
 	}
 
@@ -122,6 +124,9 @@ public class UserServiceImpl implements UserService {
 			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_MODERATOR"));
 			userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_ADMIN"));
 			break;
+			default:
+				throw new IllegalArgumentException(Constant.INVALID_ROLES);
+
 		}
 
 		this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));

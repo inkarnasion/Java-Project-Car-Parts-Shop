@@ -200,5 +200,6 @@ public class Constant {
 	public static final String THERE_IS_OFFICE_WITH_SAME_DATA = "There is office with same data!";
 	public static final String CREATE_TEMP_FILE = "temp-file";
 	public static final String GET_URL = "url";
+	public static final String INVALID_ROLES = "Invalid Roles";
 
 }
