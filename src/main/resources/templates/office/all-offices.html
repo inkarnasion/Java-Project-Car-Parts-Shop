@@ -41,12 +41,12 @@
                 <td th:text="${office.phoneNumber}"></td>
                 <td th:text="${office.email}"></td>
                 <td>
-                    <a class="btn btn-outline-secondary"
+                    <a class="btn btn-info"
                        th:href="@{${T(org.softuni.carpartsshop.config.Constant).EDIT_OFFICE_ACTION}+${office.id}}"
                        th:text="Edit"></a>
                 </td>
                 <td>
-                    <a class="btn btn-outline-secondary"
+                    <a class="btn btn-info"
                        th:href="@{${T(org.softuni.carpartsshop.config.Constant).DELETE_OFFICE_ACTION}+${office.id}}"
                        th:text="Delete"></a>
                 </td>

@@ -34,11 +34,11 @@
 				<td th:text="${iter.index} + 1" ></td>
 				<td th:text="${category.name}"></td>
 				<td>
-					<a class="btn btn-outline-secondary"
+					<a class="btn btn-info"
 					   th:href="@{/categories/edit/{id}(id=${category.id})}" th:text="Edit"></a>
 				</td>
 				<td>
-					<a class="btn btn-outline-secondary"
+					<a class="btn btn-info"
 					   th:href="@{/categories/delete/{id}(id=${category.id})}" th:text="Delete"></a>
 				</td>
 			</tr>
