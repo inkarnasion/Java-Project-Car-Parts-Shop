@@ -88,13 +88,14 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public void deleteOffice(OfficeServiceModel model) {
+    public OfficeServiceModel deleteOffice(OfficeServiceModel model) {
         Office office = this.officeRepository.findById(model.getId()).orElseThrow(() -> new NoSuchElementException(Constant.ERROR_MESSAGE));
 
 
          this.officeRepository.delete(office);
 
 
+        return model;
     }
 
     @Override

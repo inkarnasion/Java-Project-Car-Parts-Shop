@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.softuni.carpartsshop.config.Constant;
 import org.softuni.carpartsshop.domain.entites.Status;
 
 public class OrderServiceModel extends BaseServiceModel {
@@ -22,7 +23,7 @@ public class OrderServiceModel extends BaseServiceModel {
 
 	private OfficeServiceModel office;
 
-	@NotNull(message = "Status cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
 	private Status status;
 

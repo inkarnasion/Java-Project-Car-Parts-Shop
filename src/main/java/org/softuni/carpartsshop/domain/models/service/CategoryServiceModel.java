@@ -1,6 +1,7 @@
 package org.softuni.carpartsshop.domain.models.service;
 
 import org.hibernate.validator.constraints.Length;
+import org.softuni.carpartsshop.config.Constant;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,9 +13,10 @@ public class CategoryServiceModel extends BaseServiceModel {
 
     public CategoryServiceModel() {
     }
-    @NotNull(message = "Name cannot be null")
+    @NotNull(message = Constant.NAME_CANNOT_BE_NULL)
     @NotEmpty
-    @Size(min = 2,max = 20, message = "Name must be at least between 2 and 20 characters long.")
+    @Length(min = 2, message = Constant.NAME_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+    @Length(max = 20, message = Constant.NAME_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
     public String getName() {
         return name;
     }

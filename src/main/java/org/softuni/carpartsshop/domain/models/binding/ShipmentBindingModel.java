@@ -1,6 +1,7 @@
 package org.softuni.carpartsshop.domain.models.binding;
 
 import org.hibernate.validator.constraints.Length;
+import org.softuni.carpartsshop.config.Constant;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
@@ -22,10 +23,10 @@ public class ShipmentBindingModel {
     public void setShipmentPrice(BigDecimal shipmentPrice) {
         this.shipmentPrice = shipmentPrice;
     }
-    @NotNull(message = "Name cannot be null")
+    @NotNull(message = Constant.NAME_CANNOT_BE_NULL)
     @NotEmpty
-    @Length(min = 2, message = "UserName must be at least 2 characters long.")
-    @Length(max = 20, message = "UserName must be maximum 20 characters long.")
+    @Length(min = 2, message = Constant.ADDRESSES_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+    @Length(max = 100, message = Constant.ADDRESSES_MUST_BE_MAXIMUM_100_CHARACTER_LONG)
     public String getShipmentAddress() {
         return this.shipmentAddress;
     }

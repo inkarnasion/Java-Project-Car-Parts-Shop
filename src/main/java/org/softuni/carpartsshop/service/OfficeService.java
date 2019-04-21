@@ -16,7 +16,7 @@ public interface OfficeService {
 
 	OfficeServiceModel findOfficeByID(String id);
 
-	void deleteOffice(OfficeServiceModel model);
+	OfficeServiceModel deleteOffice(OfficeServiceModel model);
 
 	List<OfficeViewModel> allOfficeAddresses(List<OfficeServiceModel> offices);
 

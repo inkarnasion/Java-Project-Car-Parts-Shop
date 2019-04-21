@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.softuni.carpartsshop.config.Constant;
 
 public class ProductServiceModel extends BaseServiceModel {
 
@@ -25,10 +26,10 @@ public class ProductServiceModel extends BaseServiceModel {
 	public ProductServiceModel() {
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "Name must be at least 2 characters long.")
-	@Length(max = 20, message = "Name must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.NAME_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.NAME_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getName() {
 		return this.name;
 	}
@@ -37,10 +38,10 @@ public class ProductServiceModel extends BaseServiceModel {
 		this.name = name;
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "Manufacture must be at least 2 characters long.")
-	@Length(max = 20, message = "Manufacture must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.MANUFACTURE_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.MANUFACTURE_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getManufacture() {
 		return this.manufacture;
 	}
@@ -49,10 +50,10 @@ public class ProductServiceModel extends BaseServiceModel {
 		this.manufacture = manufacture;
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "Model must be at least 2 characters long.")
-	@Length(max = 20, message = "Model must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.MODEL_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.MODEL_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getModel() {
 		return this.model;
 	}
@@ -61,10 +62,10 @@ public class ProductServiceModel extends BaseServiceModel {
 		this.model = model;
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "Description must be at least 2 characters long.")
-	@Length(max = 100, message = "Description must be maximum 100 characters long.")
+	@Length(min = 2, message = Constant.DESCRIPTION_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 100, message = Constant.DESCRIPTION_MUST_BE_MAXIMUM_100_CHARACTER_LONG)
 	public String getDescription() {
 		return this.description;
 	}

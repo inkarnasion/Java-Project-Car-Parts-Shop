@@ -4,6 +4,7 @@ public abstract class BaseServiceModel {
 
     private String id;
 
+
     protected BaseServiceModel() {
     }
 

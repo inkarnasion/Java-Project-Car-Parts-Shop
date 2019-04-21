@@ -1,6 +1,7 @@
 package org.softuni.carpartsshop.domain.models.binding;
 
 import org.hibernate.validator.constraints.Length;
+import org.softuni.carpartsshop.config.Constant;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,10 +14,10 @@ public class UserLoginBindingModel {
 	public UserLoginBindingModel() {
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "UserName must be at least 2 characters long.")
-	@Length(max = 20, message = "UserName must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.USERNAME_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.USERNAME_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 
 	public String getUsername() {
 		return username;
@@ -26,10 +27,10 @@ public class UserLoginBindingModel {
 		this.username = username;
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 6, message = "Password must be at least 2 characters long.")
-	@Length(max = 20, message = "Password must be maximum 20 characters long.")
+	@Length(min = 6, message = Constant.PASSWORD_MUST_BE_ATLEAST_6_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.PASSWORD_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getPassword() {
 		return password;
 	}

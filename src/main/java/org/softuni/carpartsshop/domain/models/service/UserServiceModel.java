@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.softuni.carpartsshop.config.Constant;
 
 public class UserServiceModel extends BaseServiceModel {
 
@@ -30,10 +31,10 @@ public class UserServiceModel extends BaseServiceModel {
 	public UserServiceModel() {
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "UserName must be at least 2 characters long.")
-	@Length(max = 20, message = "UserName must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.USERNAME_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.USERNAME_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getUsername() {
 		return this.username;
 	}
@@ -44,8 +45,8 @@ public class UserServiceModel extends BaseServiceModel {
 
 //    @NotNull(message = "Name cannot be null")
 //    @NotEmpty
-	@Length(min = 6, message = "Password must be at least 2 characters long.")
-	@Length(max = 20, message = "Password must be maximum 20 characters long.")
+	@Length(min = 6, message = Constant.PASSWORD_MUST_BE_ATLEAST_6_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.PASSWORD_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getPassword() {
 		return this.password;
 	}
@@ -54,10 +55,10 @@ public class UserServiceModel extends BaseServiceModel {
 		this.password = password;
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "FirstName must be at least 2 characters long.")
-	@Length(max = 20, message = "FirstName must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.FIRST_NAME_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.FIRST_NAME_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getFirstName() {
 		return this.firstName;
 	}
@@ -66,10 +67,10 @@ public class UserServiceModel extends BaseServiceModel {
 		this.firstName = firstName;
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "LastName must be at least 2 characters long.")
-	@Length(max = 20, message = "LastName must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.LAST_NAME_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.LAST_NAME_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -78,10 +79,10 @@ public class UserServiceModel extends BaseServiceModel {
 		this.lastName = lastName;
 	}
 
-	@NotNull(message = "Email cannot be null")
+	@NotNull(message = Constant.EMAIL_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 2, message = "Email must be at least 2 characters long.")
-	@Length(max = 20, message = "Email must be maximum 20 characters long.")
+	@Length(min = 2, message = Constant.EMAIL_MUST_BE_ATLEAST_2_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.EMAIL_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getEmail() {
 		return this.email;
 	}
@@ -90,10 +91,10 @@ public class UserServiceModel extends BaseServiceModel {
 		this.email = email;
 	}
 
-	@NotNull(message = "PhoneNumber cannot be null")
+	@NotNull(message = Constant.PHONE_NUMBER_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 6, message = "PhoneNumber must be at least 6 characters long.")
-	@Length(max = 20, message = "PhoneNumber must be maximum 20 characters long.")
+	@Length(min = 6, message = Constant.PHONE_NUMBER_MUST_BE_ATLEAST_6_CHARACTER_LONG)
+	@Length(max = 20, message = Constant.PHONE_NUMBER_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -102,10 +103,10 @@ public class UserServiceModel extends BaseServiceModel {
 		this.phoneNumber = phoneNumber;
 	}
 
-	@NotNull(message = "Name cannot be null")
+	@NotNull(message = Constant.NAME_CANNOT_BE_NULL)
 	@NotEmpty
-	@Length(min = 9, message = "CreditCardNumber must be at least 9 characters long.")
-	@Length(max = 15, message = "CreditCardNumber must be maximum 15 characters long.")
+	@Length(min = 9, message = Constant.CREDIT_CARD_MUST_BE_ATLEAST_9_CHARACTER_LONG)
+	@Length(max = 15, message = Constant.CREDIT_CARD_MUST_BE_MAXIMUM_15_CHARACTER_LONG)
 	public String getCreditCardNumber() {
 		return this.creditCardNumber;
 	}
