@@ -55,9 +55,11 @@
             th:type="radio" th:name="delivery" th:value="Courier"></input> <label for="delivery">Courier</label>
           <div th:replace="~{fragments/components/select-office :: select(inputOffice, ${allOffices})}"></div>
           <div th:replace="~{fragments/components/input ::input( text, inputAddress, address, 'Enter addres...' )}"></div>
+          <br>
           <div class="button-holder d-flex justify-content-center">
             <button id="buyButton" type="submit" class="btn btn-success" disabled="true">Buy</button>
           </div>
+          <br>
         </form>
       </div>
     </div>

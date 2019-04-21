@@ -54,13 +54,13 @@
                                   method="post">
                                 <input type="hidden" name="_csrf"
                                        value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                <button class="btn btn-dark">Moderator</button>
+                                <button class="btn btn-info">Moderator</button>
                             </form>
                             <form th:action="@{/users/set-admin/{id}(id=${user.id})}"
                                   method="post">
                                 <input type="hidden" name="_csrf"
                                        value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                <button class="btn btn-dark">Admin</button>
+                                <button class="btn btn-info">Admin</button>
                             </form>
                         </th:block>
                         <th:block
@@ -71,13 +71,13 @@
                                   method="post">
                                 <input type="hidden" name="_csrf"
                                        value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                <button class="btn btn-dark">User</button>
+                                <button class="btn btn-info">User</button>
                             </form>
                             <form th:action="@{/users/set-admin/{id}(id=${user.id})}"
                                   method="post">
                                 <input type="hidden" name="_csrf"
                                        value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                <button class="btn btn-dark">Admin</button>
+                                <button class="btn btn-info">Admin</button>
                             </form>
                         </th:block>
                         <th:block
@@ -88,13 +88,13 @@
                                   method="post">
                                 <input type="hidden" name="_csrf"
                                        value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                <button class="btn btn-dark">User</button>
+                                <button class="btn btn-info">User</button>
                             </form>
                             <form th:action="@{/users/set-moderator/{id}(id=${user.id})}"
                                   method="post">
                                 <input type="hidden" name="_csrf"
                                        value="80417983-fe8b-45c7-963e-31f6915a1560">
-                                <button class="btn btn-dark">Moderator</button>
+                                <button class="btn btn-info">Moderator</button>
                             </form>
                         </th:block>
                     </div>
@@ -103,6 +103,7 @@
             </tbody>
         </table>
     </main>
+    <br>
     <footer class="py-5 bg-dark">
         <th:block th:include="~{fragments/footer}"></th:block>
     </footer>

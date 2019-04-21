@@ -45,13 +45,13 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.quantity}"></td>
                 <td>
-                    <a class="btn btn-outline-secondary"
+                    <a class="btn btn-info"
                        th:href="@{/products/details/{id}(id=${product.id})}" th:text="Details"></a>
-                    <a class="btn btn-outline-secondary"
+                    <a class="btn btn-info"
                        th:href="@{/products/edit/{id}(id=${product.id})}" th:text="Edit"></a>
                 </td>
                 <td>
-                    <a class="btn btn-outline-secondary"
+                    <a class="btn btn-info"
                        th:href="@{/products/delete/{id}(id=${product.id})}" th:text="Delete"></a>
                 </td>
             </tr>
