@@ -18,6 +18,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
@@ -60,11 +62,11 @@ public class OfficeServiceImplTest {
 		String actualId = this.officeService.addOffice(o);
 
 		OfficeServiceModel toBeEdited = this.officeService.findOfficeByID(actualId);
-		toBeEdited.setCity("");
+		toBeEdited.setCity("asdasdasdasdasd");
 		OfficeServiceModel actual = this.officeService.editOffice(toBeEdited);
 		OfficeServiceModel expected = this.officeService.findOfficeByID(actual.getId());
 
-		assertEquals(expected.getId(),actual);
+		assertEquals(expected.getId(),actual.getId());
 	}
 
 	@Test
@@ -92,8 +94,9 @@ public class OfficeServiceImplTest {
 	public void deleteOffice() {
 		OfficeServiceModel officeServiceModel = getOfficeServiceModel();
 		String actualId = this.officeService.addOffice(officeServiceModel);
+		OfficeServiceModel OfficeServiceModelToDelete = this.officeService.findAllOffices().stream().findFirst().get();
 
-		OfficeServiceModel expected = this.officeService.deleteOffice(officeServiceModel);
+		OfficeServiceModel expected = this.officeService.deleteOffice(OfficeServiceModelToDelete);
 
 		assertEquals(expected.getId(),actualId);
 	}

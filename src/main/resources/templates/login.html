@@ -22,35 +22,39 @@
         <input type="hidden" name="_csrf"
                value="c95ccb2b-1afa-47bd-bf7b-a5b72739470b">
         <div class="form-group">
-            <label for="usernameLogin" class="font-weight-bold" th:text="#{login.Username}" ></label>
+            <label for="usernameLogin" class="font-weight-bold" th:text="#{login.Username}"></label>
             <input type="text" class="form-control" id="usernameLogin"
                    placeholder="Username..." name="username">
             <large id="userLoginHelp" style="display: none" class="form-text text-muted"></large>
         </div>
         <div class="form-group">
-            <label for="passwordLogin" class="font-weight-bold" th:text="#{login.Password}" ></label>
+            <label for="passwordLogin" class="font-weight-bold" th:text="#{login.Password}"></label>
             <input type="password" class="form-control" id="passwordLogin"
                    placeholder="Password..." name="password">
             <large id="passwordLoginHelp" style="display: none" class="form-text text-muted"></large>
         </div>
         <hr class="hr-2 bg-dark">
-        <div class="button-holder d-flex justify-content-center" >
+        <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-dark" th:text="#{login.Login}"></button>
         </div>
     </form>
+    <br/>
+</main>
 </main>
 </div>
-
-<div class="jumbotron bg-light">
+<br>
+<div>
 
     <hr>
     <p>
         This is the biggest,best online car product shop! <a rel="stylesheet"
-                                                             href="/templates/login.html" th:href="@{/users/login}" th:text="#{login.Login}"></a>,
-        if you don't have account, don't hesitate and  <a rel="stylesheet" href="/templates/register.html" th:href="@{/users/register}" >Register</a>
+                                                             href="/templates/login.html" th:href="@{/users/login}"
+                                                             th:text="#{login.Login}"></a>,
+        if you don't have account, don't hesitate and <a rel="stylesheet" href="/templates/register.html"
+                                                         th:href="@{/users/register}">Register</a>
     </p>
 </div>
-
+<br>
 
 <footer class="py-5 bg-dark">
     <th:block th:include="~{fragments/footer}"></th:block>

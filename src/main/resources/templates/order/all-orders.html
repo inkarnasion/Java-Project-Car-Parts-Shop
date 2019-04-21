@@ -38,7 +38,7 @@
                 <td id="userName" th:text="${order.customer}"></td>
                 <td th:text="${order.totalPrice}"></td>
                 <td th:text="${order.delivery}"></td>
-                <td th:text="${order.finishedOn}"></td>
+                <td th:text="*{#temporals.format(order.finishedOn, 'dd-MM-yyyy HH:mm') }"></td>
                 <td th:text="${order.status}"></td>
 
                 <td>

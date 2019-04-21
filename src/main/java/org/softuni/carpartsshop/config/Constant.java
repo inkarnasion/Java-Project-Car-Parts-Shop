@@ -44,7 +44,27 @@ public class Constant {
 	public static final String DELETE_OFFICE_ACTION = "/office/delete-office/";
 	public static final String ALL_OFFICE_ACTION = "/office/all-offices";
 
+	//Cloud
+	public static final String CLOUD_NAME="cloud_name";
+	public static final String API_KEY="api_key";
+	public static final String API_SECRET="api_secret";
+
+	//Security
+
+	public static final String JS_PATH="/js/**";
+	public static final String CSS_PATH="/css/**";
+	public static final String STATIC_PATH="/static/**";
+	public static final String IMG_PATH="/img/**";
+	public static final String TEMPLATES_PATH="/templates/**";
+	public static final String VIDEO_PATH="/video/**";
+	public static final String ABOUT_PATH="/about";
+	public static final String CONTACT_PATH="/contact";
+	public static final String USERS_ABOUT_PATH="/users/about";
+	public static final String USERNAME_PATH="username";
+	public static final String PASSWORD_PATH="password";
+
 	// Cart Controller
+
 	public static final String ADDING_PRODUCT = "/add-product";
 	public static final String CART_CART_DETAILS = "/cart/cart-details";
 	public static final String CART_DETAILS = "/cart/details";
@@ -156,15 +176,43 @@ public class Constant {
 	public static final String SET_ROLE_ADMIN = "admin";
 	public static final String POST_MAPPING_SET_SHIP_ID = "/set-ship/{id}";
 	public static final String POST_MAPPING_SET_DELIVER_ID = "/set-deliver/{id}";
-//    public static final String
-//    public static final String
-//    public static final String
+
+
+	//Cart Controller
+    public static final String ADD_OBJECT_DELIVERY="delivery";
+    public static final String ADD_OBJECT_INPUT_OFFICE="inputOffice";
+    public static final String ADD_OBJECT_ADDRESS="address";
+    public static final String ADD_CONSTANT_OFFICE="Office";
+    public static final String ADD_CONSTANT_OFFICE_SELECT="Please select...";
+    public static final String ADD_CONSTANT_COURIER="Courier";
+    public static final String ADD_CONSTANT_ADDRESS_DELIVERY="Either Office or Delivery Address should be provided";
+    public static final String ADD_CONSTANT_PRODUCT="Product ";
+    public static final String ADD_CONSTANT_PRODUCT_AVALIBALE=" quantity available is less then requested. Please reduce the ordered quantity with ";
+
+
+    //Order Controller
+	public static final String PAGE_TITLE_ALL_ORDER ="All Orders";
 
 	public static final String SHOP_NAME = "Cart Parts Shop";
 	public static final String ADD_OBJECT_TITLE = "title";
 	public static final String ADD_OBJECT_FAVICON = "favicon";
 
 	public static final String LOGOUT_FORM_ACTION = "/logout?login";
+	public static final String ADD_OBJECT_ORDERS = "orders";
+	public static final String ADD_OBJECT_ORDER = "order";
+	public static final String ADD_PATH_ORDERS_ALL = "/orders/all";
+	public static final String PAGE_TITLE_ORDERS_DETAILS = "Orders Details";
+
+	public static final String PAGE_TITLE_ORDERS_MY = "My Orders";
+	public static final String GET_MAPPING_ALL_DETAILS = "/all/details/";
+	public static final String PAGE_VIEW_ALL_ORDERS = "order/all-orders";
+	public static final String PAGE_VIEW_ORDER_DETAILS = "order/order-details";
+	public static final String PAGE_VIEW_ORDER_MY_ORDERS = "/order/my-orders";
+
+	public static final String PAGE_VIEW_ORDER_MY = "/orders/my";
+	public static final String GET_MAPPING_MY = "/my";
+	public static final String GET_MAPPING_DETAILS = "/details/";
+
 
 	// pages name
 	public static final String REGISTER_PAGE = "/register";
@@ -239,4 +287,13 @@ public class Constant {
 	public static final String CITY_NAME_MUST_BE_ATLEAST_2_CHARACTER_LONG="CityName must be at least 2 characters long.";
 	public static final String CITY_NAME_MUST_BE_MAXIMUM_20_CHARACTER_LONG="CityName  must be maximum 20 characters long";
 	public static final String ADDRESS_CANNOT_BE_NULL="Address cannot be null";
+	public static final String ERROR_NOT_FOUND_EXCEPTION="Not found!";
+	public static final String COURIER_ON_ADDRESS="Courier on address: ";
+	public static final String TAKE_ORDER_FROM_OFFICE="Take order from office address: " ;
+	public static final String TRACE_MESSEGE="A TRACE Message";
+	public static final String DEBUG_MESSEGE="A DEBUG Message";
+	public static final String INFO_MESSEGE="An INFO Message";
+	public static final String WARN_MESSEGE="A WARN Message";
+	public static final String AN_ERROR_MESSEGE="An ERROR Message";
+	public static final String RETURN_LOG_MESSEGE="Howdy! Check out the Logs to see the output...";
 }

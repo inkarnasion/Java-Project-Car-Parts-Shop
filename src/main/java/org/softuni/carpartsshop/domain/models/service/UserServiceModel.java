@@ -43,8 +43,8 @@ public class UserServiceModel extends BaseServiceModel {
 		this.username = username;
 	}
 
-//    @NotNull(message = "Name cannot be null")
-//    @NotEmpty
+	@NotNull(message = Constant.PASSWORD_CANNOT_BE_NULL)
+    @NotEmpty
 	@Length(min = 6, message = Constant.PASSWORD_MUST_BE_ATLEAST_6_CHARACTER_LONG)
 	@Length(max = 20, message = Constant.PASSWORD_MUST_BE_MAXIMUM_20_CHARACTER_LONG)
 	public String getPassword() {

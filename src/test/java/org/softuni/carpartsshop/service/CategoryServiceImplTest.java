@@ -74,10 +74,14 @@ public class CategoryServiceImplTest {
 
     @Test
     public void editCategory() {
-//        CategoryServiceModel c = getCategoryServiceModel();
-//        CategoryServiceModel actualId = this.categoryService.addCategory(c);
-//
-//        CategoryServiceModel toBeEdited= this.categoryService.findCategoryById(actualId);
+        this.addCategory();
+        String  mockId = this.categoryService.findAllCategories().stream().findFirst().get().getId();
+
+        CategoryServiceModel editModel = new CategoryServiceModel();
+        editModel.setName("NewName");
+        this.categoryService.editCategory(mockId,editModel);
+
+        assertEquals("NewName",this.categoryService.findCategoryById(mockId).getName());
 
     }
 

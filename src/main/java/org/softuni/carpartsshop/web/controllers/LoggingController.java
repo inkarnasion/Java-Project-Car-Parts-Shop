@@ -2,6 +2,7 @@ package org.softuni.carpartsshop.web.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.softuni.carpartsshop.config.Constant;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,12 +13,12 @@ public class LoggingController {
 
 	@RequestMapping("/")
 	public String index() {
-		logger.trace("A TRACE Message");
-		logger.debug("A DEBUG Message");
-		logger.info("An INFO Message");
-		logger.warn("A WARN Message");
-		logger.error("An ERROR Message");
+		logger.trace(Constant.TRACE_MESSEGE);
+		logger.debug(Constant.DEBUG_MESSEGE);
+		logger.info(Constant.INFO_MESSEGE);
+		logger.warn(Constant.WARN_MESSEGE);
+		logger.error(Constant.AN_ERROR_MESSEGE);
 
-		return "Howdy! Check out the Logs to see the output...";
+		return Constant.RETURN_LOG_MESSEGE;
 	}
 }

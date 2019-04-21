@@ -13,7 +13,7 @@
 	<header>
 		<th:block th:include="~{fragments/navbar}"></th:block>
 	</header>
-
+	<br/>
 	<div class="container">Car Parts Shop is a German online shop
 		for car products, offering a wide range of high-quality car
 		replacement products. Everyone will quickly and easily find the
@@ -45,17 +45,18 @@
 		layout; quick order processing; rapid delivery via DHL, GLS, UPS;
 		warehouse facilities in the very heart of Europe.</div>
 
-	<div class="jumbotron bg-light">
+	<br>
+	<div>
 
 		<hr>
 		<p>
 			This is the biggest,best online car product shop! <a rel="stylesheet"
-																 href="/templates/login.html" th:href="@{/users/login}">Login</a>,
-			if you don't have account, don't hesitate- <a rel="stylesheet" href="/templates/register.html"
-														  th:href="@{/users/register}">Register</a>
+																 href="/templates/login.html" th:href="@{/users/login}"
+																 th:text="#{login.Login}"></a>,
+			if you don't have account, don't hesitate and <a rel="stylesheet" href="/templates/register.html"
+															 th:href="@{/users/register}">Register</a>
 		</p>
 	</div>
-
 	<footer class="py-5 bg-dark">
 		<th:block th:include="~{fragments/footer}"></th:block>
 	</footer>

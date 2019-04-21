@@ -33,15 +33,15 @@ public class OrdersController extends BaseController {
 		this.mapper = modelMapper;
 	}
 
-	@GetMapping("/all")
+	@GetMapping(Constant.GET_MAPPING_ALL)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PageTitle("All Orders")
+	@PageTitle(Constant.PAGE_TITLE_ALL_ORDER)
 	public ModelAndView getAllOrders(ModelAndView modelAndView) {
 		List<OrderServiceModel> orderServiceModels = orderService.findAllOrders();
 		List<MyOrdersViewModel> myOrdersViewModels = this.orderService.mapServiceToViewModel(orderServiceModels, this.productService);
-		modelAndView.addObject("orders", myOrdersViewModels);
+		modelAndView.addObject(Constant.ADD_OBJECT_ORDERS, myOrdersViewModels);
 
-		return view("order/all-orders", modelAndView);
+		return view(Constant.PAGE_VIEW_ALL_ORDERS, modelAndView);
 	}
 
 	@PostMapping(Constant.POST_MAPPING_SET_SHIP_ID)
@@ -49,29 +49,29 @@ public class OrdersController extends BaseController {
 	public ModelAndView setShipped(@PathVariable String id) {
 		this.orderService.setStatus(id, Status.Shipped);
 
-		return super.redirect("/orders/all");
+		return super.redirect(Constant.ADD_PATH_ORDERS_ALL );
 	}
 
-	@GetMapping("/all/details/{id}")
+	@GetMapping(Constant.GET_MAPPING_ALL_DETAILS + "{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PageTitle("Orders Details")
+	@PageTitle(Constant.PAGE_TITLE_ORDERS_DETAILS)
 	public ModelAndView allOrderDetails(@PathVariable String id, ModelAndView modelAndView) {
 		MyOrdersViewModel orderViewModel = this.mapper.map(this.orderService.findOrderById(id), MyOrdersViewModel.class);
-		modelAndView.addObject("order", orderViewModel);
+		modelAndView.addObject(Constant.ADD_OBJECT_ORDER, orderViewModel);
 
-		return super.view("order/order-details", modelAndView);
+		return super.view(Constant.PAGE_VIEW_ORDER_DETAILS, modelAndView);
 	}
 
-	@GetMapping("/my")
+	@GetMapping(Constant.GET_MAPPING_MY)
 	@PreAuthorize("isAuthenticated()")
-	@PageTitle("My Orders")
+	@PageTitle(Constant.PAGE_TITLE_ORDERS_MY )
 	public ModelAndView getMyOrders(ModelAndView modelAndView, Principal principal) {
 		List<OrderServiceModel> orderServiceModels = orderService.findOrdersByCustomer(principal.getName());
 		List<MyOrdersViewModel> myOrdersViewModels = this.orderService.mapServiceToViewModel(orderServiceModels, this.productService);
 
-		modelAndView.addObject("orders", myOrdersViewModels);
+		modelAndView.addObject(Constant.ADD_OBJECT_ORDERS, myOrdersViewModels);
 
-		return view("/order/my-orders", modelAndView);
+		return view(Constant.PAGE_VIEW_ORDER_MY_ORDERS, modelAndView);
 	}
 
 	@PostMapping(Constant.POST_MAPPING_SET_DELIVER_ID)
@@ -79,19 +79,19 @@ public class OrdersController extends BaseController {
 	public ModelAndView setDelivered(@PathVariable String id) {
 		this.orderService.setStatus(id, Status.Delivered);
 
-		return super.redirect("/orders/my");
+		return super.redirect(Constant.PAGE_VIEW_ORDER_MY );
 	}
 
-	@GetMapping("/details/{id}")
+	@GetMapping(Constant.GET_MAPPING_DETAILS + "{id}")
 	@PreAuthorize("isAuthenticated()")
-	@PageTitle("Orders Details")
+	@PageTitle(Constant.PAGE_TITLE_ORDERS_DETAILS)
 	public ModelAndView myOrderDetails(@PathVariable String id, ModelAndView modelAndView) {
 		OrderServiceModel o = this.orderService.findOrderById(id);
 
 		MyOrdersViewModel orderViewModel = this.orderService.mapServiceToViewModel(o, this.productService);
-		modelAndView.addObject("order", orderViewModel);
+		modelAndView.addObject(Constant.ADD_OBJECT_ORDER, orderViewModel);
 
-		return super.view("order/order-details", modelAndView);
+		return super.view(Constant.PAGE_VIEW_ORDER_DETAILS, modelAndView);
 	}
 
 }

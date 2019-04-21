@@ -113,26 +113,26 @@ public class CartController extends BaseController {
 		orderServiceModel.setCustomer(user);
 		orderServiceModel.setFinishedOn(LocalDateTime.now());
 
-		String delivery = request.getParameter("delivery");
-		String officeId = request.getParameter("inputOffice");
-		String address = request.getParameter("address");
+		String delivery = request.getParameter(Constant.ADD_OBJECT_DELIVERY);
+		String officeId = request.getParameter(Constant.ADD_OBJECT_INPUT_OFFICE);
+		String address = request.getParameter(Constant.ADD_OBJECT_ADDRESS);
 
-		if ("Office".equals(delivery) && officeId != null && !officeId.equals("Please select...")) {
+		if (Constant.ADD_CONSTANT_OFFICE.equals(delivery) && officeId != null && !officeId.equals(Constant.ADD_CONSTANT_OFFICE_SELECT)) {
 			orderServiceModel.setOffice(this.officeService.findOfficeByID(officeId));
-		} else if ("Courier".equals(delivery) && address != null && address.length() > 0) {
+		} else if (Constant.ADD_CONSTANT_COURIER.equals(delivery) && address != null && address.length() > 0) {
 			ShipmentServiceModel shipment = new ShipmentServiceModel();
 			shipment.setShipmentAddress(address);
 			orderServiceModel.setShipment(shipment);
 			shipment.setOrder(orderServiceModel);
 		} else {
-			throw new IllegalArgumentException("Either Office or Delivery Address should be provided");
+			throw new IllegalArgumentException(Constant.ADD_CONSTANT_ADDRESS_DELIVERY);
 		}
 
 		for (OrderItemServiceModel orderItem : orderItems) {
 			ProductServiceModel product = orderItem.getProduct();
 			int quantity = this.productService.reduceQuantity(product, orderItem.getQuantity());
 			if (quantity < 0) {
-				throw new IllegalArgumentException("Product " + product.getName() + " quantity available is less then requested. Please reduce the ordered quantity with " + -quantity);
+				throw new IllegalArgumentException(Constant.ADD_CONSTANT_PRODUCT + product.getName() + Constant.ADD_CONSTANT_PRODUCT_AVALIBALE + -quantity);
 			}
 		}
 

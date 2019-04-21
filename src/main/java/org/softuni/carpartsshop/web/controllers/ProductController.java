@@ -47,8 +47,9 @@ public class ProductController extends BaseController {
 
 	@GetMapping(Constant.GET_MAPPING_ADD)
 	@PreAuthorize("hasRole('ROLE_MODERATOR')")
+	@PageTitle(Constant.PAGE_TITLE_ADD_PRODUCT)
 	public ModelAndView addProduct(ModelAndView modelAndView, @ModelAttribute(name = Constant.ADD_OBJECT_PRODUCTS) ProductAddBindingModel model) {
-		modelAndView.addObject("categoryNames", this.categoryService.getCategoriesNames());
+		modelAndView.addObject(Constant.ADD_OBJECT_CATEGORY_NAMES, this.categoryService.getCategoriesNames());
 
 		return super.view(Constant.PRODUCT_ADD_PRODUCT, modelAndView);
 	}
@@ -132,13 +133,6 @@ public class ProductController extends BaseController {
 		return super.redirect(Constant.REDIRECT_PRODUCT_ALL);
 	}
 
-//    @PostMapping("/edit/{id}")
-//    @PreAuthorize("hasRole('ROLE_MODERATOR')")
-//    public ModelAndView editProductConfirm(@PathVariable String id, @ModelAttribute ProductAddBindingModel model) {
-//        this.productService.editProduct(id, this.modelMapper.map(model, ProductServiceModel.class));
-//
-//        return super.redirect("/products/details/" + id);
-//    }
 
 	@GetMapping(Constant.PRODUCT_POST_MAPPING_DELETE_ID + "{id}")
 	@PreAuthorize("hasRole('ROLE_MODERATOR')")

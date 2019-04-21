@@ -20,7 +20,7 @@ import org.softuni.carpartsshop.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class  OrderServiceImpl implements OrderService {
 
 	private final OrderRepository orderRepository;
 	private final UserService userService;
@@ -83,9 +83,9 @@ public class OrderServiceImpl implements OrderService {
 		viewModel.setCustomer(orderService.getCustomer().getUsername());
 		viewModel.setTotalPrice(orderService.getPrice());
 		if (orderService.getOffice() == null) {
-			viewModel.setDelivery("Courier on address:" + orderService.getShipment().getShipmentAddress());
+			viewModel.setDelivery(Constant.COURIER_ON_ADDRESS + orderService.getShipment().getShipmentAddress());
 		} else {
-			viewModel.setDelivery("Take order from office address:" + orderService.getOffice().getAddress());
+			viewModel.setDelivery(Constant.TAKE_ORDER_FROM_OFFICE + orderService.getOffice().getAddress());
 		}
 		viewModel.setFinishedOn(orderService.getFinishedOn());
 		viewModel.setStatus(orderService.getStatus().toString());
