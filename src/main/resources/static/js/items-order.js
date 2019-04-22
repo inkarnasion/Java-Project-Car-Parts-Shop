@@ -27,7 +27,7 @@ $(document).ready(function () {
 });
 
 function loadOfficeServices(officeId) {	
-  fetch('http://localhost:8080/service/fetch/' + officeId).then((response) => response.json()).then((json) => {
+  fetch('/service/fetch/' + officeId).then((response) => response.json()).then((json) => {
   	 $('#divinputService').empty();
 	    let servicesSelect = `<select class="form-control" id="inputService" name="serviceId">`
 	      + `<option value="Please select...">Please select...</option>`

@@ -3,7 +3,7 @@ $(document).ready(function () {
         func();
     });
 
-    fetch('http://localhost:8000/categories/fetch').then((response) => response.json()).then((json) => {
+    fetch('/categories/fetch').then((response) => response.json()).then((json) => {
         console.log(json);
         let a = $("<ul id='ks'></ul>");
         for (let i = 0; i < json.length; i++) {
@@ -39,7 +39,7 @@ function formatProduct(product) {
 $(document).ready(function () {
     $('#ks').attr('checked', true);
 
-    fetch('http://localhost:8000/top-offers/all')
+    fetch('/top-offers/all')
         .then((response) => response.json())
         .then((json) => {
             $('.products-data').empty();
@@ -60,7 +60,7 @@ $(document).ready(function () {
 $('input[type=list][name=selection]').change(function () {
     let category = $(this).val();
 
-    fetch('http://localhost:8000/top-offers/' + category)
+    fetch('/top-offers/' + category)
         .then((response) => response.json())
         .then((json) => {
             $('.products-data').empty();

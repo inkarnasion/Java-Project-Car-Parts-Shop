@@ -3,7 +3,7 @@ $(document).ready(function () {
         func();
     });
 
-    fetch('http://localhost:8000/categories/fetch').then((response) => response.json()).then((json) => {
+    fetch('/categories/fetch').then((response) => response.json()).then((json) => {
         console.log(json);
         let a = $("<ul id='ks'></ul>");
         for (let i = 0; i < json.length; i++) {
@@ -69,7 +69,7 @@ function formatProduct(product) {
 
 
 function loadItemsFromCategory(categoryId) {
-    fetch('http://localhost:8000/products/fetch/' + categoryId).then((response) => response.json()).then((json) => {
+    fetch('/products/fetch/' + categoryId).then((response) => response.json()).then((json) => {
         console.log(json);
 
         $('.products-data').empty();
